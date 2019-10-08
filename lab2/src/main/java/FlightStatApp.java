@@ -5,14 +5,14 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.MultipleInputs;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
-public class WordCountApp {
+public class FlightStatApp {
     public static void main(String[] args) throws Exception {
         if (args.length != 2) {
             System.err.println("Usage: WordCountApp <input path> <output path>");
             System.exit(-1);
         }
         Job job = Job.getInstance();
-        job.setJarByClass(WordCountApp.class);
+        job.setJarByClass(FlightStatApp.class);
         job.setJobName("Word count");
         MultipleInputs.addInputPath(job, new Path(args[0]));
         MultipleInputs.addInputPath(job, new Path(args[1]));
