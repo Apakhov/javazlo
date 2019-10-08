@@ -8,12 +8,12 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 public class FlightStatApp {
     public static void main(String[] args) throws Exception {
         if (args.length != 2) {
-            System.err.println("Usage: WordCountApp <input path> <output path>");
+            System.err.println("Usage: FlightStatApp <input path flights> <> <output path>");
             System.exit(-1);
         }
         Job job = Job.getInstance();
         job.setJarByClass(FlightStatApp.class);
-        job.setJobName("Word count");
+        job.setJobName("Flight stat count");
         MultipleInputs.addInputPath(job, new Path(args[0]));
         MultipleInputs.addInputPath(job, new Path(args[1]));
         FileOutputFormat.setOutputPath(job, new Path(args[2]));
