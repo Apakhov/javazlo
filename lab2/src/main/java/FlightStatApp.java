@@ -17,8 +17,7 @@ public class FlightStatApp {
         MultipleInputs.addInputPath(job, new Path(args[0]));
         MultipleInputs.addInputPath(job, new Path(args[1]));
         FileOutputFormat.setOutputPath(job, new Path(args[2]));
-        job.setMapperClass(FlightMapper.class);
-        job.setReducerClass(WordReducer.class);
+        job.setReducerClass(StatReducer.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
         job.setNumReduceTasks(2);
