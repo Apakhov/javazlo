@@ -15,7 +15,7 @@ public class AirportMapper extends Mapper<LongWritable, Text, AirportFlightCompa
         String[] fields = value.toString().split(",");
         Text v = new Text(fields[0]+","+fields[1]);
         throw new IOException(v.toString());
-        AirportFlightComparator k = new AirportFlightComparator(new Text(fields[0]), 0);
-        context.write(k, v);
+//        AirportFlightComparator k = new AirportFlightComparator(new Text(fields[0]), 0);
+//        context.write(k, v);
     }
 }
