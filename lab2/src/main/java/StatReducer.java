@@ -4,14 +4,14 @@ import org.apache.hadoop.io.Writable;
 import org.apache.hadoop.mapreduce.Reducer;
 import java.io.IOException;
 
-public class StatReducer extends Reducer<AirportFlightComparator, Writable, Text, Text> {
+public class StatReducer extends Reducer<AirportFlightComparator, AirportID, Text, Text> {
     @Override
-    protected void reduce(AirportFlightComparator key, Iterable<Writable> values, Context context)
+    protected void reduce(AirportFlightComparator key, Iterable<AirportID> values, Context context)
             throws IOException, InterruptedException {
         String sum = "";
         int cnt = 0;
         int all = 0;
-        for (Writable value : values) {
+        for (AirportID value : values) {
             if (value instanceof Airport){
                 sum += "0";
                 continue;
