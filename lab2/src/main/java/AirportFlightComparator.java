@@ -31,6 +31,11 @@ public class AirportFlightComparator implements  WritableComparable<AirportFligh
         this.type = type;
     }
 
+    public AirportFlightComparator(String airportID, int type) {
+        this.airportID = new Text(airportID);
+        this.type = new IntWritable(type);
+    }
+
     @Override
     public void readFields(DataInput in) throws IOException {
         airportID.readFields(in);
