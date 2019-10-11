@@ -32,10 +32,9 @@ public class StatReducer extends Reducer<AirportFlightComparator, Text, Text, Te
                     "cnt: %s, max: %f, min: %f, avg: %s",
                     cnt, max, min, sum/cnt
             );
-            context.write(new Text(first), new Text(fmt.toString()));
         }else {
-
-            context.write(new Text(first), new Text(fmt.toString()));
+            fmt.format("always on time!");
         }
+        context.write(new Text(first), new Text(fmt.toString()));
     }
 }
