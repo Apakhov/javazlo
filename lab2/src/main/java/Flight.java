@@ -5,7 +5,7 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
-public class Flight implements Writable {
+public class Flight extends AirportID {
     private Text destID;
 
     public Flight(Text t){
