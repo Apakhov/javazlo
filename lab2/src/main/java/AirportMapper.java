@@ -13,9 +13,12 @@ public class AirportMapper extends Mapper<LongWritable, Text, AirportFlightCompa
             throws IOException, InterruptedException {
 
         String[] fields = value.toString().split(",");
+        if (fields[0].equals("Code")){
+            return;
+        }
         Text v = new Text(fields[0]+","+fields[1]);
-        throw new IOException(v.toString());
-//        AirportFlightComparator k = new AirportFlightComparator(new Text(fields[0]), 0);
-//        context.write(k, v);
+        //throw new IOException(v.toString());
+        AirportFlightComparator k = new AirportFlightComparator(new Text(fields[0]), 0);
+        context.write(k, v);
     }
 }

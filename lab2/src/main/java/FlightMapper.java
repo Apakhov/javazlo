@@ -11,6 +11,9 @@ public class FlightMapper extends Mapper<LongWritable, Text, AirportFlightCompar
             throws IOException, InterruptedException {
 
         String[] fields = value.toString().split(",");
+        if (fields[0].equals("YEAR")){
+            return;
+        }
         Text v = new Text(fields[14]+","+fields[18]);
 //        throw new IOException(v.toString() );
         AirportFlightComparator k = new AirportFlightComparator(new Text(fields[14]), 1);
