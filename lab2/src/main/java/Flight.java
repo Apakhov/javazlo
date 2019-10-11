@@ -15,12 +15,11 @@ public class Flight extends AirportID {
     @Override
     public void write(DataOutput dataOutput) throws IOException {
         super.write(dataOutput);
-        
     }
 
     @Override
     public void readFields(DataInput dataInput) throws IOException {
-        destID.readFields(dataInput);
+        super.readFields(dataInput);
     }
 
 }
