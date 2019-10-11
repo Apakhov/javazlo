@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9e355130-4fc9-4cda-bfd3-ae9b359c7fab" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/AirportFlightComparator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/AirportFlightComparator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/AirportMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/AirportMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FlightMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FlightMapper.java" afterDir="false" />
-    </list>
+    <list default="true" id="9e355130-4fc9-4cda-bfd3-ae9b359c7fab" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +56,20 @@
       </list>
     </option>
   </component>
+  <component name="RunManager">
+    <configuration name="FlightStatApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="FlightStatApp" />
+      <module name="lab2" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.FlightStatApp" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -71,7 +81,7 @@
       <option name="presentableId" value="Default" />
       <updated>1570556484108</updated>
       <workItem from="1570556489744" duration="2711000" />
-      <workItem from="1570773080389" duration="2354000" />
+      <workItem from="1570773080389" duration="2687000" />
     </task>
     <servers />
   </component>
