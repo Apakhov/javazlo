@@ -9,7 +9,7 @@ public class AirportMapper extends Mapper<LongWritable, Text, AirportFlightCompa
     protected void map(LongWritable key, Text value, Context context)
             throws IOException, InterruptedException {
         for (String v: value.toString().split("[^\\p{L}\\p{N}-']")){
-            context.write(new AirportFlightComparator(v.toLowerCase(), 0), new IntWritable(1));
+            context.write(new AirportFlightComparator("test1", 0), new IntWritable(1));
         }
     }
 }
