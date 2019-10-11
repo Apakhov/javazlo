@@ -1,7 +1,4 @@
-import org.apache.hadoop.io.RawComparator;
-import org.apache.hadoop.io.Writable;
-import org.apache.hadoop.io.WritableComparable;
-import org.apache.hadoop.io.WritableComparator;
+import org.apache.hadoop.io.*;
 
 public class StatGroupingComparator extends WritableComparator {
 
@@ -11,7 +8,7 @@ public class StatGroupingComparator extends WritableComparator {
     }
 
 
-    public int compare(AirportFlightComparator o1, AirportFlightComparator o2) throws Exception{
+    public int compare(Text o1, Text o2) throws Exception{
         throw new Exception("ss");
         //return ((AirportFlightComparator)o1).getAirportID().compareTo(((AirportFlightComparator)o2).getAirportID());
     }
