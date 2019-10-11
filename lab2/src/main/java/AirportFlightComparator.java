@@ -39,7 +39,8 @@ public class AirportFlightComparator implements  WritableComparable<AirportFligh
 
     @Override
     public void write(DataOutput out) throws IOException {
-        out.write(airportID);
+       airportID.write(out);
+       type.write(out);
     }
 
     @Override
