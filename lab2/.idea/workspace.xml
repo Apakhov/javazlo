@@ -32,8 +32,11 @@
     <option name="version" value="1" />
   </component>
   <component name="ProjectId" id="1RvnYWsnoD7nFNQopFt1vqmtPZw" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main" />
@@ -85,7 +88,7 @@
       <option name="presentableId" value="Default" />
       <updated>1570556484108</updated>
       <workItem from="1570556489744" duration="2711000" />
-      <workItem from="1570773080389" duration="3032000" />
+      <workItem from="1570773080389" duration="3296000" />
     </task>
     <servers />
   </component>
@@ -102,5 +105,8 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>
