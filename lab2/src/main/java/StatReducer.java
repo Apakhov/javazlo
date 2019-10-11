@@ -29,12 +29,13 @@ public class StatReducer extends Reducer<AirportFlightComparator, Text, Text, Te
         Formatter fmt = new Formatter(sbuf);
         if (cnt == 0){
             fmt.format(
-                    "min: %f"
-                    ""
-            )
+                    "cnt: %s, max: %f, min: %f, avg: %s",
+                    cnt, max, min, sum/cnt
+            );
             context.write(new Text(first), new Text(fmt.toString()));
         }else {
 
+            context.write(new Text(first), new Text(fmt.toString()));
         }
     }
 }
