@@ -1,3 +1,4 @@
+import com.sun.org.apache.xpath.internal.operations.String;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.Writable;
@@ -25,7 +26,9 @@ public class StatReducer extends Reducer<AirportFlightComparator, Text, Text, Te
         }
         //throw new IOException(sum.length())+" "+ String.valueOf(cnt) +" "+ String.valueOf(all));
         if (cnt == 0){
-            context.write(key.getAirportID(), new Text(fi));
+            context.write(first, new String);
+        }else {
+
         }
     }
 }
