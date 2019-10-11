@@ -14,7 +14,9 @@ public class FlightMapper extends Mapper<LongWritable, Text, AirportFlightCompar
         if (fields[0].equals("YEAR")){
             return;
         }
-        if (fields.length() != )
+        if (fields.length != 24){
+            throw new IOException("not enough data: "+value);
+        }
         Text v = new Text(fields[14]+","+fields[18]);
 //        throw new IOException(v.toString() );
         AirportFlightComparator k = new AirportFlightComparator(new Text(fields[14]), 1);
