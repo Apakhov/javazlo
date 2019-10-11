@@ -20,6 +20,8 @@ public class FlightStatApp {
         FileOutputFormat.setOutputPath(job, new Path(args[2]));
         job.setReducerClass(StatReducer.class);
         job.setOutputKeyClass(Text.class);
+        job.setMapOutputKeyClass(AirportFlightComparator.class);
+        job.setMapOutputValueClass(IntWritable.class);
         job.setOutputValueClass(IntWritable.class);
         job.setNumReduceTasks(2);
         System.exit(job.waitForCompletion(true) ? 0 : 1);
