@@ -11,5 +11,5 @@ public class AirportMapper extends Mapper<LongWritable, Text, AirportFlightCompa
         for (String v: value.toString().split("[^\\p{L}\\p{N}-']")){
             context.write(new AirportFlightComparator(v.toLowerCase(), 1), new IntWritable(1));
         }
-    }
+    }s
 }
