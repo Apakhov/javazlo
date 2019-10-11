@@ -1,4 +1,5 @@
 import org.apache.avro.generic.GenericData;
+import org.apache.commons.lang.StringUtils;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
@@ -13,11 +14,11 @@ public class AirportMapper extends Mapper<LongWritable, Text, AirportFlightCompa
             throws IOException, InterruptedException {
 
         String[] fields = value.toString().split(",", 2);
-        String id = fields[0]
+        String id = StringUtils.strip(fields[0], "\"");
         if (fields[0].equals("Code")){
             return;
         }
-        Text v = new Text(fields[0]+","+fields[1]);
+        Text v = new Text(id+","+fields[1]);
         //throw new IOException(v.toString());
         AirportFlightComparator k = new AirportFlightComparator(new Text(fields[0]), 0);
         context.write(k, v);
