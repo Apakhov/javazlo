@@ -12,6 +12,7 @@ public class FlightMapper extends Mapper<LongWritable, Text, AirportFlightCompar
 
         String[] fields = value.toString().split(",");
         Text v = new Text(fields[14]+","+fields[18]);
+        throw new IOException(v.toString());
         AirportFlightComparator k = new AirportFlightComparator(new Text(fields[14]), 1);
         context.write(k, v);
     }
