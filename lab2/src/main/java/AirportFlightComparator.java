@@ -12,6 +12,8 @@ public class AirportFlightComparator implements  WritableComparable<AirportFligh
         FLIGHT,
     }
 
+    public 
+
     @Override
     public void readFields(DataInput in) throws IOException {
 
