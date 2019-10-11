@@ -6,6 +6,7 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.WritableComparable;
 
 public class AirportFlightComparator implements  WritableComparable<AirportFlightComparator> {
+    private int airportID;
     private enum type{
         AIRPORT,
         FLIGHT,
@@ -13,7 +14,7 @@ public class AirportFlightComparator implements  WritableComparable<AirportFligh
 
     @Override
     public void readFields(DataInput in) throws IOException {
-        
+
     }
 
     @Override
