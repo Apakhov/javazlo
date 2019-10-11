@@ -6,10 +6,10 @@ public class StatGroupingComparator extends WritableComparator {
         super(StatGroupingComparator.class, true);
     }
 
-    @Override
-    public int compare(byte[] b1, int s1, int l1, byte[] b2, int s2, int l2) {
-        return 0;
-    }
+//    @Override
+//    public int compare(byte[] b1, int s1, int l1, byte[] b2, int s2, int l2) {
+//        return 0;
+//    }
 
     @Override
     public int compare(WritableComparable o1, WritableComparable o2) throws Exception{
