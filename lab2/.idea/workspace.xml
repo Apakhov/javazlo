@@ -63,7 +63,7 @@
     <configuration name="FlightStatApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="FlightStatApp" />
       <module name="lab2" />
-      <option name="PROGRAM_PARAMETERS" value="~/Downloads/664600583_T_ONTIME_sample.csv ~/Downloads/L_AIRPORT_ID.csv c.out " />
+      <option name="PROGRAM_PARAMETERS" value="664600583_T_ONTIME_sample.csv L_AIRPORT_ID.csv c.out " />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -85,7 +85,7 @@
       <option name="presentableId" value="Default" />
       <updated>1570556484108</updated>
       <workItem from="1570556489744" duration="2711000" />
-      <workItem from="1570773080389" duration="2961000" />
+      <workItem from="1570773080389" duration="3032000" />
     </task>
     <servers />
   </component>
