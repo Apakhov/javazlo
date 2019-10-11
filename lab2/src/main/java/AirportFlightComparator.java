@@ -6,7 +6,7 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.WritableComparable;
 
-public class AirportFlightComparator implements  WritableComparable<AirportFlightComparator> {
+public class AirportFlightComparator implements WritableComparable<AirportFlightComparator> {
     private Text airportID;
     private IntWritable type;
 
