@@ -28,6 +28,6 @@ public class AirportFlightComparator implements  WritableComparable {
 
     @Override
     public boolean equals(Object o){
-        
+        return true;
     }
 }
