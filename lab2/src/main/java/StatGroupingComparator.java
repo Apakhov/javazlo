@@ -3,7 +3,7 @@ import org.apache.hadoop.io.*;
 public class StatGroupingComparator extends WritableComparator {
 
     public StatGroupingComparator(){
-        
+        super();
     }
 
     @Override
