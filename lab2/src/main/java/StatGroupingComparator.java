@@ -1,2 +1,2 @@
-public class StatGroupingComparator extends GroupingComparatorClass {
+public class StatGroupingComparator extends WritableComparator {
 }
