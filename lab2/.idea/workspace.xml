@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9e355130-4fc9-4cda-bfd3-ae9b359c7fab" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/FlightStatApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FlightStatApp.java" afterDir="false" />
-    </list>
+    <list default="true" id="9e355130-4fc9-4cda-bfd3-ae9b359c7fab" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +91,7 @@
       <option name="presentableId" value="Default" />
       <updated>1570556484108</updated>
       <workItem from="1570556489744" duration="2711000" />
-      <workItem from="1570773080389" duration="4659000" />
+      <workItem from="1570773080389" duration="4896000" />
     </task>
     <servers />
   </component>
