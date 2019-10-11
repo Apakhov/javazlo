@@ -23,6 +23,7 @@ public class FlightStatApp {
         job.setOutputKeyClass(Text.class);
         job.setMapOutputKeyClass(AirportFlightComparator.class);
         job.setPartitionerClass(StatPartitioner.class);
+        job.setGroupingComparatorClass();
         job.setMapOutputValueClass(Writable.class);
         job.setOutputValueClass(Text.class);
         job.setNumReduceTasks(2);
