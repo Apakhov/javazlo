@@ -11,7 +11,7 @@ public class FlightStatApp {
         if (args.length != 3) {
             System.err.println("Usage: FlightStatApp <input path flights> <input path airport> <output path>");
             System.exit(-1);
-        }ds
+        }
         Job job = Job.getInstance();
         job.setJarByClass(FlightStatApp.class);
         job.setJobName("Flight stat count");
