@@ -15,7 +15,7 @@ public class StatReducer extends Reducer<AirportFlightComparator, Text, Text, Te
             sum += value.toString();
         }
         sum += "\n\n";
-        throw new IOException(sum +" "+ String.valueOf(cnt) +" "+ String.valueOf(all));
+        throw new IOException(String.valueOf(sum.length())+" "+ String.valueOf(cnt) +" "+ String.valueOf(all));
         //context.write(key.getAirportID(), new Text(sum));
     }
 }
