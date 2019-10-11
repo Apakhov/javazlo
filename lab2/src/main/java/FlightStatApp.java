@@ -14,7 +14,6 @@ public class FlightStatApp {
             System.exit(-1);
         }
         Job job = Job.getInstance();
-        job.setNumReduceTasks(2);
 
         job.setJarByClass(FlightStatApp.class);
         job.setJobName("Flight stat count");
@@ -22,6 +21,7 @@ public class FlightStatApp {
         MultipleInputs.addInputPath(job, new Path(args[1]), TextInputFormat.class, AirportMapper.class);
         FileOutputFormat.setOutputPath(job, new Path(args[2]));
 
+        job.setNumReduceTasks(2);
 
         job.setMapOutputKeyClass(AirportFlightComparator.class);
         job.setMapOutputValueClass(Text.class);
