@@ -26,7 +26,7 @@ public class StatReducer extends Reducer<AirportFlightComparator, Text, Text, Te
         }
         //throw new IOException(sum.length())+" "+ String.valueOf(cnt) +" "+ String.valueOf(all));
         if (cnt == 0){
-            context.write(first, new String);
+            context.write(first, new String.format());
         }else {
 
         }
