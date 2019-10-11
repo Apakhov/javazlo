@@ -10,8 +10,9 @@ public class StatGroupingComparator extends WritableComparator {
         return 0;
     }
 
-    @Override
-    public int compare(Object o1, Object o2) {
-        return ((AirportFlightComparator)o1).getAirportID().compareTo(((AirportFlightComparator)o2).getAirportID());
+
+    public int compare(AirportFlightComparator o1, AirportFlightComparator o2) throws Exception{
+        throw new Exception("ss");
+        //return ((AirportFlightComparator)o1).getAirportID().compareTo(((AirportFlightComparator)o2).getAirportID());
     }
 }
