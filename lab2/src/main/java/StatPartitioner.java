@@ -1,4 +1,4 @@
-package PACKAGE_NAME;
+import org.apache.hadoop.mapred.Partitioner;
 
-public class StatPartitioner {
+public class StatPartitioner implements Partitioner<> {
 }
