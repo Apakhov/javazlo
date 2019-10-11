@@ -13,13 +13,15 @@ public class StatReducer extends Reducer<AirportFlightComparator, Text, Text, Te
         Float max = null;
         Float sum = null;
         int cnt = 0;
-        String first = new String(values.iterator().next().toString());
+        String first = values.iterator().next().toString();
         for (Text value : values) {
             float cur = Float.parseFloat(value.toString());
             if (cnt == 0){
                 min = new Float(cur);
                 max = new Float(cur);
                 sum = new Float(cur);
+                throw new IOException("not now");
+                //continue;
             }
             min = Math.min(min, cur);
             max = Math.max(max, cur);
