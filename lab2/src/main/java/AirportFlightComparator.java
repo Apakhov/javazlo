@@ -6,6 +6,8 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.WritableComparable;
 
 public class AirportFlightComparator implements  WritableComparable<AirportFlightComparator> {
+    
+
     @Override
     public void readFields(DataInput in) throws IOException {
 
