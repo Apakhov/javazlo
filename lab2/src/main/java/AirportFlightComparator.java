@@ -14,8 +14,9 @@ public class AirportFlightComparator implements  WritableComparable<AirportFligh
     private Text airportID;
     private Type type;
 
-    public AirportFlightComparator(Text airportID , Type type) {
-        
+    public AirportFlightComparator(Text airportID, Type type) {
+        this.airportID = airportID;
+        this.type = type;
     }
 
     @Override
