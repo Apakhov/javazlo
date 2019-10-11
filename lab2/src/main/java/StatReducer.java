@@ -3,7 +3,7 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 import java.io.IOException;
 
-public class StatReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
+public class StatReducer extends Reducer<AirportFlightComparator, IntWritable, Text, IntWritable> {
     @Override
     protected void reduce(Text key, Iterable<IntWritable> values, Context context)
             throws IOException, InterruptedException {
