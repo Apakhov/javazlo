@@ -1,4 +1,3 @@
-import com.sun.org.apache.xpath.internal.operations.String as D;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.Writable;
@@ -14,7 +13,7 @@ public class StatReducer extends Reducer<AirportFlightComparator, Text, Text, Te
         Float max = null;
         Float sum = null;
         int cnt = 0;
-        String first = values.iterator().next().toString();
+        String first = new String(values.iterator().next().toString());
         for (Text value : values) {
             float cur = Float.parseFloat(value.toString());
             if (cnt == 0){
