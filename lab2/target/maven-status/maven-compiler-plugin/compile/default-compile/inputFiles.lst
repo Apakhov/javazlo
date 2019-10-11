@@ -1,3 +1,5 @@
-/Users/m.apakhov/IdeaProjects/lab2/src/main/java/WordReducer.java
-/Users/m.apakhov/IdeaProjects/lab2/src/main/java/WordCountApp.java
-/Users/m.apakhov/IdeaProjects/lab2/src/main/java/WordMapper.java
+/Users/m.apakhov/IdeaProjects/lab2/src/main/java/StatReducer.java
+/Users/m.apakhov/IdeaProjects/lab2/src/main/java/FlightStatApp.java
+/Users/m.apakhov/IdeaProjects/lab2/src/main/java/AirportMapper.java
+/Users/m.apakhov/IdeaProjects/lab2/src/main/java/AirportFlightComparator.java
+/Users/m.apakhov/IdeaProjects/lab2/src/main/java/FlightMapper.java
