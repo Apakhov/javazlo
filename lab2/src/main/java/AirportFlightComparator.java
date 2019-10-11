@@ -50,6 +50,6 @@ public class AirportFlightComparator implements  WritableComparable<AirportFligh
 
     @Override
     public int hashCode(){
-        return 0;
+        return airportID.hashCode();
     }
 }
