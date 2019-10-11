@@ -1,12 +1,13 @@
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+import java.math.BigInteger;
 
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.WritableComparable;
 
 public class AirportFlightComparator implements  WritableComparable<AirportFlightComparator> {
-    private int airportID;
+    private BigInteger airportID;
     private enum type{
         AIRPORT,
         FLIGHT,
