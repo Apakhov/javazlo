@@ -5,6 +5,7 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.MultipleInputs;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.log4j.BasicConfigurator;
 
 public class FlightStatApp {
     public static void main(String[] args) throws Exception {
@@ -12,6 +13,7 @@ public class FlightStatApp {
             System.err.println("Usage: FlightStatApp <input path flights> <input path airport> <output path>");
             System.exit(-1);
         }
+        BasicConfigurator.configure();
         Job job = Job.getInstance();
         job.setJarByClass(FlightStatApp.class);
         job.setJobName("Flight stat count");
