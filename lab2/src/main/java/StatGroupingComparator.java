@@ -12,8 +12,6 @@ public class StatGroupingComparator extends WritableComparator {
     }
 
     public int compare(AirportFlightComparator o1, AirportFlightComparator o2) {
-
         return o1.getAirportID().compareTo(o2.getAirportID());
-
     }
 }
