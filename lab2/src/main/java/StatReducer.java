@@ -1,9 +1,10 @@
-import com.sun.org.apache.xpath.internal.operations.String;
+import com.sun.org.apache.xpath.internal.operations.;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.Writable;
 import org.apache.hadoop.mapreduce.Reducer;
 import java.io.IOException;
+import java.util.Formatter;
 
 public class StatReducer extends Reducer<AirportFlightComparator, Text, Text, Text> {
     @Override
@@ -25,8 +26,10 @@ public class StatReducer extends Reducer<AirportFlightComparator, Text, Text, Te
             cnt++;
         }
         //throw new IOException(sum.length())+" "+ String.valueOf(cnt) +" "+ String.valueOf(all));
+        StringBuilder sbuf = new StringBuilder();
+        Formatter fmt = new Formatter(sbuf);
         if (cnt == 0){
-            context.write(first, new Text(String.format("%s = %d", "joe", 35)));
+            context.write(new Text(first), new Text(fmt.toString()));
         }else {
 
         }
