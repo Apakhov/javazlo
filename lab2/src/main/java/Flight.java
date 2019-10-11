@@ -12,15 +12,15 @@ public class Flight implements Writable {
         String[] fields = t.toString().split(",");
         destID = new Text(fields[14]);
     }
-    
+
     @Override
     public void write(DataOutput dataOutput) throws IOException {
-
+        destID.write(dataOutput);
     }
 
     @Override
     public void readFields(DataInput dataInput) throws IOException {
-
+        destID.readFields(dataInput);
     }
 
     public Text getDestID() {
