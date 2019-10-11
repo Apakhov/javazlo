@@ -10,6 +10,6 @@ public class StatGroupingComparator implements RawComparator<AirportFlightCompar
 
     @Override
     public int compare(AirportFlightComparator o1, AirportFlightComparator o2) {
-        return 0;
+        return o1.getAirportID().compareTo(o2.getAirportID());
     }
 }
