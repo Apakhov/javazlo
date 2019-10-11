@@ -26,6 +26,11 @@ public class AirportFlightComparator implements  WritableComparable<AirportFligh
         this.type = type;
     }
 
+    public AirportFlightComparator(){
+        this.airportID = new Text();
+        this.type = new IntWritable();
+    }
+
     public AirportFlightComparator(Text airportID, IntWritable type) {
         this.airportID = airportID;
         this.type = type;
