@@ -8,13 +8,24 @@ public class StatReducer extends Reducer<AirportFlightComparator, Text, Text, Te
     @Override
     protected void reduce(AirportFlightComparator key, Iterable<Text> values, Context context)
             throws IOException, InterruptedException {
+        Float min = null;
+        Float max = null;
+        Float sum = null;
         int cnt = 0;
         String first = values.iterator().next().toString();
         for (Text value : values) {
-            sum += value.toString();
+            float cur = Float.parseFloat(value.toString());
+            if (cnt == 0){
+                min = max = sum = cur;
+            }
+            min = Math.min(min, cur);
+            max = Math.max(max, cur);
+            sum += cur;
+            cnt++;
         }
-        sum += "\n\n";
         //throw new IOException(sum.length())+" "+ String.valueOf(cnt) +" "+ String.valueOf(all));
-        context.write(key.getAirportID(), new Text(fi));
+        if (cnt == 0){
+            context.write(key.getAirportID(), new Text(fi));
+        }
     }
 }
