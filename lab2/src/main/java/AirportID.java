@@ -13,6 +13,7 @@ public class AirportID implements Writable {
     }
 
     public AirportID() {
+        airportID = new Text();
     }
 
     @Override
