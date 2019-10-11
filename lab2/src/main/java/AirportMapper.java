@@ -12,7 +12,8 @@ public class AirportMapper extends Mapper<LongWritable, Text, AirportFlightCompa
     protected void map(LongWritable key, Text value, Context context)
             throws IOException, InterruptedException {
 
-        String[] fields = value.toString().(",");
+        String[] fields = value.toString().split(",", 2);
+        String id = fields[0]
         if (fields[0].equals("Code")){
             return;
         }
