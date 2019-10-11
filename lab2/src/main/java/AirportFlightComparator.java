@@ -6,12 +6,13 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.WritableComparable;
 
 public class AirportFlightComparator implements  WritableComparable<AirportFlightComparator> {
-    public static enum Type{
+    public static enum IntWritable{
         AIRPORT,
         FLIGHT,
     }
 
     private Text airportID;
+    private IntWritable type;
 
     public Text getAirportID() {
         return airportID;
@@ -21,24 +22,23 @@ public class AirportFlightComparator implements  WritableComparable<AirportFligh
         this.airportID = airportID;
     }
 
-    public Type getType() {
+    public IntWritable getType() {
         return type;
     }
 
-    public void setType(Type type) {
+    public void setType(IntWritable type) {
         this.type = type;
     }
 
-    private Type type;
-
-    public AirportFlightComparator(Text airportID, Type type) {
+    public AirportFlightComparator(Text airportID, IntWritable type) {
         this.airportID = airportID;
         this.type = type;
     }
 
     @Override
     public void readFields(DataInput in) throws IOException {
-        
+        airportID.readFields(in);
+        type.readFields(in);
     }
 
     @Override
