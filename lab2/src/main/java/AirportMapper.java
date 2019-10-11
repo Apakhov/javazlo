@@ -12,8 +12,9 @@ public class AirportMapper extends Mapper<LongWritable, Text, AirportFlightCompa
     protected void map(LongWritable key, Text value, Context context)
             throws IOException, InterruptedException {
 
-        AirportID v =  new AirportID(value);
-        AirportFlightComparator k = new AirportFlightComparator(v.getAirportID(), 0);
+        String[] fields = value.toString().split(",");
+        Text v = new Text(fields[0]+","+fields[1]);
+        AirportFlightComparator k = new AirportFlightComparator(new Text(fields[0]), 0);
         context.write(k, v);
     }
 }

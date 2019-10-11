@@ -11,8 +11,8 @@ public class FlightMapper extends Mapper<LongWritable, Text, AirportFlightCompar
             throws IOException, InterruptedException {
 
         String[] fields = value.toString().split(",");
-        Text v = new Text(fields[14]+","+fields[]);
-        AirportFlightComparator k = new AirportFlightComparator(v.getAirportID(), 1);
+        Text v = new Text(fields[14]+","+fields[18]);
+        AirportFlightComparator k = new AirportFlightComparator(new Text(fields[14]), 1);
         context.write(k, v);
     }
 }
