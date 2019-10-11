@@ -8,6 +8,11 @@ import java.io.IOException;
 public class AirportID implements Writable {
     private Text airportID;
 
+    public AirportID(Text t){
+        String[] fields = t.toString().split(",");
+        airportID = new Text(fields[0]);
+    }
+
     @Override
     public void write(DataOutput dataOutput) throws IOException {
         airportID.write(dataOutput);

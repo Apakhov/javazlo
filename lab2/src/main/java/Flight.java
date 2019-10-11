@@ -6,16 +6,16 @@ import java.io.DataOutput;
 import java.io.IOException;
 
 public class Flight extends AirportID {
-    private Text destID;
-
     public Flight(Text t){
+        super(t);
         String[] fields = t.toString().split(",");
         destID = new Text(fields[14]);
     }
 
     @Override
     public void write(DataOutput dataOutput) throws IOException {
-        destID.write(dataOutput);
+        super.write(dataOutput);
+        
     }
 
     @Override
