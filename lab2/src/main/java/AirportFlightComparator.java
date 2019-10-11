@@ -7,7 +7,8 @@ import org.apache.hadoop.io.WritableComparable;
 
 public class AirportFlightComparator implements  WritableComparable<AirportFlightComparator> {
     private enum type{
-        
+        AIRPORT,
+        FLIGHT,
     }
 
     @Override
