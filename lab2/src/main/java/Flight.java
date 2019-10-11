@@ -6,10 +6,10 @@ import java.io.DataOutput;
 import java.io.IOException;
 
 public class Flight extends AirportID {
+
     public Flight(Text t){
-        super(t);
         String[] fields = t.toString().split(",");
-        destID = new Text(fields[14]);
+        this.setAirportID(new Text(fields[14]));
     }
 
     @Override

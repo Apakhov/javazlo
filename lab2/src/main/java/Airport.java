@@ -6,28 +6,18 @@ import java.io.DataOutput;
 import java.io.IOException;
 
 public class Airport extends AirportID {
-    private Text airportID;
-
     public Airport(Text t){
         String[] fields = t.toString().split(",");
-        airportID = new Text(fields[0]);
+        this.setAirportID(new Text(fields[0]));
     }
 
     @Override
     public void write(DataOutput dataOutput) throws IOException {
-        airportID.write(dataOutput);
+        super.write(dataOutput);
     }
 
     @Override
     public void readFields(DataInput dataInput) throws IOException {
-        airportID.readFields(dataInput);
-    }
-
-    public Text getAirportID() {
-        return airportID;
-    }
-
-    public void setAirportID(Text airportID) {
-        this.airportID = airportID;
+        super.readFields(dataInput);
     }
 }

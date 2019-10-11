@@ -9,8 +9,10 @@ public class AirportID implements Writable {
     private Text airportID;
 
     public AirportID(Text t){
-        String[] fields = t.toString().split(",");
-        airportID = new Text(fields[0]);
+        airportID = t;
+    }
+
+    public AirportID() {
     }
 
     @Override
