@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9e355130-4fc9-4cda-bfd3-ae9b359c7fab" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/src/main/java/FlightMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FlightMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/StatReducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/StatReducer.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -95,7 +96,7 @@
       <updated>1570556484108</updated>
       <workItem from="1570556489744" duration="2711000" />
       <workItem from="1570773080389" duration="6551000" />
-      <workItem from="1570822756437" duration="12192000" />
+      <workItem from="1570822756437" duration="12429000" />
     </task>
     <servers />
   </component>

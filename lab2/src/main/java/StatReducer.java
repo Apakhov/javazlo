@@ -11,6 +11,7 @@ public class StatReducer extends Reducer<AirportFlightComparator, Text, Text, Te
         String sum = "";
         int cnt = 0;
         int all = 0;
+        values.iterator().next();
         for (Text value : values) {
             sum += value.toString();
         }
