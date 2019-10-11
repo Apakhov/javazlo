@@ -1,15 +1,17 @@
 import org.apache.hadoop.io.IntWritable;
         import org.apache.hadoop.io.LongWritable;
         import org.apache.hadoop.io.Text;
-        import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.io.Writable;
+import org.apache.hadoop.mapreduce.Mapper;
         import java.io.IOException;
 
-public class FlightMapper extends Mapper<LongWritable, Text, AirportFlightComparator, IntWritable>  {
+public class FlightMapper extends Mapper<LongWritable, Text, AirportFlightComparator, Writable>  {
     @Override
     protected void map(LongWritable key, Text value, Context context)
             throws IOException, InterruptedException {
-        for (String v: value.toString().split(",")){
-            context.write(new AirportFlightComparator("test1", 1), new IntWritable(1));
-        }
+
+        Flight v = new Flight(value);
+        AirportFlightComparator k = new AirportFlightComparator(v.getDestID(), 1);
+        context.write(k, v);
     }
 }

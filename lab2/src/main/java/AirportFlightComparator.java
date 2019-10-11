@@ -61,9 +61,4 @@ public class AirportFlightComparator implements  WritableComparable<AirportFligh
         }
         return this.type.compareTo(to.type);
     }
-
-    @Override
-    public int hashCode(){
-        return airportID.hashCode();
-    }
 }

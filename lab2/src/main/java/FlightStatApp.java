@@ -21,8 +21,8 @@ public class FlightStatApp {
         job.setReducerClass(StatReducer.class);
         job.setOutputKeyClass(Text.class);
         job.setMapOutputKeyClass(AirportFlightComparator.class);
-        job.setMapOutputValueClass(IntWritable.class);
-        job.setOutputValueClass(IntWritable.class);
+        job.setMapOutputValueClass(AirportFlightComparator.class);
+        job.setOutputValueClass(Text.class);
         job.setNumReduceTasks(2);
         System.exit(job.waitForCompletion(true) ? 0 : 1);
     }
