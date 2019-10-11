@@ -8,7 +8,7 @@ public class FlightMapper extends Mapper<LongWritable, Text, AirportFlightCompar
     @Override
     protected void map(LongWritable key, Text value, Context context)
             throws IOException, InterruptedException {
-        for (String v: value.toString().split("[^\\p{L}\\p{N}-']")){
+        for (String v: value.toString().split(",")){
             context.write(new AirportFlightComparator("test1", 1), new IntWritable(1));
         }
     }
