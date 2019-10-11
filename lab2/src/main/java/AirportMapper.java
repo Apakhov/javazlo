@@ -20,7 +20,7 @@ public class AirportMapper extends Mapper<LongWritable, Text, AirportFlightCompa
         }
         Text v = new Text(id+","+fields[1]);
         //throw new IOException(v.toString());
-        AirportFlightComparator k = new AirportFlightComparator(new Text(fields[0]), 0);
+        AirportFlightComparator k = new AirportFlightComparator(new Text(id), 0);
         context.write(k, v);
     }
 }
