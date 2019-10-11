@@ -9,7 +9,7 @@ public class StatReducer extends Reducer<Text, AirportFlightComparator, Text, In
             throws IOException, InterruptedException {
         int sum = 0;
         for (AirportFlightComparator value : values) {
-            sum += String.atoivalue.getAirportID().toString();
+            sum += Integer.parseInt(value.getAirportID().toString());
         }
         context.write(key, new IntWritable(sum));
     }
