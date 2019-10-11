@@ -6,13 +6,15 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.WritableComparable;
 
 public class AirportFlightComparator implements  WritableComparable<AirportFlightComparator> {
-    private Text airportID;
-    private enum type{
+    public static enum Type{
         AIRPORT,
         FLIGHT,
     }
 
-    public AirportFlightComparator(){
+    private Text airportID;
+    private Type type;
+
+    public AirportFlightComparator(Text airportID , Type type) {
         
     }
 
