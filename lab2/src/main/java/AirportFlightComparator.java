@@ -18,6 +18,7 @@ public class AirportFlightComparator implements  WritableComparable {
 
     @Override
     public int compareTo(AirportFlightComparator to) {
-        
+
     }
+    
 }
