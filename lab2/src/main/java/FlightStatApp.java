@@ -24,7 +24,7 @@ public class FlightStatApp {
 
 
         job.setMapOutputKeyClass(AirportFlightComparator.class);
-        job.setMapOutputValueClass(AirportID.class);
+        job.setMapOutputValueClass(Text.class);
 
         job.setPartitionerClass(StatPartitioner.class);
         job.setGroupingComparatorClass(StatGroupingComparator.class);
