@@ -1,4 +1,17 @@
-package PACKAGE_NAME;
+import org.apache.hadoop.io.Writable;
 
-public class AirportID {
+import java.io.DataInput;
+import java.io.DataOutput;
+import java.io.IOException;
+
+public class AirportID implements Writable {
+    @Override
+    public void write(DataOutput dataOutput) throws IOException {
+
+    }
+
+    @Override
+    public void readFields(DataInput dataInput) throws IOException {
+
+    }
 }
