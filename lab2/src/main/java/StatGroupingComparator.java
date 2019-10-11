@@ -4,7 +4,7 @@ import org.apache.hadoop.io.WritableComparator;
 public class StatGroupingComparator extends WritableComparator {
 
     public StatGroupingComparator(){
-        super(StatGroupingComparator.class, true);
+        super(AirportFlightComparator.class, true);
     }
 
 //    @Override
