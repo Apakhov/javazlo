@@ -2,6 +2,8 @@ import org.apache.hadoop.io.*;
 
 public class StatGroupingComparator extends WritableComparator {
 
+    public 
+
     @Override
     public int compare(byte[] b1, int s1, int l1, byte[] b2, int s2, int l2) {
         return 0;
