@@ -20,6 +20,9 @@ public class StatReducer extends Reducer<AirportFlightComparator, AirportID, Tex
                 sum += "1";
                 continue;
             }
+            if (value instanceof AirportID){
+                sum += "2";
+            }
             throw new IOException("garbage");
         }
         //throw new IOException(sum +" "+ String.valueOf(cnt) +" "+ String.valueOf(all));
