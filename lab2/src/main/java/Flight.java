@@ -23,11 +23,4 @@ public class Flight extends AirportID {
         destID.readFields(dataInput);
     }
 
-    public Text getDestID() {
-        return destID;
-    }
-
-    public void setDestID(Text destID) {
-        this.destID = destID;
-    }
 }
