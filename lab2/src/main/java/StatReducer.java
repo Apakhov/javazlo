@@ -28,6 +28,10 @@ public class StatReducer extends Reducer<AirportFlightComparator, Text, Text, Te
         StringBuilder sbuf = new StringBuilder();
         Formatter fmt = new Formatter(sbuf);
         if (cnt == 0){
+            fmt.format(
+                    "min: %f"
+                    ""
+            )
             context.write(new Text(first), new Text(fmt.toString()));
         }else {
 
