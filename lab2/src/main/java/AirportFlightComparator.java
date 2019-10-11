@@ -3,14 +3,10 @@ import java.io.DataOutput;
 import java.io.IOException;
 
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.WritableComparable;
 
 public class AirportFlightComparator implements  WritableComparable<AirportFlightComparator> {
-    public static enum IntWritable{
-        AIRPORT,
-        FLIGHT,
-    }
-
     private Text airportID;
     private IntWritable type;
 
