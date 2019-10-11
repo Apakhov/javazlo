@@ -45,7 +45,7 @@ public class AirportFlightComparator implements  WritableComparable<AirportFligh
 
     @Override
     public int compareTo(AirportFlightComparator to) {
-        return  0;
+        
     }
 
     @Override
