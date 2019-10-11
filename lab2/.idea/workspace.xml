@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9e355130-4fc9-4cda-bfd3-ae9b359c7fab" name="Default Changelist" comment="" />
+    <list default="true" id="9e355130-4fc9-4cda-bfd3-ae9b359c7fab" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,6 +65,7 @@
     <configuration name="FlightStatApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="FlightStatApp" />
       <module name="lab2" />
+      <option name="PROGRAM_PARAMETERS" value="a.in b.in c.out " />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -84,7 +87,7 @@
       <option name="presentableId" value="Default" />
       <updated>1570556484108</updated>
       <workItem from="1570556489744" duration="2711000" />
-      <workItem from="1570773080389" duration="2687000" />
+      <workItem from="1570773080389" duration="2740000" />
     </task>
     <servers />
   </component>
