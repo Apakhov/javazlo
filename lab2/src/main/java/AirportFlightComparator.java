@@ -10,9 +10,14 @@ public class AirportFlightComparator implements  WritableComparable {
     public void readFields(DataInput in) throws IOException {
 
     }
-    
+
     @Override
     public void write(DataOutput out) throws IOException {
 
+    }
+
+    @Override
+    public int compareTo(AirportFlightComparator to) {
+        
     }
 }
