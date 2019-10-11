@@ -45,7 +45,11 @@ public class AirportFlightComparator implements  WritableComparable<AirportFligh
 
     @Override
     public int compareTo(AirportFlightComparator to) {
-        
+        int idComp = this.airportID.compareTo(to.airportID);
+        if (idComp != 0){
+            return  idComp;
+        }
+        return this.type.compareTo(to.type);
     }
 
     @Override
