@@ -1,4 +1,4 @@
-import com.sun.org.apache.xpath.internal.operations.;
+import com.sun.org.apache.xpath.internal.operations.String ;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.Writable;
