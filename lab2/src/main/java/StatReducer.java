@@ -17,7 +17,9 @@ public class StatReducer extends Reducer<AirportFlightComparator, Text, Text, Te
         int cnt = 0;
         String first = values.iterator().next().toString();
         for (Text value : values) {
-            float cur = Float.parseFloat(value.toString());
+            try {
+                float cur = Float.parseFloat(value.toString());
+            }catch ()
             if (cnt == 0){
                 min = cur;
                 max = cur;
