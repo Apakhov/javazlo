@@ -10,4 +10,8 @@ public class CSVUtils {
     public static String[] parseFields(String fields){
         return fields.split(",");
     }
+
+    public static String stripUtSymb(String field){
+        return StringUtils.strip(fields[idRow], "\"");
+    }
 }
