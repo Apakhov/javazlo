@@ -15,7 +15,7 @@ public class StatReducer extends Reducer<AirportFlightComparator, Text, Text, Te
         float max = 0;
         float sum = 0;
         int cnt = 0;
-        String first = key.getAirportID().toString() +"<>"+alues.iterator().next().toString();
+        String first = key.getAirportID().toString() +"<>"+ values.iterator().next().toString();
         for (Text value : values) {
             first += " !! " + value;
 //            cnt++;
