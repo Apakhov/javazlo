@@ -1,13 +1,11 @@
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.io.Writable;
 import org.apache.hadoop.mapreduce.Reducer;
 import java.io.IOException;
 import java.util.Formatter;
 
-public class StatReducer extends Reducer<AirportFlightComparator, Text, Text, Text> {
+public class StatReducer extends Reducer<AirportFlightComp, Text, Text, Text> {
     @Override
-    protected void reduce(AirportFlightComparator key, Iterable<Text> values, Context context)
+    protected void reduce(AirportFlightComp key, Iterable<Text> values, Context context)
             throws IOException, InterruptedException {
 
 

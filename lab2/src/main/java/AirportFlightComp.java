@@ -1,12 +1,13 @@
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+import java.util.Objects;
 
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.WritableComparable;
 
-public class AirportFlightComparator implements WritableComparable<AirportFlightComparator> {
+public class AirportFlightComp implements WritableComparable<AirportFlightComp> {
     private Text airportID;
     private IntWritable type;
 
@@ -26,12 +27,12 @@ public class AirportFlightComparator implements WritableComparable<AirportFlight
         this.type = type;
     }
 
-    public AirportFlightComparator(){
+    public AirportFlightComp(){
         this.airportID = new Text();
         this.type = new IntWritable();
     }
 
-    public AirportFlightComparator(Text airportID, int type) {
+    public AirportFlightComp(Text airportID, int type) {
         this.airportID = new Text(airportID);
         this.type = new IntWritable(type);
     }
@@ -49,11 +50,25 @@ public class AirportFlightComparator implements WritableComparable<AirportFlight
     }
 
     @Override
-    public int compareTo(AirportFlightComparator to) {
+    public int compareTo(AirportFlightComp to) {
         int idComp = this.airportID.compareTo(to.airportID);
         if (idComp != 0){
             return  idComp;
         }
         return this.type.compareTo(to.type);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AirportFlightComp)) return false;
+        AirportFlightComp that = (AirportFlightComp) o;
+        return Objects.equals(airportID, that.airportID) &&
+                Objects.equals(type, that.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(airportID, type);
     }
 }

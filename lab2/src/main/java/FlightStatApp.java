@@ -1,7 +1,5 @@
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.io.Writable;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.MultipleInputs;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
@@ -23,7 +21,7 @@ public class FlightStatApp {
 
         job.setNumReduceTasks(2);
 
-        job.setMapOutputKeyClass(AirportFlightComparator.class);
+        job.setMapOutputKeyClass(AirportFlightComp.class);
         job.setMapOutputValueClass(Text.class);
 
         job.setPartitionerClass(StatPartitioner.class);

@@ -3,7 +3,7 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.mapreduce.Mapper;
         import java.io.IOException;
 
-public class FlightMapper extends Mapper<LongWritable, Text, AirportFlightComparator, Text>  {
+public class FlightMapper extends Mapper<LongWritable, Text, AirportFlightComp, Text>  {
     private static final int ROWS_AM = 23;
     private static final int YEAR_ROW = 0;
     private static final int ID_ROW = 14;
@@ -23,7 +23,7 @@ public class FlightMapper extends Mapper<LongWritable, Text, AirportFlightCompar
             return;
         }
         Text v = new Text(fields[ID_ROW]);
-        AirportFlightComparator k = new AirportFlightComparator(new Text(fields[ID_ROW]), 1);
+        AirportFlightComp k = new AirportFlightComp(new Text(fields[ID_ROW]), 1);
         context.write(k, v);
     }
 }

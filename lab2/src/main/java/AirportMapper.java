@@ -1,14 +1,9 @@
-import org.apache.avro.generic.GenericData;
-import org.apache.commons.lang.StringUtils;
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.io.Writable;
 import org.apache.hadoop.mapreduce.Mapper;
 import java.io.IOException;
-import java.lang.reflect.Array;
 
-public class AirportMapper extends Mapper<LongWritable, Text, AirportFlightComparator, Text> {
+public class AirportMapper extends Mapper<LongWritable, Text, AirportFlightComp, Text> {
     private static final int ID_ROW = 0;
     private static final int NAME_ROW = 1;
 
@@ -23,7 +18,7 @@ public class AirportMapper extends Mapper<LongWritable, Text, AirportFlightCompa
             return;
         }
         Text v = new Text(id+":"+name);
-        AirportFlightComparator k = new AirportFlightComparator(new Text(id), 0);
+        AirportFlightComp k = new AirportFlightComp(new Text(id), 0);
         context.write(k, v);
     }
 }
