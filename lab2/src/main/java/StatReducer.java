@@ -32,7 +32,7 @@ public class StatReducer extends Reducer<AirportFlightComparator, Text, Text, Te
             max = Math.max(max, cur);
             sum += cur;
         }
-        //throw new IOException(sum.length())+" "+ String.valueOf(cnt) +" "+ String.valueOf(all));
+
         StringBuilder sbuf = new StringBuilder();
         Formatter fmt = new Formatter(sbuf);
         if (cnt != 0){
