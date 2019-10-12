@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 
 public class AirportMapper extends Mapper<LongWritable, Text, AirportFlightComparator, Text> {
-    private static final int idRow = 0;
-    private static final int nameRow = 1;
+    private static final int ID_ROW = 0;
+    private static final int NAME_ROW = 1;
 
 
     @Override
