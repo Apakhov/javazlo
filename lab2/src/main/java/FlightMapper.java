@@ -11,14 +11,13 @@ public class FlightMapper extends Mapper<LongWritable, Text, AirportFlightCompar
             throws IOException, InterruptedException {
 
         String[] fields = value.toString().split(",");
-        if (fields[0].equals("\"YEAR\"")){
+        if (fields[0].equals("\"YEAR\"") || fields[0].equals("0.00") || fields[0].isEmpty()){
             return;
         }
         if (fields.length != 23){
             throw new IOException("wrong amount of data: "+value);
         }
         Text v = new Text(fields[18]);
-//        throw new IOException(v.toString() );
         AirportFlightComparator k = new AirportFlightComparator(new Text(fields[14]), 1);
         context.write(k, v);
     }
