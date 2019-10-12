@@ -7,6 +7,7 @@ import org.apache.hadoop.mapreduce.Mapper;
 
 public class FlightMapper extends Mapper<LongWritable, Text, AirportFlightComparator, Text>  {
     private static final int rowsAm = 23;
+    private static final int yearRow = 0;
     private static final int idRow = 14;
     private static final int delayRow = 18;
 
@@ -15,14 +16,14 @@ public class FlightMapper extends Mapper<LongWritable, Text, AirportFlightCompar
             throws IOException, InterruptedException {
 
         String[] fields = value.toString().split(",");
-        if (fields.length != 23){
+        if (fields.length != rowsAm){
             throw new IOException("wrong amount of data: "+value);
         }
-        if (fields[0].equals("\"YEAR\"") || fields[18].equals("0.00") || fields[18].isEmpty()){
+        if (fields[yearRow].equals("\"YEAR\"") || fields[delayRow].equals("0.00") || fields[delayRow].isEmpty()){
             return;
         }
-        Text v = new Text(fields[18]);
-        AirportFlightComparator k = new AirportFlightComparator(new Text(fields[14]), 1);
+        Text v = new Text(fields[idRow]);
+        AirportFlightComparator k = new AirportFlightComparator(new Text(fields[idRow]), 1);
         context.write(k, v);
     }
 }
