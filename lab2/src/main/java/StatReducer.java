@@ -23,7 +23,7 @@ public class StatReducer extends Reducer<AirportFlightComparator, Text, Text, Te
                 max = cur;
                 sum = cur;
                 continue;
-          }
+            }
             min = Math.min(min, cur);
             max = Math.max(max, cur);
             sum += cur;
@@ -40,6 +40,6 @@ public class StatReducer extends Reducer<AirportFlightComparator, Text, Text, Te
 //        }else {
 //            fmt.format("always on time!");
 //        }
-//        context.write(new Text(first), new Text(fmt.toString()));
+        context.write(new Text(first), new Text("эээ"));
     }
 }
