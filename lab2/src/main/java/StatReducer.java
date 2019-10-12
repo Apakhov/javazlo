@@ -35,7 +35,7 @@ public class StatReducer extends Reducer<AirportFlightComparator, Text, Text, Te
         //throw new IOException(sum.length())+" "+ String.valueOf(cnt) +" "+ String.valueOf(all));
         StringBuilder sbuf = new StringBuilder();
         Formatter fmt = new Formatter(sbuf);
-        if (cnt == 0){
+
             fmt.format(
                     "cnt: %s, max: %f, min: %f, avg: %s",
                     cnt, max, min, sum/cnt
