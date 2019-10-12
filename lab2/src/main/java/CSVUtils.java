@@ -7,7 +7,6 @@ public class CSVUtils {
         return fields.toString().split(",", 2)[1];
     }
 
-
     public static String[] parseFields(String fields){
         return fields.split(",");
     }
