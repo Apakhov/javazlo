@@ -11,20 +11,20 @@ public class StatReducer extends Reducer<AirportFlightComparator, Text, Text, Te
             throws IOException, InterruptedException {
 
 
-        Float min = null;
-        Float max = null;
-        Float sum = null;
+        float min = 0;
+        float max = 0;
+        float sum = 0;
         int cnt = 0;
         String first = values.iterator().next().toString();
         for (Text value : values) {
             float cur = Float.parseFloat(value.toString());
             throw new IOException("not now "+first);
-//            if (cnt == 0){
-//                min = new Float(cur);
-//                max = new Float(cur);
-//                sum = new Float(cur);
-//                throw new IOException("not now");
-//                //continue;
+            if (cnt == 0){
+                min = cur;
+                max = cur;
+                sum = cur;
+                //throw new IOException("not now");
+                continue;
 //            }
 //            min = Math.min(min, cur);
 //            max = Math.max(max, cur);
