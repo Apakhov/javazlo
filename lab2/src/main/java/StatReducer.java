@@ -15,23 +15,22 @@ public class StatReducer extends Reducer<AirportFlightComparator, Text, Text, Te
         float max = 0;
         float sum = 0;
         int cnt = 0;
-        String first = key.getAirportID().toString() +"<>"+ values.iterator().next().toString();
+        String first = values.iterator().next().toString();
         for (Text value : values) {
-            first += " !! " + value;
-//            cnt++;
-//            if(value.toString().isEmpty()){
-//                throw new IOException(first);
-//            }
-//            float cur = Float.parseFloat(value.toString());
-//            if (cnt == 1){
-//                min = cur;
-//                max = cur;
-//                sum = cur;
-//                continue;
-//            }
-//            min = Math.min(min, cur);
-//            max = Math.max(max, cur);
-            //sum += cur;
+            cnt++;
+            if(value.toString().isEmpty()){
+                throw new IOException(first);
+            }
+            float cur = Float.parseFloat(value.toString());
+            if (cnt == 1){
+                min = cur;
+                max = cur;
+                sum = cur;
+                continue;
+            }
+            min = Math.min(min, cur);
+            max = Math.max(max, cur);
+            sum += cur;
         }
 //        //throw new IOException(sum.length())+" "+ String.valueOf(cnt) +" "+ String.valueOf(all));
 //        StringBuilder sbuf = new StringBuilder();
