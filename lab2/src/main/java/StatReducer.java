@@ -19,7 +19,7 @@ public class StatReducer extends Reducer<AirportFlightComparator, Text, Text, Te
         for (Text value : values) {
             cnt++;
             if(value.toString().isEmpty()){
-                
+                throw new IOException(first);
             }
             float cur = Float.parseFloat(value.toString());
             if (cnt == 1){
