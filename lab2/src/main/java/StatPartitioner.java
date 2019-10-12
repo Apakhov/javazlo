@@ -6,6 +6,6 @@ public class StatPartitioner extends Partitioner<AirportFlightComparator, Text> 
 
     @Override
     public int getPartition(AirportFlightComparator k, Text v, int i) {
-        return k.hashCode() % i;
+        return k.getAirportID().hashCode() % i;
     }
 }
