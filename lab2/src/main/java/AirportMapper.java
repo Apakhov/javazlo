@@ -17,14 +17,12 @@ public class AirportMapper extends Mapper<LongWritable, Text, AirportFlightCompa
     protected void map(LongWritable key, Text value, Context context)
             throws IOException, InterruptedException {
 
-        String[] fields = CSVUtils.parseFields(value.toString());
-        String id = StringUtils.strip(fields[idRow], "\"");
-        String name = fields[nameRow];
+        String id = CSVUtils.stripUtSymb(CSVUtils.first(value.toString()));
+        String name = CSVUtils.second(value.toString());
         if (id.equals("Code")){
             return;
         }
         Text v = new Text(id+":"+name);
-        //throw new IOException(v.toString());
         AirportFlightComparator k = new AirportFlightComparator(new Text(id), 0);
         context.write(k, v);
     }
