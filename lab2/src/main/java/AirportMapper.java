@@ -9,13 +9,17 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 
 public class AirportMapper extends Mapper<LongWritable, Text, AirportFlightComparator, Text> {
+    private static final int idRow = 0;
+    private static final int nameRow = 1;
+
+
     @Override
     protected void map(LongWritable key, Text value, Context context)
             throws IOException, InterruptedException {
 
         String[] fields = value.toString().split(",", 2);
-        String id = StringUtils.strip(fields[0], "\"");
-        String name = fields[1];
+        String id = StringUtils.strip(fields[idRow], "\"");
+        String name = fields[nameRow];
         if (id.equals("Code")){
             return;
         }
