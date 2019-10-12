@@ -18,7 +18,6 @@ public class StatReducer extends Reducer<AirportFlightComparator, Text, Text, Te
         String first = values.iterator().next().toString();
         for (Text value : values) {
             cnt++;
-            first += "!!"+value;
             if(value.toString().isEmpty()){
                 value = new Text("0.00");
             }
