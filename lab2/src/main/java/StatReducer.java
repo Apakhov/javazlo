@@ -18,18 +18,16 @@ public class StatReducer extends Reducer<AirportFlightComparator, Text, Text, Te
         String first = values.iterator().next().toString();
         for (Text value : values) {
             float cur = Float.parseFloat(value.toString());
-            throw new IOException("not now "+first);
             if (cnt == 0){
                 min = cur;
                 max = cur;
                 sum = cur;
-                //throw new IOException("not now");
                 continue;
-//            }
-//            min = Math.min(min, cur);
-//            max = Math.max(max, cur);
-//            sum += cur;
-//            cnt++;
+          }
+            min = Math.min(min, cur);
+            max = Math.max(max, cur);
+            sum += cur;
+            cnt++;
         }
 //        //throw new IOException(sum.length())+" "+ String.valueOf(cnt) +" "+ String.valueOf(all));
 //        StringBuilder sbuf = new StringBuilder();
