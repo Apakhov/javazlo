@@ -40,6 +40,6 @@ public class StatReducer extends Reducer<AirportFlightComparator, Text, Text, Te
 //        }else {
 //            fmt.format("always on time!");
 //        }
-        context.write(new Text(first), new Text("эээ"));
+        context.write(new Text(first), new Text("qq"));
     }
 }
