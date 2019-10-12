@@ -15,10 +15,11 @@ public class AirportMapper extends Mapper<LongWritable, Text, AirportFlightCompa
 
         String[] fields = value.toString().split(",", 2);
         String id = StringUtils.strip(fields[0], "\"");
-        if (fields[0].equals("Code")){
+        String name = fields[1];
+        if (id.equals("Code")){
             return;
         }
-        Text v = new Text(id+":"+fields[1]);
+        Text v = new Text(id+":"+name);
         //throw new IOException(v.toString());
         AirportFlightComparator k = new AirportFlightComparator(new Text(id), 0);
         context.write(k, v);
