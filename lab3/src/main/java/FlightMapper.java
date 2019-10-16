@@ -1,7 +1,8 @@
 import org.apache.hadoop.io.LongWritable;
-        import org.apache.hadoop.io.Text;
+import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
-        import java.io.IOException;
+
+import java.io.IOException;
 
 public class FlightMapper extends Mapper<LongWritable, Text, AirportFlightComp, Text>  {
     private static final int ROWS_AM = 23;
