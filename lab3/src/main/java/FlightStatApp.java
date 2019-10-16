@@ -26,7 +26,7 @@ public class FlightStatApp {
         JavaPairRDD splitted = flightsFile.mapToPair(
                 s -> {
                     CSVRow row = airportParser.Parse(s);
-                    return new Tuple2<>(row.get("Code"), row.get("Description"));
+                    return new Tuple2<>(row.get("Code")+"A", row.get("Description")+"B");
                 }
         );
 //        JavaPairRDD<String, Long> wordsWithCount =
@@ -42,6 +42,8 @@ public class FlightStatApp {
 //                        s -> new Tuple2<>( s, 1L)
 //                );
 //        JavaPairRDD<String, Tuple2<Long, Long>> joinValue = dictionary.join( collectedWords);
+        System.out.println( "BEGIN--------------------------------------------------------------------");
         System.out.println( "result="+splitted.toString());
+        System.out.println( "END----------------------------------------------------------------------");
     }
 }
