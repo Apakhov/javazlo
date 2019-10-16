@@ -3,10 +3,10 @@ import org.apache.commons.lang.StringUtils;
 import java.lang.reflect.Array;
 
 public class CSVParser {
-    String[] fields;
+    private String[] fields;
 
-    CSVParser(){
-
+    CSVParser(String... fields){
+        this.fields = fields;
     }
 
     public static String first(String fields){
