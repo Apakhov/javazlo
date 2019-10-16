@@ -1,6 +1,7 @@
 import org.apache.commons.lang.StringUtils;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class CSVParser {
     private String[] fields;
@@ -10,6 +11,6 @@ public class CSVParser {
     }
 
     public CSVRow Parse(String... values){
-        return new CSVRow(this.fields, values);
+        return new CSVRow(this.fields, new ArrayList<String>(values));
     }
 }
