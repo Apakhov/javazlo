@@ -22,7 +22,7 @@ public class CSVParser implements Serializable {
             }
             if(!inCitation && raw.charAt(cur) == ','){
                 values.add(stripUtSymb(raw.substring(beg, cur)));
-                beg = cur++;
+                beg = cur+1;
             }
         }
         System.out.println("lasagna"+ values.toString());
