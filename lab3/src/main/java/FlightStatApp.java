@@ -8,6 +8,8 @@ import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 
+import java.util.Arrays;
+
 public class FlightStatApp {
     public static void main(String[] args) throws Exception {
         if (args.length != 3) {
@@ -17,5 +19,8 @@ public class FlightStatApp {
         SparkConf conf = new SparkConf( ).setAppName( "example");
         JavaSparkContext sc = new JavaSparkContext( conf);
         JavaRDD<String> distFile = sc.textFile( "war-and-peace-1.txt");
+        JavaRDD<String> splitted = distFile.flatMap(
+                s -> Arrays.stream( s.split( " ")).iterator( )
+        );
     }
 }
