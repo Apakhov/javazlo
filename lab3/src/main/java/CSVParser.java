@@ -25,6 +25,7 @@ public class CSVParser implements Serializable {
                 beg = cur++;
             }
         }
+        System.out.println("lasagna"+ values.toString());
 
         return new CSVRow(this.fields, values.toArray(new String[values.size()]));
     }
