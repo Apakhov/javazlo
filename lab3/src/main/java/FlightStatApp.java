@@ -21,8 +21,7 @@ public class FlightStatApp {
         SparkConf conf = new SparkConf().setAppName("lab3");
         JavaSparkContext sc = new JavaSparkContext(conf);
         JavaRDD<String> flightsFile = sc.textFile("flights.csv");
-        JavaRDD<String> airportsFile = sc.textFile("");
-        JavaRDD<String> distFile = sc.textFile( "warandpeace1.txt");
+        JavaRDD<String> airportsFile = sc.textFile("airports.csv");
         JavaRDD<String> splitted = distFile.flatMap(
                 s -> Arrays.stream( s.split( " ")).iterator( )
         );
