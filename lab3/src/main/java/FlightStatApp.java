@@ -8,15 +8,13 @@ import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
-import scala.Array;
 import scala.Tuple2;
 
 import java.util.Arrays;
 
 public class FlightStatApp {
-    private static final Array[] FLIGHT_FIELDS = {"YEAR","QUARTER","MONTH","DAY_OF_MONTH","DAY_OF_WEEK","FL_DATE","UNIQUE_CARRIER","AIRLINE_ID","CARRIER","TAIL_NUM","FL_NUM","ORIGIN_AIRPORT_ID","ORIGIN_AIRPORT_SEQ_ID","ORIGIN_CITY_MARKET_ID","DEST_AIRPORT_ID","WHEELS_ON","ARR_TIME","ARR_DELAY","ARR_DELAY_NEW","CANCELLED","CANCELLATION_CODE","AIR_TIME","DISTANCE"}
+    private static final String[] FLIGHT_FIELDS = {"YEAR","QUARTER","MONTH","DAY_OF_MONTH","DAY_OF_WEEK","FL_DATE","UNIQUE_CARRIER","AIRLINE_ID","CARRIER","TAIL_NUM","FL_NUM","ORIGIN_AIRPORT_ID","ORIGIN_AIRPORT_SEQ_ID","ORIGIN_CITY_MARKET_ID","DEST_AIRPORT_ID","WHEELS_ON","ARR_TIME","ARR_DELAY","ARR_DELAY_NEW","CANCELLED","CANCELLATION_CODE","AIR_TIME","DISTANCE"}
     public static void main(String[] args) throws Exception {
-         FLIGHT_FIELDS =
 //        if (args.length != 3) {
 //            System.err.println("Usage: FlightStatApp <input path flights> <input path airport> <output path>");
 //            System.exit(-1);
@@ -24,7 +22,7 @@ public class FlightStatApp {
 //        JavaRDD<String> airportsFile = sc.textFile("airports.csv");
         SparkConf conf = new SparkConf().setAppName("lab3");
         JavaSparkContext sc = new JavaSparkContext(conf);
-        CSVParser flightParser = new CSVParser("Code","Description");
+        CSVParser flightParser = new CSVParser(FLIGHT_FIELDS);
         JavaRDD<String> flightsFile = sc.textFile("flights.csv");
         JavaPairRDD splitted = flightsFile.mapToPair(
                 s -> {
