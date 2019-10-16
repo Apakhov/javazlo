@@ -12,8 +12,20 @@ public class CSVParser {
     }
 
     public CSVRow Parse(String raw){
-        raw.stream()
-        return new CSVRow(this.fields, );
+        ArrayList<String> values = new ArrayList<>();
+        int beg = 0;
+        boolean inCitation = false;
+        for (int cur = 0; cur < raw.length(); cur++){
+            if(raw.charAt(cur) == '"'){
+                inCitation = !inCitation;
+            }
+            if(!inCitation && raw.charAt(cur) == ','){
+                values.add(raw.substring(beg, cur));
+                beg = cur++;
+            }
+        }
+
+        return new CSVRow(this.fields, (String[]) values.toArray());
     }
 
     public static String stripUtSymb(String field){
