@@ -2,6 +2,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CSVParser {
     private String[] fields;
@@ -11,6 +12,10 @@ public class CSVParser {
     }
 
     public CSVRow Parse(String... values){
-        return new CSVRow(this.fields, new ArrayList<String>(values));
+        return new CSVRow(this.fields, (String[]) Arrays.stream(values).map(CSVParser::stripUtSymb).toArray());
+    }
+
+    public static String stripUtSymb(String field){
+        return StringUtils.strip(field, "\"");
     }
 }

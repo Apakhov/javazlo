@@ -21,11 +21,12 @@ public class FlightStatApp {
 //        JavaRDD<String> airportsFile = sc.textFile("airports.csv");
         SparkConf conf = new SparkConf().setAppName("lab3");
         JavaSparkContext sc = new JavaSparkContext(conf);
-        CSVParser airportParser()
+        CSVParser airportParser = new CSVParser("Code","Description");
         JavaRDD<String> flightsFile = sc.textFile("flights.csv");
-        JavaPairRDD<String, String> splitted = flightsFile.mapToPair(
+        JavaPairRDD splitted = flightsFile.mapToPair(
                 s -> {
-                    return new Tuple2<String, String>("a", "b");
+                    CSVRow row = airportParser.Parse(s);
+                    return new Tuple2(row.get("Code"), row.get("Description"));
                 }
         );
 //        JavaPairRDD<String, Long> wordsWithCount =
