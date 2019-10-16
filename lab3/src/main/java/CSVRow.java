@@ -16,6 +16,14 @@ public class CSVRow {
     }
 
     public float asFloat(String field) {
-        return Float.map.get(field);
+        return Float.parseFloat(get(field));
+    }
+
+    public boolean asBool(String field) {
+        try {
+            return Float.parseFloat(map.get(field)) != 0;
+        } catch (NumberFormatException e){
+            return false;
+        }
     }
 }

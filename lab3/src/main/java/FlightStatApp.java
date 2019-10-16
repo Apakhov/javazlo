@@ -35,11 +35,11 @@ public class FlightStatApp {
                     CSVRow row = flightParser.Parse(s);
                     return new Tuple2<>(
                             new Tuple2<>(row.get("ORIGIN_AIRPORT_ID"), row.get("DEST_AIRPORT_ID")),
-                            new AirportPairStat(row.get("ARR_DELAY_NEW"), row.get("CANCELLED") != "")
+                            new AirportPairStat(row.asFloat("ARR_DELAY_NEW"), row.asBool("CANCELLED"))
                     );
                 }
         );
-        JavaPairRDD<Tuple2<String, String>, AirportPairStat> t = splitted.reduceByKey(
+        JavaPairRDD<Tuple2<String, String>, AirportPairStat> t = splitted.fol(
                 (k, v) -> k.toString()
         );
 //        JavaPairRDD<String, Long> wordsWithCount =
