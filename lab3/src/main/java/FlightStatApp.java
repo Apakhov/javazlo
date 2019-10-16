@@ -30,7 +30,7 @@ public class FlightStatApp {
         JavaSparkContext sc = new JavaSparkContext(conf);
         CSVParser flightParser = new CSVParser(FLIGHT_FIELDS);
         JavaRDD<String> flightsFile = sc.textFile("flights.csv");
-        JavaPairRDD<Tuple2<String, String>, > splitted = flightsFile.mapToPair(
+        JavaPairRDD<Tuple2<String, String>, Long> splitted = flightsFile.mapToPair(
                 s -> {
                     CSVRow row = flightParser.Parse(s);
                     return new Tuple2<>(
@@ -40,7 +40,7 @@ public class FlightStatApp {
                 }
         );
         splitted.reduceByKey(
-                (k, v) -> k + v;
+                (k, v) -> k.toString();
         )
 //        JavaPairRDD<String, Long> wordsWithCount =
 //                splitted.mapToPair(
