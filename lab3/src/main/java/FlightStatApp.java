@@ -34,7 +34,8 @@ public class FlightStatApp {
                 s -> {
                     CSVRow row = flightParser.Parse(s);
                     return new Tuple2<>(
-                            new Tuple2<>()
+                            new Tuple2<>(row.get("ORIGIN_AIRPORT_ID"), row.get("DEST_AIRPORT_ID")),
+                            1L
                     );
                 }
         );
