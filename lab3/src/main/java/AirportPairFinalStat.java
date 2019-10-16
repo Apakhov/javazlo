@@ -9,5 +9,12 @@ public class AirportPairFinalStat implements Serializable {
 
 
     public AirportPairFinalStat() {
+        maxDelay = 0;
+        amount = BigInteger.ZERO;
+        delayedAmount = BigInteger.ZERO;
+        canceledAmount = BigInteger.ZERO;
     }
+
+    public void add(delay)
+
 }
