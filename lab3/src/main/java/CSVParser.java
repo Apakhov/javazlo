@@ -1,10 +1,11 @@
 import org.apache.commons.lang.StringUtils;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class CSVParser {
+public class CSVParser implements Serializable {
     private String[] fields;
 
     CSVParser(String... fields){
