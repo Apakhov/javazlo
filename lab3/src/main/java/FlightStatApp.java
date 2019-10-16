@@ -14,10 +14,10 @@ import java.util.Arrays;
 
 public class FlightStatApp {
     public static void main(String[] args) throws Exception {
-        if (args.length != 3) {
-            System.err.println("Usage: FlightStatApp <input path flights> <input path airport> <output path>");
-            System.exit(-1);
-        }
+//        if (args.length != 3) {
+//            System.err.println("Usage: FlightStatApp <input path flights> <input path airport> <output path>");
+//            System.exit(-1);
+//        }
         SparkConf conf = new SparkConf( ).setAppName( "example");
         JavaSparkContext sc = new JavaSparkContext( conf);
         JavaRDD<String> distFile = sc.textFile( "warandpeace1.txt");
