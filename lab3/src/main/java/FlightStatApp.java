@@ -36,5 +36,6 @@ public class FlightStatApp {
                 dictionaryFile.mapToPair(
                         s -> new Tuple2<>( s, 1L)
                 );
+        JavaPairRDD<String, Tuple2<Long, Long>> joinValue = dictionary.join( collectedWords);
     }
 }
