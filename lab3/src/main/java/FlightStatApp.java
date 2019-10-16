@@ -30,17 +30,17 @@ public class FlightStatApp {
         JavaSparkContext sc = new JavaSparkContext(conf);
         CSVParser flightParser = new CSVParser(FLIGHT_FIELDS);
         JavaRDD<String> flightsFile = sc.textFile("flights.csv");
-        JavaPairRDD<Tuple2<String, String>, AirportPairStat> splitted = flightsFile.mapToPair(
+        JavaPairRDD<Tuple2<String, String>, AirportPairFinalStat> splitted = flightsFile.mapToPair(
                 s -> {
                     CSVRow row = flightParser.Parse(s);
                     return new Tuple2<>(
                             new Tuple2<>(row.get("ORIGIN_AIRPORT_ID"), row.get("DEST_AIRPORT_ID")),
-                            new AirportPairStat(row.asFloat("ARR_DELAY_NEW"), row.asBool("CANCELLED"))
+                            new AirportPairFinalStat(row.asFloat("ARR_DELAY_NEW"), row.asBool("CANCELLED"))
                     );
                 }
         );
-        JavaPairRDD<Tuple2<String, String>, AirportPairFinalStat> t = splitted.foldByKey(
-                new AirportPairFinalStat(), (p, s) -> p. .getDelay()
+        JavaPairRDD<Tuple2<String, String>, AirportPairFinalStat> t = splitted.reduceByKey(
+                AirportPairFinalStat::add
         );
 //        JavaPairRDD<String, Long> wordsWithCount =
 //                splitted.mapToPair(

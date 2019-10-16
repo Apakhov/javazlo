@@ -20,11 +20,12 @@ public class AirportPairFinalStat implements Serializable {
             canceledAmount = BigInteger.ONE;
     }
 
-    public void add(AirportPairFinalStat s) {
+    public AirportPairFinalStat add(AirportPairFinalStat s) {
         maxDelay = Math.max(maxDelay, s.maxDelay);
         amount = amount.add(s.amount);
         delayedAmount = delayedAmount.add(s.delayedAmount);
         canceledAmount = canceledAmount.add(s.canceledAmount);
+        return this;
     }
 
 }
