@@ -8,14 +8,18 @@ public class CSVParser {
     private String[] fields;
 
     CSVParser(String... fields){
-        this.fields = fields;
+        this.fields = stripUtSymb(fields);
     }
 
     public CSVRow Parse(String... values){
-        return new CSVRow(this.fields, (String[]) Arrays.stream(values).map(CSVParser::stripUtSymb).toArray());
+        return new CSVRow(this.fields, stripUtSymb());
     }
 
     public static String stripUtSymb(String field){
         return StringUtils.strip(field, "\"");
+    }
+
+    public static String[] stripUtSymb(String[] fields){
+        return (String[]) Arrays.stream(fields).map(CSVParser::stripUtSymb).toArray();
     }
 }
