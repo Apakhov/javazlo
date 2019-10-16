@@ -12,7 +12,7 @@ public class CSVParser implements Serializable {
         this.fields = stripUtSymb(fields);
     }
 
-    public CSVRow Parse(String raw) throws Exception {
+    public CSVRow Parse(String raw){
         ArrayList<String> values = new ArrayList<>();
         int beg = 0;
         boolean inCitation = false;
@@ -25,9 +25,9 @@ public class CSVParser implements Serializable {
                 beg = cur++;
             }
         }
-        throw new Exception(values.toString());
+        System.out.println("lasagna"+ values.toString());
 
-        //return new CSVRow(this.fields, values.toArray(new String[values.size()]));
+        return new CSVRow(this.fields, values.toArray(new String[values.size()]));
     }
 
     public static String stripUtSymb(String field){
