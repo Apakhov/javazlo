@@ -56,7 +56,7 @@ public class FlightStatApp {
 //                );
 //        JavaPairRDD<String, Tuple2<Long, Long>> joinValue = dictionary.join( collectedWords);
         System.out.println( "BEGIN--------------------------------------------------------------------");
-        System.out.println( "result="+splitted.collect());
+        System.out.println( "result="+t.collect());
         System.out.println( "END----------------------------------------------------------------------");
     }
 }
