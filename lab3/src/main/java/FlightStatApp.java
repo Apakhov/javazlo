@@ -24,21 +24,24 @@ public class FlightStatApp {
 
         JavaRDD<String> flightsFile = sc.textFile("flights.csv");
         JavaRDD<String> splitted = flightsFile.mapToPair(
-                s ->
+                s -> {
+
+                    return new JavaPairRDD<String, String>();
+                }
         );
-        JavaPairRDD<String, Long> wordsWithCount =
-                splitted.mapToPair(
-                        s -> new Tuple2<>( s, 1L)
-                );
-        JavaPairRDD<String, Long> collectedWords = wordsWithCount.reduceByKey (
-                Long::sum
-        );
-        JavaRDD<String> dictionaryFile = sc.textFile( "russian.txt");
-        JavaPairRDD<String, Long> dictionary =
-                dictionaryFile.mapToPair(
-                        s -> new Tuple2<>( s, 1L)
-                );
-        JavaPairRDD<String, Tuple2<Long, Long>> joinValue = dictionary.join( collectedWords);
+//        JavaPairRDD<String, Long> wordsWithCount =
+//                splitted.mapToPair(
+//                        s -> new Tuple2<>( s, 1L)
+//                );
+//        JavaPairRDD<String, Long> collectedWords = wordsWithCount.reduceByKey (
+//                Long::sum
+//        );
+//        JavaRDD<String> dictionaryFile = sc.textFile( "russian.txt");
+//        JavaPairRDD<String, Long> dictionary =
+//                dictionaryFile.mapToPair(
+//                        s -> new Tuple2<>( s, 1L)
+//                );
+//        JavaPairRDD<String, Tuple2<Long, Long>> joinValue = dictionary.join( collectedWords);
         System.out.println( "result="+joinValue.collect( ));
     }
 }
