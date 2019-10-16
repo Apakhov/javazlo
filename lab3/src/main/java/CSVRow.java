@@ -1,5 +1,11 @@
+import java.util.HashMap;
+
 public class CSVRow {
-    public CSVRow(String[] fields, String[] values){
-        
+    private HashMap<String, String> map;
+
+    public CSVRow(String[] fields, String[] values) throws ExceptionInInitializerError{
+        if (fields.length != values.length) {
+
+        }
     }
 }
