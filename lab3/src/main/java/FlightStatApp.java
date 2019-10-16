@@ -22,7 +22,7 @@ public class FlightStatApp {
         SparkConf conf = new SparkConf().setAppName("lab3");
         JavaSparkContext sc = new JavaSparkContext(conf);
         CSVParser airportParser = new CSVParser("Code","Description");
-        JavaRDD<String> flightsFile = sc.textFile("flights.csv");
+        JavaRDD<String> flightsFile = sc.textFile("airports.csv");
         JavaPairRDD splitted = flightsFile.mapToPair(
                 s -> {
                     CSVRow row = airportParser.Parse(s);
