@@ -19,7 +19,7 @@ public class FlightStatApp {
             "ORIGIN_AIRPORT_SEQ_ID","ORIGIN_CITY_MARKET_ID","DEST_AIRPORT_ID",
             "WHEELS_ON","ARR_TIME","ARR_DELAY","ARR_DELAY_NEW","CANCELLED",
             "CANCELLATION_CODE","AIR_TIME","DISTANCE"};
-    
+
     public static void main(String[] args) throws Exception {
 //        if (args.length != 3) {
 //            System.err.println("Usage: FlightStatApp <input path flights> <input path airport> <output path>");
@@ -33,7 +33,9 @@ public class FlightStatApp {
         JavaPairRDD splitted = flightsFile.mapToPair(
                 s -> {
                     CSVRow row = flightParser.Parse(s);
-                    return new Tuple2<>(row.get("Code")+"A", row.get("Description")+"B");
+                    return new Tuple2<>(
+                            new Tuple2<>()
+                    );
                 }
         );
 //        JavaPairRDD<String, Long> wordsWithCount =
