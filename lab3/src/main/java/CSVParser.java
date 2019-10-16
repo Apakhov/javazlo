@@ -11,8 +11,9 @@ public class CSVParser {
         this.fields = stripUtSymb(fields);
     }
 
-    public CSVRow Parse(String values){
-        return new CSVRow(this.fields, stripUtSymb());
+    public CSVRow Parse(String raw){
+        raw.stream()
+        return new CSVRow(this.fields, );
     }
 
     public static String stripUtSymb(String field){
