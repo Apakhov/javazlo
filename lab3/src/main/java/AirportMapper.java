@@ -5,9 +5,6 @@ import org.apache.hadoop.mapreduce.Mapper;
 import java.io.IOException;
 
 public class AirportMapper extends Mapper<LongWritable, Text, AirportFlightComp, Text> {
-    private static final int ID_ROW = 0;
-    private static final int NAME_ROW = 1;
-
 
     @Override
     protected void map(LongWritable key, Text value, Context context)
