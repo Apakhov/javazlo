@@ -20,7 +20,7 @@ public class FlightStatApp {
         }
         SparkConf conf = new SparkConf( ).setAppName( "example");
         JavaSparkContext sc = new JavaSparkContext( conf);
-        JavaRDD<String> distFile = sc.textFile( "war-and-peace-1.txt");
+        JavaRDD<String> distFile = sc.textFile( "warandpeace1.txt");
         JavaRDD<String> splitted = distFile.flatMap(
                 s -> Arrays.stream( s.split( " ")).iterator( )
         );
