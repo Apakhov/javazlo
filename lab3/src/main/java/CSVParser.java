@@ -1,6 +1,14 @@
 import org.apache.commons.lang.StringUtils;
 
-public class CSVUtils {
+import java.lang.reflect.Array;
+
+public class CSVParser {
+    String[] fields;
+
+    CSVParser(){
+
+    }
+
     public static String first(String fields){
         return fields.toString().split(",", 2)[0];
     }
