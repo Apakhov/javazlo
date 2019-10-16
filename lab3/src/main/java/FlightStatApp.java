@@ -39,7 +39,7 @@ public class FlightStatApp {
                     );
                 }
         );
-        JavaPairRDD<String, String> t = splitted.reduceByKey(
+        JavaPairRDD<Tuple2<String, String>, String> t = splitted.reduceByKey(
                 (k, v) -> k.toString()
         );
 //        JavaPairRDD<String, Long> wordsWithCount =
