@@ -1,5 +1,5 @@
 public class AirportPairStat {
     private float delay;
-    private 
+    private boolean isCanceled;
 
 }
