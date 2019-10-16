@@ -31,6 +31,10 @@ public class FlightStatApp {
         JavaPairRDD<String, Long> collectedWords = wordsWithCount.reduceByKey (
                 Long::sum
         );
-        
+        JavaRDD<String> dictionaryFile = sc.textFile( "words.txt");
+        JavaPairRDD<String, Long> dictionary =
+                dictionaryFile.mapToPair(
+                        s -> new Tuple2<>( s, 1L)
+                );
     }
 }
