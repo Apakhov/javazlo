@@ -15,7 +15,7 @@ import java.util.Arrays;
 public class FlightStatApp {
     public static void main(String[] args) throws Exception {
         CSVParser p = new CSVParser("A", "B");
-        CSVRow r = p.Parse("ddsaad,\"dsa\"");
+        CSVRow r = p.Parse("ddsaad,,\"dsa\"");
         System.out.println(r.get("A")+" "+r.get("B"));
 ////        if (args.length != 3) {
 ////            System.err.println("Usage: FlightStatApp <input path flights> <input path airport> <output path>");
