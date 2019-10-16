@@ -26,7 +26,7 @@ public class CSVParser implements Serializable {
             }
         }
 
-        return new CSVRow(this.fields, (String[]) values.toArray());
+        return new CSVRow(this.fields, values.toArray(String[]::new));
     }
 
     public static String stripUtSymb(String field){
