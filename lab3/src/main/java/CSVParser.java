@@ -20,7 +20,7 @@ public class CSVParser {
                 inCitation = !inCitation;
             }
             if(!inCitation && raw.charAt(cur) == ','){
-                values.add(raw.substring(beg, cur));
+                values.add(stripUtSymb(raw.substring(beg, cur)));
                 beg = cur++;
             }
         }
