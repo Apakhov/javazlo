@@ -2,28 +2,29 @@ import java.io.Serializable;
 import java.math.BigInteger;
 
 public class AirportPairFinalStat implements Serializable {
-    private float maxDelay;
-    private BigInteger amount;
-    private BigInteger delayedAmount;
-    private BigInteger canceledAmount;
+    private float maxDelay = 0;
+    private BigInteger amount = BigInteger.ZERO;
+    private BigInteger delayedAmount = BigInteger.ZERO;
+    private BigInteger canceledAmount = BigInteger.ZERO;
 
 
     public AirportPairFinalStat() {
-        maxDelay = 0;
-        amount = BigInteger.ZERO;
-        delayedAmount = BigInteger.ZERO;
-        canceledAmount = BigInteger.ZERO;
     }
 
-    public void add(float delay, boolean canceled) {
-        maxDelay = Math.max(maxDelay, delay);
-        amount = amount.add(BigInteger.ONE);
-        if (delay > 0) {
-            delayedAmount = delayedAmount.add(BigInteger.ONE);
-        }
-        if (canceled) {
-            canceledAmount = canceledAmount.add(BigInteger.ONE);
-        }
+    public AirportPairFinalStat(float delay, boolean isCanceled) {
+        maxDelay = delay;
+        amount = BigInteger.ONE;
+        if (delay > 0)
+            delayedAmount = BigInteger.ONE;
+        if (isCanceled)
+            canceledAmount = BigInteger.ONE;
+    }
+
+    public void add(AirportPairFinalStat s) {
+        maxDelay = Math.max(maxDelay, s.maxDelay);
+        amount = amount.add(s.amount);
+        delayedAmount = delayedAmount.add(s.delayedAmount);
+        canceledAmount = canceledAmount.add(s.canceledAmount);
     }
 
 }
