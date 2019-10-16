@@ -1,3 +1,5 @@
 public class AirportPairStat {
-    private timeFail
+    private float delay;
+    private 
+
 }
