@@ -9,23 +9,7 @@ public class CSVParser {
         this.fields = fields;
     }
 
-    public static CSVRow Parse(String... fields){
-        return
-    }
-
-    public static CSVRow Parse(String... fields){
-        return
-    }
-
-    public static String second(String fields){
-        return fields.toString().split(",", 2)[1];
-    }
-
-    public static String[] parseFields(String fields){
-        return fields.split(",");
-    }
-
-    public static String stripUtSymb(String field){
-        return StringUtils.strip(field, "\"");
+    public CSVRow Parse(String... values){
+        return new CSVRow(this.fields, values);
     }
 }
