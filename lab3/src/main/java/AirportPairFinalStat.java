@@ -15,6 +15,15 @@ public class AirportPairFinalStat implements Serializable {
         canceledAmount = BigInteger.ZERO;
     }
 
-    public void add(delay)
+    public void add(float delay, boolean canceled) {
+        maxDelay = Math.max(maxDelay, delay);
+        amount = amount.add(BigInteger.ONE);
+        if (delay > 0) {
+            delayedAmount = delayedAmount.add(BigInteger.ONE);
+        }
+        if (canceled) {
+            canceledAmount = canceledAmount.add(BigInteger.ONE);
+        }
+    }
 
 }

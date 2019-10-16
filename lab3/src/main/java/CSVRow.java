@@ -19,14 +19,13 @@ public class CSVRow {
         try {
             return Float.parseFloat(get(field));
         }catch (NumberFormatException ignored){}
-        return
+        return 0;
     }
 
     public boolean asBool(String field) {
         try {
             return Float.parseFloat(map.get(field)) != 0;
-        } catch (NumberFormatException e){
-            return false;
-        }
+        } catch (NumberFormatException ignored){}
+        return false;
     }
 }

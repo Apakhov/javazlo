@@ -39,7 +39,9 @@ public class FlightStatApp {
                     );
                 }
         );
-        JavaPairRDD<Tuple2<String, String>, AirportPairStat> t = splitted.foldByKey();
+        JavaPairRDD<Tuple2<String, String>, AirportPairFinalStat> t = splitted.foldByKey(
+                new AirportPairFinalStat(), (p, s) -> s.getDelay()
+        );
 //        JavaPairRDD<String, Long> wordsWithCount =
 //                splitted.mapToPair(
 //                        s -> new Tuple2<>( s, 1L)
