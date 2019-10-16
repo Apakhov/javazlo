@@ -14,4 +14,8 @@ public class CSVRow {
     public String get(String field) {
         return map.get(field);
     }
+
+    public float asFloat(String field) {
+        return Float.map.get(field);
+    }
 }
