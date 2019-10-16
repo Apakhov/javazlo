@@ -9,8 +9,12 @@ public class CSVParser {
         this.fields = fields;
     }
 
-    public static String first(String fields){
-        return fields.toString().split(",", 2)[0];
+    public static CSVRow Parse(String... fields){
+        return
+    }
+
+    public static CSVRow Parse(String... fields){
+        return
     }
 
     public static String second(String fields){
