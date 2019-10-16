@@ -5,6 +5,7 @@ import org.apache.hadoop.mapreduce.lib.input.MultipleInputs;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.spark.SparkConf;
+import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 
 public class FlightStatApp {
@@ -13,8 +14,8 @@ public class FlightStatApp {
             System.err.println("Usage: FlightStatApp <input path flights> <input path airport> <output path>");
             System.exit(-1);
         }
-        SparkConf conf = new SparkConf(Hadoop ).setAppName(Hadoop "example");
-        JavaSparkContext sc = new JavaSparkContext(Hadoop conf);
-        JavaRDD<String> distFile = sc.textFile(Hadoop "war-and-peace-1.txt");
+        SparkConf conf = new SparkConf( ).setAppName( "example");
+        JavaSparkContext sc = new JavaSparkContext( conf);
+        JavaRDD<String> distFile = sc.textFile( "war-and-peace-1.txt");
     }
 }
