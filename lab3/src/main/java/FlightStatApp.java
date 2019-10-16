@@ -22,7 +22,7 @@ public class FlightStatApp {
         JavaSparkContext sc = new JavaSparkContext(conf);
         JavaRDD<String> flightsFile = sc.textFile("flights.csv");
         JavaRDD<String> airportsFile = sc.textFile("airports.csv");
-        JavaRDD<String> splitted = distFile.flatMap(
+        JavaRDD<String> splitted = flightsFile.flatMap(
                 s -> Arrays.stream( s.split( " ")).iterator( )
         );
         JavaPairRDD<String, Long> wordsWithCount =
