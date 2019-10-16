@@ -33,6 +33,6 @@ public class CSVParser {
     }
 
     public static String[] stripUtSymb(String[] fields){
-        return Arrays.asList(fields).(CSVParser::stripUtSymb).toArray(new String[fields.length]);
+        return Arrays.asList(fields).map(CSVParser::stripUtSymb).toArray(new String[fields.length]);
     }
 }
