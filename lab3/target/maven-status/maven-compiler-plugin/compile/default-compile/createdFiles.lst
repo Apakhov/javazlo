@@ -1,4 +1,5 @@
 FlightStatApp.class
+AirportInfo.class
 AirportPairStat.class
 CSVRow.class
 AirportPairFinalStat.class
