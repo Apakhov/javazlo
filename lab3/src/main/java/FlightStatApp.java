@@ -19,6 +19,11 @@ public class FlightStatApp {
             "ORIGIN_AIRPORT_SEQ_ID","ORIGIN_CITY_MARKET_ID","DEST_AIRPORT_ID",
             "WHEELS_ON","ARR_TIME","ARR_DELAY","ARR_DELAY_NEW","CANCELLED",
             "CANCELLATION_CODE","AIR_TIME","DISTANCE"};
+    private static final CSVParser flightParser = new CSVParser(FLIGHT_FIELDS);
+
+    private static final String[] AIRPORT_FIELDS = {"Code","Description"};
+    private static final CSVParser airportParser = new CSVParser(AIRPORT_FIELDS);
+
 
     public static void main(String[] args) throws Exception {
 //        if (args.length != 3) {
@@ -28,7 +33,6 @@ public class FlightStatApp {
 //        JavaRDD<String> airportsFile = sc.textFile("airports.csv");
         SparkConf conf = new SparkConf().setAppName("lab3");
         JavaSparkContext sc = new JavaSparkContext(conf);
-        CSVParser flightParser = new CSVParser(FLIGHT_FIELDS);
         JavaRDD<String> flightsFile = sc.textFile("flights.csv");
         JavaPairRDD<Tuple2<String, String>, AirportPairFinalStat> splitted = flightsFile.mapToPair(
                 s -> {
@@ -39,9 +43,11 @@ public class FlightStatApp {
                     );
                 }
         );
-        JavaPairRDD<Tuple2<String, String>, AirportPairFinalStat> t = splitted.reduceByKey(
+        JavaPairRDD<Tuple2<String, String>, AirportPairFinalStat> reduced = splitted.reduceByKey(
                 AirportPairFinalStat::add
         );
+
+        JavaRDD<String> airportsFile = sc.textFile("")
 //        JavaPairRDD<String, Long> wordsWithCount =
 //                splitted.mapToPair(
 //                        s -> new Tuple2<>( s, 1L)
@@ -56,7 +62,7 @@ public class FlightStatApp {
 //                );
 //        JavaPairRDD<String, Tuple2<Long, Long>> joinValue = dictionary.join( collectedWords);
         System.out.println( "BEGIN--------------------------------------------------------------------");
-        System.out.println( "result="+t.collect());
+        System.out.println( "result="+reduced.collect());
         System.out.println( "END----------------------------------------------------------------------");
     }
 }
