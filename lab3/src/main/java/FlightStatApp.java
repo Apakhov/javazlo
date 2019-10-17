@@ -59,7 +59,7 @@ public class FlightStatApp {
                 }
         ).collectAsMap();
 
-        final Broadcast<Map<String, AirportData>> airportsBroadcasted =
+        final Broadcast<Map<String, String>> airportsBroadcasted =
                 sc.broadcast(stringAirportDataMap);
         JavaRDD<String> distFile =
                 sc.textFile("airports.csv");
