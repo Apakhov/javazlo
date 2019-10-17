@@ -38,6 +38,8 @@ public class FlightStatApp {
 
 
         JavaRDD<String> flightsFile = sc.textFile("flights.csv");
+        JavaRDD<String> airportsFile = sc.textFile("airports.csv");
+
         JavaPairRDD<Tuple2<String, String>, AirportPairFinalStat> splitted = flightsFile.mapToPair(
                 s -> {
                     CSVRow row = flightParser.Parse(s);
@@ -54,7 +56,6 @@ public class FlightStatApp {
                 AirportPairFinalStat::add
         );
 
-        JavaRDD<String> airportsFile = sc.textFile("airports.csv");
         Map<String, String> stringAirportDataMap = airportsFile.mapToPair(
                 s -> {
                     CSVRow row = flightParser.Parse(s);
