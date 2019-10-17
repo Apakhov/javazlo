@@ -50,7 +50,7 @@ public class FlightStatApp {
         );
 
         JavaRDD<String> airportsFile = sc.textFile("airports.csv");
-        Map<String, String> stringAirportDataMap = airportsFile.mapToPair(
+        Map<String, AirportInfo> stringAirportDataMap = airportsFile.mapToPair(
                 s -> {
                     CSVRow row = flightParser.Parse(s);
                     return new Tuple2<>(
