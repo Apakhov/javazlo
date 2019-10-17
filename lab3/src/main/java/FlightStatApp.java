@@ -48,7 +48,14 @@ public class FlightStatApp {
         );
 
         JavaRDD<String> airportsFile = sc.textFile("airports.csv");
-        airportsFile.colle
+        airportsFile.mapToPair(
+                s -> {
+                    CSVRow row = flightParser.Parse(s);
+                    return new Tuple2<>(
+                           row.get("Code"), row.get("Description")
+                    );
+                }
+        ).collectAsMap();
 //        JavaPairRDD<String, Long> wordsWithCount =
 //                splitted.mapToPair(
 //                        s -> new Tuple2<>( s, 1L)
