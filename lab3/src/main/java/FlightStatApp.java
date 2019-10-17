@@ -50,7 +50,7 @@ public class FlightStatApp {
         );
 
         JavaRDD<String> airportsFile = sc.textFile("airports.csv");
-        Map<String, AirportInfo> stringAirportDataMap = airportsFile.mapToPair(
+        Map<String, String> stringAirportDataMap = airportsFile.mapToPair(
                 s -> {
                     CSVRow row = flightParser.Parse(s);
                     return new Tuple2<>(
@@ -61,8 +61,6 @@ public class FlightStatApp {
 
         final Broadcast<Map<String, String>> airportsBroadcasted =
                 sc.broadcast(stringAirportDataMap);
-        JavaRDD<String> distFile =
-                sc.textFile("airports.csv");
         JavaRDD<AirportInfo> splitted = distFile.map(
                 s -> new ParsedData(s, airportsBroadcasted.value())
 );
