@@ -58,7 +58,7 @@ public class FlightStatApp {
 
         Map<String, String> stringAirportDataMap = airportsFile.mapToPair(
                 s -> {
-                    CSVRow row = flightParser.Parse(s);
+                    CSVRow row = airportParser.Parse(s);
                     return new Tuple2<>(
                             row.get("Code"), row.get("Description")
                     );
