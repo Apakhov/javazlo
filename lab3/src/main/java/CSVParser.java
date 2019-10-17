@@ -26,7 +26,6 @@ public class CSVParser implements Serializable {
             }
         }
         values.add(stripUtSymb(raw.substring(beg)));
-        System.out.println("lasagna"+ values.toString());
 
         return new CSVRow(this.fields, values.toArray(new String[values.size()]));
     }
