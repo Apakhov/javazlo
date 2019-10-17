@@ -63,7 +63,7 @@ public class FlightStatApp {
                 sc.broadcast(stringAirportDataMap);
         JavaRDD<String> distFile =
                 sc.textFile("airports.csv");
-        JavaRDD<ParsedData> splitted = distFile.map(
+        JavaRDD<AirportInfo> splitted = distFile.map(
                 s -> new ParsedData(s, airportsBroadcasted.value())
 );
 //        JavaPairRDD<String, Long> wordsWithCount =
