@@ -48,7 +48,7 @@ public class FlightStatApp {
         );
 
         JavaRDD<String> airportsFile = sc.textFile("airports.csv");
-        airportsFile.mapToPair(
+        stringAirportDataMap = airportsFile.mapToPair(
                 s -> {
                     CSVRow row = flightParser.Parse(s);
                     return new Tuple2<>(
@@ -56,6 +56,8 @@ public class FlightStatApp {
                     );
                 }
         ).collectAsMap();
+        final Broadcast<Map<String, AirportData>> airportsBroadcasted =
+                sc.broadcast(stringAirportDataMap);
 //        JavaPairRDD<String, Long> wordsWithCount =
 //                splitted.mapToPair(
 //                        s -> new Tuple2<>( s, 1L)
