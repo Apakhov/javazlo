@@ -66,7 +66,7 @@ public class FlightStatApp {
                 AirportPairFinalStat::add
         );
 
-        
+
 //        JavaPairRDD<String, Long> wordsWithCount =
 //                splitted.mapToPair(
 //                        s -> new Tuple2<>( s, 1L)
