@@ -27,7 +27,6 @@ public class AirportPairFinalStat implements Serializable {
         canceledAmount = canceledAmount.add(s.canceledAmount);
         return this;
     }
-    
 
     @Override
     public String toString() {
