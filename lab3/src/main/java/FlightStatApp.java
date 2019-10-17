@@ -35,12 +35,29 @@ public class FlightStatApp {
 //        JavaRDD<String> airportsFile = sc.textFile("airports.csv");
         SparkConf conf = new SparkConf().setAppName("lab3");
         JavaSparkContext sc = new JavaSparkContext(conf);
+
+        JavaRDD<String> airportsFile = sc.textFile("airports.csv");
+        Map<String, String> stringAirportDataMap = airportsFile.mapToPair(
+                s -> {
+                    CSVRow row = flightParser.Parse(s);
+                    return new Tuple2<>(
+                            row.get("Code"), row.get("Description")
+                    );
+                }
+        ).collectAsMap();
+
+        final Broadcast<Map<String, String>> airportsBroadcasted =
+                sc.broadcast(stringAirportDataMap);
+
+
         JavaRDD<String> flightsFile = sc.textFile("flights.csv");
         JavaPairRDD<Tuple2<String, String>, AirportPairFinalStat> splitted = flightsFile.mapToPair(
                 s -> {
                     CSVRow row = flightParser.Parse(s);
                     return new Tuple2<>(
-                            new Tuple2<>(row.get("ORIGIN_AIRPORT_ID"), row.get("DEST_AIRPORT_ID")),
+                            new Tuple2<>(
+                                    airportsBroadcasted.value().get(row.get("ORIGIN_AIRPORT_ID")),
+                                    airportsBroadcasted.value().get(row.get("DEST_AIRPORT_ID"))),
                             new AirportPairFinalStat(row.asFloat("ARR_DELAY_NEW"), row.asBool("CANCELLED"))
                     );
                 }
@@ -49,22 +66,7 @@ public class FlightStatApp {
                 AirportPairFinalStat::add
         );
 
-        JavaRDD<String> airportsFile = sc.textFile("airports.csv");
-        Map<String, String> stringAirportDataMap = airportsFile.mapToPair(
-                s -> {
-                    CSVRow row = flightParser.Parse(s);
-                    return new Tuple2<>(
-                           row.get("Code"), row.get("Description")
-                    );
-                }
-        ).collectAsMap();
-
-        final Broadcast<Map<String, String>> airportsBroadcasted =
-                sc.broadcast(stringAirportDataMap);
-
-        JavaRDD<String> result = distFile.map(
-                s -> new ParsedData(s, airportsBroadcasted.value())
-);
+        
 //        JavaPairRDD<String, Long> wordsWithCount =
 //                splitted.mapToPair(
 //                        s -> new Tuple2<>( s, 1L)
