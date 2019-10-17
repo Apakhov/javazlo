@@ -8,9 +8,11 @@ import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
+import org.apache.spark.broadcast.Broadcast;
 import scala.Tuple2;
 
 import java.util.Arrays;
+import java.util.Map;
 
 public class FlightStatApp {
     private static final String[] FLIGHT_FIELDS = {"YEAR","QUARTER","MONTH",
@@ -48,7 +50,7 @@ public class FlightStatApp {
         );
 
         JavaRDD<String> airportsFile = sc.textFile("airports.csv");
-        stringAirportDataMap = airportsFile.mapToPair(
+        Map<String, String> stringAirportDataMap = airportsFile.mapToPair(
                 s -> {
                     CSVRow row = flightParser.Parse(s);
                     return new Tuple2<>(
@@ -56,7 +58,7 @@ public class FlightStatApp {
                     );
                 }
         ).collectAsMap();
-        final Broadcast<Map<String, AirportData>> airportsBroadcasted =
+        final Broadcast<Map<String, String>> airportsBroadcasted =
                 sc.broadcast(stringAirportDataMap);
 //        JavaPairRDD<String, Long> wordsWithCount =
 //                splitted.mapToPair(
