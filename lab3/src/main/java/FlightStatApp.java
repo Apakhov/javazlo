@@ -66,7 +66,16 @@ public class FlightStatApp {
 
         final Broadcast<Map<String, String>> airportsBroadcasted =
                 sc.broadcast(stringAirportDataMap);
-        
+
+        JavaPairRDD<Tuple2<String, String>, AirportPairFinalStat> res = reduced.mapToPair(
+                p -> new Tuple2<>(
+                        new Tuple2<>(
+                                airportsBroadcasted.value().get(p._1._1),
+                                airportsBroadcasted.value().get(p._1._2)
+                        ),
+                        p._2
+                )
+        );
 
 //        JavaPairRDD<String, Long> wordsWithCount =
 //                splitted.mapToPair(
@@ -83,7 +92,7 @@ public class FlightStatApp {
 //        JavaPairRDD<String, Tuple2<Long, Long>> joinValue = dictionary.join( collectedWords);
 
         System.out.println( "BEGIN--------------------------------------------------------------------");
-        System.out.println( "result="+reduced.collect()+airportsBroadcasted.value().values().toString());
+        System.out.println( "result="+res.collect()+airportsBroadcasted.value().values().toString());
         System.out.println( "END----------------------------------------------------------------------");
     }
 }
