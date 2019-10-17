@@ -47,7 +47,8 @@ public class FlightStatApp {
                 AirportPairFinalStat::add
         );
 
-        JavaRDD<String> airportsFile = sc.textFile("")
+        JavaRDD<String> airportsFile = sc.textFile("airports.csv");
+        airportsFile.as
 //        JavaPairRDD<String, Long> wordsWithCount =
 //                splitted.mapToPair(
 //                        s -> new Tuple2<>( s, 1L)
