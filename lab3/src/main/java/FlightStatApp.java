@@ -8,42 +8,13 @@ import scala.Tuple2;
 import java.util.Map;
 
 public class FlightStatApp {
-    public enum constants {
-        YEAR("YEAR"),
-        QUARTER("QUARTER"),
-        MONTH("MONTH"),
-        DAY_OF_MONTH("DAY_OF_MONTH"),
-        DAY_OF_WEEK("DAY_OF_WEEK"),
-        FL_DATE("FL_DATE"),
-        UNIQUE_CARRIER("UNIQUE_CARRIER"),
-        AIRLINE_ID("AIRLINE_ID"),
-        CARRIER("CARRIER"),
-        TAIL_NUM("TAIL_NUM"),
-        FL_NUM("FL_NUM"),
-        ORIGIN_AIRPORT_ID("ORIGIN_AIRPORT_ID"),
-        ORIGIN_AIRPORT_SEQ_ID("ORIGIN_AIRPORT_SEQ_ID"),
-        ORIGIN_CITY_MARKET_ID("ORIGIN_CITY_MARKET_ID"),
-        DEST_AIRPORT_ID("DEST_AIRPORT_ID"),
-        WHEELS_ON("WHEELS_ON"),
-        ARR_TIME("ARR_TIME"),
-        ARR_DELAY("ARR_DELAY"),
-        ARR_DELAY_NEW("ARR_DELAY_NEW"),
-        CANCELLED("CANCELLED"),
-        CANCELLATION_CODE("CANCELLATION_CODE"),
-        AIR_TIME("AIR_TIME"),
-        DISTANCE("DISTANCE");
-
-        private String value;
-
-        constants(String value) {
-            this.value = value;
-        }
-
-        public String value() {
-            return value;
-        }
-    }
-    private static final CSVParser flightParser = new CSVParser(constants.value());
+    private static final String[] FLIGHT_FIELDS = {"YEAR","QUARTER","MONTH",
+            "DAY_OF_MONTH","DAY_OF_WEEK","FL_DATE","UNIQUE_CARRIER",
+            "AIRLINE_ID","CARRIER","TAIL_NUM","FL_NUM","ORIGIN_AIRPORT_ID",
+            "ORIGIN_AIRPORT_SEQ_ID","ORIGIN_CITY_MARKET_ID","DEST_AIRPORT_ID",
+            "WHEELS_ON","ARR_TIME","ARR_DELAY","ARR_DELAY_NEW","CANCELLED",
+            "CANCELLATION_CODE","AIR_TIME","DISTANCE"};
+    private static final CSVParser flightParser = new CSVParser(FLIGHT_FIELDS);
 
     private static final String[] AIRPORT_FIELDS = {"Code","Description"};
     private static final CSVParser airportParser = new CSVParser(AIRPORT_FIELDS);
@@ -69,8 +40,8 @@ public class FlightStatApp {
                     CSVRow row = flightParser.Parse(s);
                     return new Tuple2<>(
                             new Tuple2<>(
-                                   row.get("ORIGIN_AIRPORT_ID"),
-                                   row.get("DEST_AIRPORT_ID")
+                                    row.get("ORIGIN_AIRPORT_ID"),
+                                    row.get("DEST_AIRPORT_ID")
                             ),
                             new AirportPairStat(row.asFloat("ARR_DELAY_NEW"), row.asBool("CANCELLED"))
                     );
