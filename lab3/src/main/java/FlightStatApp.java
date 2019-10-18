@@ -8,12 +8,34 @@ import scala.Tuple2;
 import java.util.Map;
 
 public class FlightStatApp {
-    enum FLIGHT_FIELDS = {"YEAR","QUARTER","MONTH",
-            "DAY_OF_MONTH","DAY_OF_WEEK","FL_DATE","UNIQUE_CARRIER",
-            "AIRLINE_ID","CARRIER","TAIL_NUM","FL_NUM","ORIGIN_AIRPORT_ID",
-            "ORIGIN_AIRPORT_SEQ_ID","ORIGIN_CITY_MARKET_ID","DEST_AIRPORT_ID",
-            "WHEELS_ON","ARR_TIME","ARR_DELAY","ARR_DELAY_NEW","CANCELLED",
-            "CANCELLATION_CODE","AIR_TIME","DISTANCE"};
+    private enum FLIGHT_FIELDS = {
+            YEAR("YEAR"),
+            QUARTER("QUARTER"),
+            MONTH("MONTH"),
+            DAY_OF_MONTH("DAY_OF_MONTH"),
+            DAY_OF_WEEK("DAY_OF_WEEK"),
+            FL_DATE("FL_DATE"),
+            UNIQUE_CARRIER("UNIQUE_CARRIER"),
+            AIRLINE_ID("AIRLINE_ID"),
+            CARRIER("CARRIER"),
+            TAIL_NUM("TAIL_NUM"),
+            FL_NUM("FL_NUM"),
+            ORIGIN_AIRPORT_ID("ORIGIN_AIRPORT_ID"),
+            ORIGIN_AIRPORT_SEQ_ID("ORIGIN_AIRPORT_SEQ_ID"),
+            ORIGIN_CITY_MARKET_ID("ORIGIN_CITY_MARKET_ID"),
+            DEST_AIRPORT_ID("DEST_AIRPORT_ID"),
+            WHEELS_ON("WHEELS_ON"),
+            ARR_TIME("ARR_TIME"),
+            ARR_DELAY("ARR_DELAY"),
+            ARR_DELAY_NEW("ARR_DELAY_NEW"),
+            CANCELLED("CANCELLED"),
+            CANCELLATION_CODE("CANCELLATION_CODE"),
+            AIR_TIME("AIR_TIME"),
+            DISTANCE("DISTANCE");
+
+            private String value;
+            
+    }
     private static final CSVParser flightParser = new CSVParser(FLIGHT_FIELDS);
 
     private static final String[] AIRPORT_FIELDS = {"Code","Description"};
