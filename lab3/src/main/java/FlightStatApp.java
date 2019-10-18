@@ -34,7 +34,14 @@ public class FlightStatApp {
             DISTANCE("DISTANCE");
 
             private String value;
-            
+
+        FLIGHT_FIELDS(String value) {
+            this.value = value;
+        }
+
+        public String value() {
+            return value;
+        }
     }
     private static final CSVParser flightParser = new CSVParser(FLIGHT_FIELDS);
 
