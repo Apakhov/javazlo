@@ -12,7 +12,7 @@ public class CSVRow {
     }
 
     public String get(String field) throws Exception {
-        String e = map.get(field);
+        String e = map.get(field.toUpperCase());
         if (e == null){
             throw new Exception(map.toString());
         }
