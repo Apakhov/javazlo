@@ -30,11 +30,10 @@ public class AirportPairFinalStat implements Serializable {
 
     @Override
     public String toString() {
-        return "AirportPairFinalStat{" +
+        return "Stat:" +
                 "maxDelay=" + maxDelay +
                 ", amount=" + amount +
                 ", delayedAmount=" + delayedAmount +
-                ", canceledAmount=" + canceledAmount +
-                '}';
+                ", canceledAmount=" + canceledAmount;
     }
 }

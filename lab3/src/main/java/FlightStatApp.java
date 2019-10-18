@@ -33,6 +33,7 @@ public class FlightStatApp {
 //            System.exit(-1);
 //        }
 //        JavaRDD<String> airportsFile = sc.textFile("airports.csv");
+
         SparkConf conf = new SparkConf().setAppName("lab3");
         JavaSparkContext sc = new JavaSparkContext(conf);
 
@@ -68,31 +69,15 @@ public class FlightStatApp {
         final Broadcast<Map<String, String>> airportsBroadcasted =
                 sc.broadcast(stringAirportDataMap);
 
-        JavaPairRDD<Tuple2<String, String>, AirportPairFinalStat> res = reduced.mapToPair(
-                p -> new Tuple2<>(
-                        new Tuple2<>(
-                                airportsBroadcasted.value().get(p._1._1),
-                                airportsBroadcasted.value().get(p._1._2)
-                        ),
-                        p._2
-                )
+        JavaRDD<String> res = reduced.map(
+                p -> airportsBroadcasted.value().get(p._1._1) +
+                        " -> " +
+                        airportsBroadcasted.value().get(p._1._2) +
+                        p._2.toString()
         );
 
-//        JavaPairRDD<String, Long> wordsWithCount =
-//                splitted.mapToPair(
-//                        s -> new Tuple2<>( s, 1L)
-//                );
-//        JavaPairRDD<String, Long> collectedWords = wordsWithCount.reduceByKey (
-//                Long::sum
-//        );
-//        JavaRDD<String> dictionaryFile = sc.textFile( "russian.txt");
-//        JavaPairRDD<String, Long> dictionary =
-//                dictionaryFile.mapToPair(
-//                        s -> new Tuple2<>( s, 1L)
-//                );
-//        JavaPairRDD<String, Tuple2<Long, Long>> joinValue = dictionary.join( collectedWords);
 
-        System.out.println( "BEGIN--------------------------------------------------------------------");
+
         System.out.println( "result="+res.collect());
         System.out.println( "END----------------------------------------------------------------------");
     }
