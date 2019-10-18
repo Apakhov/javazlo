@@ -8,7 +8,7 @@ import scala.Tuple2;
 import java.util.Map;
 
 public class FlightStatApp {
-    private static final String[] FLIGHT_FIELDS = {"YEAR","QUARTER","MONTH",
+    enum FLIGHT_FIELDS = {"YEAR","QUARTER","MONTH",
             "DAY_OF_MONTH","DAY_OF_WEEK","FL_DATE","UNIQUE_CARRIER",
             "AIRLINE_ID","CARRIER","TAIL_NUM","FL_NUM","ORIGIN_AIRPORT_ID",
             "ORIGIN_AIRPORT_SEQ_ID","ORIGIN_CITY_MARKET_ID","DEST_AIRPORT_ID",
