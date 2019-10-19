@@ -5,7 +5,7 @@ public class CSVRow {
 
 
     public CSVRow(String[] fields, String[] values) {
-        map = new HashMap<String, String>();
+        map = new HashMap<>();
         int len = Math.min(fields.length, values.length);
         for (int i = 0; i < len; i++){
             map.put(fields[i], values[i]);
@@ -29,7 +29,7 @@ public class CSVRow {
 
     public boolean asBool(String field) throws Exception {
         try {
-            return Float.parseFloat(map.get(field)) != 0;
+            return Float.parseFloat(get(field)) != 0;
         } catch (NumberFormatException ignored){}
         return false;
     }
