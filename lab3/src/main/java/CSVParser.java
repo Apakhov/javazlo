@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class CSVParser implements Serializable {
-    private String[] fields;
+    private final String[] fields;
 
     CSVParser(String... fields){
         this.fields = stripUtSymb(fields);

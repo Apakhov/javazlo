@@ -14,6 +14,10 @@ public class FlightStatApp {
             "ORIGIN_AIRPORT_SEQ_ID","ORIGIN_CITY_MARKET_ID","DEST_AIRPORT_ID",
             "WHEELS_ON","ARR_TIME","ARR_DELAY","ARR_DELAY_NEW","CANCELLED",
             "CANCELLATION_CODE","AIR_TIME","DISTANCE"};
+    private static final String ORIGIN_AIRPORT_ID = "ORIGIN_AIRPORT_ID";
+    private static final String DEST_AIRPORT_ID = "DEST_AIRPORT_ID";
+    private static final String ARR_DELAY_NEW = "ARR_DELAY_NEW";
+    private static final String CANCELLED = "CANCELLED";
     private static final CSVParser flightParser = new CSVParser(FLIGHT_FIELDS);
 
     private static final String[] AIRPORT_FIELDS = {"Code","Description"};
@@ -40,10 +44,10 @@ public class FlightStatApp {
                     CSVRow row = flightParser.Parse(s);
                     return new Tuple2<>(
                             new Tuple2<>(
-                                    row.get("ORIGIN_AIRPORT_ID"),
-                                    row.get("DEST_AIRPORT_ID")
+                                    row.get(ORIGIN_AIRPORT_ID),
+                                    row.get(DEST_AIRPORT_ID)
                             ),
-                            new AirportPairStat(row.asFloat("ARR_DELAY_NEW"), row.asBool("CANCELLED"))
+                            new AirportPairStat(row.asFloat(ARR_DELAY_NEW), row.asBool(CANCELLED))
                     );
                 }
         );

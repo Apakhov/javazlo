@@ -1,7 +1,8 @@
 import java.util.HashMap;
 
 public class CSVRow {
-    private HashMap<String, String> map;
+    private final HashMap<String, String> map;
+
 
     public CSVRow(String[] fields, String[] values) {
         map = new HashMap<String, String>();
