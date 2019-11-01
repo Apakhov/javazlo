@@ -59,6 +59,10 @@ public class StoreActor extends AbstractActor {
             this.results = results;
         }
 
+        public GetResultResponse() {
+            this.results = new ArrayList<>();
+        }
+
         public ArrayList<TestResult> getResults() {
             return results;
         }
@@ -108,8 +112,12 @@ public class StoreActor extends AbstractActor {
                     res.add(new TestResult(m));
                 })
                 .match(GetResultMessage.class, req -> {
-                    if (!store.containsKey(req.getUUID()))
-                        store.put(req.getUUID(), new ArrayList<>());
+                    if (!store.containsKey(req.getUUID())){
+                        sender().tell(
+                                new GetResultResponse(), self()
+                        );
+                        return;
+                    }
                     System.out.println(store.get(req.getUUID()));
                     sender().tell(
                             new GetResultResponse(store.get(req.getUUID())), self()

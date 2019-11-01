@@ -37,16 +37,29 @@ public class UserRoutes extends AllDirectives {
     //#all-routes
     //#users-get-delete
     public Route routes() {
-        return route(pathPrefix("users", () ->
+        return (pathPrefix("users", () ->
                 route(
-                        getOrPostUsers(),
-                        path(PathMatchers.segment(), name -> route(
-                                getUser(name),
-                                deleteUser(name)
-                                )
-                        )
+                        submitTest(),
+
                 )
         ));
+    }
+
+    private Route getResult() {
+        return get(() -> {
+            CompletionStage<Optional<StoreActor.GetResultResponse>> maybeUser = Patterns
+                    .ask(userRegistryActor, new UserRegistryMessages.GetUser(name), timeout)
+                    .thenApply(Optional.class::cast);
+
+            return onSuccess(() -> maybeUser,
+                    performed -> {
+                        if (performed.isPresent())
+                            return complete(StatusCodes.OK, performed.get(), Jackson.marshaller());
+                        else
+                            return complete(StatusCodes.NOT_FOUND);
+                    }
+            );
+        });
     }
     //#all-routes
 
