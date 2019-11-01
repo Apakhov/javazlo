@@ -29,15 +29,36 @@ public class JSCheckerApp {
         ActorRef testActor = system.actorOf(
                 Props.create(TestActor.class)
         );
-
+        UUID uuid = UUID.randomUUID();
         testActor.tell(
                 new TestActor.TestMessage(
-                        UUID.randomUUID(),
+                        uuid,
                         "var divideFn = function(a,b) { return a/b}",
                         "divideFn",
                         new Object[]{1,2},
                         "1"
                 ), storeActor
+        );
+        testActor.tell(
+                new TestActor.TestMessage(
+                       uuid,
+                        "var divideFn = function(a,b) { return a/b}",
+                        "divideFn",
+                        new Object[]{4,8},
+                        "1"
+                ), storeActor
+        );
+        testActor.tell(
+                new TestActor.TestMessage(
+                        uuid,
+                        "var divideFn = function(a,b) { return a/b}",
+                        "divideFn",
+                        new Object[]{12,88},
+                        "1"
+                ), storeActor
+        );
+        storeActor.tell(
+                new StoreActor.GetResultMessage(uuid), storeActor
         );
 
 //        storeActor.tell(
