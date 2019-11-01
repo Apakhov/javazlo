@@ -15,23 +15,12 @@ import akka.stream.javadsl.Flow;
 
 import java.util.concurrent.CompletionStage;
 
-public class HttpRouterActor extends AbstractActor {
+public class TaskRouter extends AbstractActor {
     ActorRef storeActor;
 
     {
         storeActor = getContext().actorOf(
                 Props.create(StoreActor.class)
-        );
-    }
-
-    public Route createRoute() {
-        return concat(
-                path("test", () ->
-                        get(() ->
-                                complete("<h1>Say hello to akka-http</h1>"))),
-                path("kek", () ->
-                        get(() -> complete("lol")
-                        ))
         );
     }
 
