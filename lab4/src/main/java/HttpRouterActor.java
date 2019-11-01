@@ -13,7 +13,18 @@ import akka.stream.javadsl.Flow;
 import java.util.concurrent.CompletionStage;
 
 public class HttpRouterActor extends AllDirectives {
+    Router router;
 
+    {
+        List<Routee> routees = new ArrayList<Routee>();
+        for (int i = 0; i < 5; i++) {
+            ActorRef r = getContext().actorOf(Props.create(Worker.class));
+            getContext().watch(r);
+            routees.add(new ActorRefRoutee(r));
+        }
+        router = new Router(new RoundRobinRoutingLogic(), routees);
+    }
+    
     public Route createRoute() {
         return concat(
                 path("test", () ->
