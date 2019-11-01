@@ -15,7 +15,7 @@ public class TestActor extends AbstractActor {
             return funcName;
         }
 
-        public String[] getArgs() {
+        public Object[] getArgs() {
             return args;
         }
 
@@ -30,10 +30,10 @@ public class TestActor extends AbstractActor {
         private final String uuid;
         private final String sourceCode;
         private final String funcName;
-        private final String[] args;
+        private final Object[] args;
         private final String expectedRes;
 
-        public TestMessage(String uuid, String sourceCode, String funcName, String[] args, String expectedRes) {
+        public TestMessage(String uuid, String sourceCode, String funcName, Object[] args, String expectedRes) {
             this.uuid = uuid;
             this.sourceCode = sourceCode;
             this.funcName = funcName;

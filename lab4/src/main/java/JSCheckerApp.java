@@ -17,10 +17,10 @@ public class JSCheckerApp {
         testActor.tell(
                 new TestActor.TestMessage(
                         "test",
-                        "",
-                        "",
-                        new String[]{""},
-                        ""
+                        "var divideFn = function(a,b) { return a/b }",
+                        "divideFn",
+                        new Object[]{2, 1},
+                        "2"
                 ),
                 ActorRef.noSender());
     }
