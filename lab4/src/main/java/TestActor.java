@@ -43,7 +43,7 @@ public class TestActor extends AbstractActor {
     }
 
     public static class ResultMessage {
-        public ResultMessage(String uuid, String expectedRes, String actualRes) {
+        ResultMessage(String uuid, String expectedRes, String actualRes) {
             this.uuid = uuid;
             this.expectedRes = expectedRes;
             this.actualRes = actualRes;
@@ -51,7 +51,7 @@ public class TestActor extends AbstractActor {
             this.error = null;
         }
 
-        public ResultMessage(String uuid, String expectedRes, Exception error) {
+        ResultMessage(String uuid, String expectedRes, Exception error) {
             this.uuid = uuid;
             this.error = error;
             this.expectedRes = expectedRes;

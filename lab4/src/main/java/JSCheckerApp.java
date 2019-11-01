@@ -11,21 +11,12 @@ public class JSCheckerApp {
         ActorRef storeActor = system.actorOf(
                 Props.create(StoreActor.class)
         );
-        storeActor.tell(
-                new StoreActor.StoreMessage("test", "test"),
-                ActorRef.noSender()
+        ActorRef testActor = system.actorOf(
+                Props.create(TestActor.class)
         );
-        storeActor.tell(
-                new StoreActor.StoreMessage("test1", "test1"),
-                ActorRef.noSender()
-        );
-        storeActor.tell(
-                new StoreActor.StoreMessage("test2", "test2"),
-                ActorRef.noSender()
-        );
-        storeActor.tell(
-                new StoreActor.StoreMessage("test3", "test3"),
-                ActorRef.noSender()
-        );
+        testActor.tell(new TestActor.TestMessage(
+                "test", "", "",String[]{""}, ""
+        ),
+                ActorRef.noSender());
     }
 }
