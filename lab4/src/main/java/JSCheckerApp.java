@@ -12,6 +12,7 @@ import akka.pattern.Patterns;
 import akka.pattern.PatternsCS;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
+import scala.concurrent.Await;
 import scala.concurrent.Future;
 
 import java.io.IOException;
@@ -25,8 +26,6 @@ public class JSCheckerApp {
                 Props.create(StoreActor.class)
         );
         Future<Object> future = Patterns.ask(storeActor, new StoreActor.CreateStoreMessage(2), 100);
-        StoreActor.CreateStoreResponse resp = (StoreActor.CreateStoreResponse) future.value().get().get();
-        System.out.println(resp.getUuid());
 
 //        storeActor.tell(
 //                new StoreActor.StoreMessage("test", "test"),
