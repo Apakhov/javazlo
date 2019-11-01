@@ -20,8 +20,10 @@ import java.sql.Time;
 import java.util.UUID;
 import java.util.concurrent.CompletionStage;
 
+import static java.lang.Thread.sleep;
+
 public class JSCheckerApp {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         // boot up server using the route as defined below
         ActorSystem system = ActorSystem.create("routes");
         ActorRef storeActor = system.actorOf(
@@ -58,7 +60,8 @@ public class JSCheckerApp {
                         "1"
                 ), storeActor
         );
-        System
+        sleep(100);
+
         storeActor.tell(
                 new StoreActor.GetResultMessage(uuid), storeActor
         );
