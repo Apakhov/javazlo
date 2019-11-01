@@ -88,7 +88,7 @@ public class StoreActor extends AbstractActor {
                 .match(TestActor.ResultMessage.class, m -> {
                     if (!store.containsKey(m.getUUID()))
                         store.put(m.getUUID(), new ArrayList<>());
-
+                    System.out.println("recieved result: res: "+ res.toString()+", expected:"+m.getExpectedRes().toString());
                     ArrayList<TestResult> res = store.get(m.getUUID());
                     res.add(new TestResult(m));
                 })
