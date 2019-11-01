@@ -1,4 +1,3 @@
-package com.example;
 
 import akka.NotUsed;
 import akka.actor.ActorRef;
