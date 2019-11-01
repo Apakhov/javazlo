@@ -1,5 +1,7 @@
 import akka.NotUsed;
+import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
+import akka.actor.Props;
 import akka.http.javadsl.ConnectHttp;
 import akka.http.javadsl.Http;
 import akka.http.javadsl.ServerBinding;
@@ -13,15 +15,12 @@ import akka.stream.javadsl.Flow;
 import java.util.concurrent.CompletionStage;
 
 public class HttpRouterActor extends AllDirectives {
-    ActorRef router;
+    ActorRef storeActor;
 
     {
-        List<Routee> routees = new ArrayList<Routee>();
-        for (int i = 0; i < 5; i++) {
-            ActorRef r = getContext().actorOf(Props.create(Worker.class));
-            getContext().watch(r);
-            routees.add(new ActorRefRoutee(r));
-        }
+        storeActor = system.actorOf(
+                Props.create(StoreActor.class)
+        );
         router = new Router(new RoundRobinRoutingLogic(), routees);
     }
 
