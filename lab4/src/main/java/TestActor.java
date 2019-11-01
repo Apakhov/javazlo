@@ -62,7 +62,7 @@ public class TestActor extends AbstractActor {
             this.actualRes = "";
             this.isOK = false;
         }
-        public String getUuid() {
+        public String getUUID() {
             return uuid;
         }
 
@@ -111,20 +111,5 @@ public class TestActor extends AbstractActor {
                     test(m), self()
                 ))
                 .build();
-    }
-
-    private static final int MAX_RETRIES = 10;
-
-    private static SupervisorStrategy strategy =
-            new OneForOneStrategy(MAX_RETRIES,
-                    Duration.create("1 minute"),
-                    DeciderBuilder.
-                            match(ArithmeticException.class, e -> resume()).
-                            match(NullPointerException.class, e -> restart()).
-                            match(IllegalArgumentException.class, e -> stop()).
-                            matchAny(o -> escalate()).build());
-    @Override
-    public SupervisorStrategy supervisorStrategy() {
-        return strategy;
     }
 }
