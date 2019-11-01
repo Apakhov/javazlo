@@ -44,6 +44,16 @@ public class TestActor extends AbstractActor {
     }
 
     public static class ResultMessage {
+        @Override
+        public String toString() {
+            return "ResultMessage{" +
+                    "expectedRes='" + expectedRes + '\'' +
+                    ", actualRes='" + actualRes + '\'' +
+                    ", isOK=" + isOK +
+                    ", error=" + error +
+                    '}';
+        }
+
         ResultMessage(UUID uuid, String expectedRes, String actualRes) {
             this.uuid = uuid;
             this.expectedRes = expectedRes;
