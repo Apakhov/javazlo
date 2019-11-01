@@ -18,7 +18,7 @@ public class JSCheckerApp {
     public static void main(String[] args) throws IOException {
         // boot up server using the route as defined below
         ActorSystem system = ActorSystem.create("routes");
-
+        
 
 
 //        final Http http = Http.get(system);
