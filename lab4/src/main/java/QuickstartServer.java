@@ -44,6 +44,7 @@ public class QuickstartServer extends AllDirectives {
     }
 
     //#main-class
+
     /**
      * Here you can define all the different routes you want to have served by this web server
      * Note that routes might be defined in separated classes like the current case

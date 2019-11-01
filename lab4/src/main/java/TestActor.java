@@ -69,6 +69,7 @@ public class TestActor extends AbstractActor {
             this.actualRes = "";
             this.isOK = false;
         }
+
         public UUID getUUID() {
             return uuid;
         }
@@ -96,17 +97,17 @@ public class TestActor extends AbstractActor {
         private final Exception error;
     }
 
-    private static ResultMessage test(TestMessage m){
+    private static ResultMessage test(TestMessage m) {
         ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
         try {
             engine.eval(m.getSourceCode());
             Invocable invocable = (Invocable) engine;
             Object[] args = m.getArgs();
             String res = invocable.invokeFunction(m.getFuncName(), args).toString();
-            System.out.println("Successful test: res: "+ res.toString()+", expected:"+m.getExpectedRes().toString());
+            System.out.println("Successful test: res: " + res.toString() + ", expected:" + m.getExpectedRes().toString());
             return new ResultMessage(m.getUuid(), m.getExpectedRes(), res);
-        } catch (Exception e){
-            System.out.println("exception occurred: "+ e.toString());
+        } catch (Exception e) {
+            System.out.println("exception occurred: " + e.toString());
             return new ResultMessage(m.getUuid(), m.getExpectedRes(), e);
         }
     }
@@ -115,7 +116,7 @@ public class TestActor extends AbstractActor {
     public Receive createReceive() {
         return ReceiveBuilder.create()
                 .match(TestMessage.class, m -> sender().tell(
-                    test(m), self()
+                        test(m), self()
                 ))
                 .build();
     }

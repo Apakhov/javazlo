@@ -55,7 +55,7 @@ public class StoreActor extends AbstractActor {
                     '}';
         }
 
-        public GetResultResponse(ArrayList<TestResult> results){
+        public GetResultResponse(ArrayList<TestResult> results) {
             this.results = results;
         }
 
@@ -66,7 +66,8 @@ public class StoreActor extends AbstractActor {
 
     public static class TestResult {
         private final TestActor.ResultMessage m;
-        public TestResult(TestActor.ResultMessage m){
+
+        public TestResult(TestActor.ResultMessage m) {
             this.m = m;
         }
 
@@ -102,7 +103,7 @@ public class StoreActor extends AbstractActor {
                 .match(TestActor.ResultMessage.class, m -> {
                     if (!store.containsKey(m.getUUID()))
                         store.put(m.getUUID(), new ArrayList<>());
-                    System.out.println("received result: res: "+ m.getActualRes()+", expected:"+m.getExpectedRes().toString());
+                    System.out.println("received result: res: " + m.getActualRes() + ", expected:" + m.getExpectedRes().toString());
                     ArrayList<TestResult> res = store.get(m.getUUID());
                     res.add(new TestResult(m));
                 })
