@@ -84,9 +84,6 @@ public class TestActor extends AbstractActor {
         private final String actualRes;
         private final boolean isOK;
         private final Exception error;
-
-        public UUID getUuid() {
-        }
     }
 
     private static ResultMessage test(TestMessage m){
