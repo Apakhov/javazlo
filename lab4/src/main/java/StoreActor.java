@@ -48,6 +48,13 @@ public class StoreActor extends AbstractActor {
     public static class GetResultResponse {
         private final ArrayList<TestResult> results;
 
+        @Override
+        public String toString() {
+            return "GetResultResponse{" +
+                    "results=" + results +
+                    '}';
+        }
+
         public GetResultResponse(ArrayList<TestResult> results){
             this.results = results;
         }
