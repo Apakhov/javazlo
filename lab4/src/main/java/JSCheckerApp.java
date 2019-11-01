@@ -11,10 +11,11 @@ import akka.pattern.PatternsCS;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
 
+import java.io.IOException;
 import java.util.concurrent.CompletionStage;
 
 public class JSCheckerApp {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // boot up server using the route as defined below
         ActorSystem system = ActorSystem.create("routes");
 

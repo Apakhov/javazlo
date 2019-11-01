@@ -14,7 +14,7 @@ import java.util.concurrent.CompletionStage;
 
 public class HttpRouterActor extends AllDirectives {
 
-    private Route createRoute() {
+    public Route createRoute() {
         return concat(
                 path("test", () ->
                         get(() ->
