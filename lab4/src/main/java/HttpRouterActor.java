@@ -15,7 +15,7 @@ import akka.stream.javadsl.Flow;
 
 import java.util.concurrent.CompletionStage;
 
-public class HttpRouterActor extends AbstractActor, AllDirectives {
+public class HttpRouterActor extends AbstractActor {
     ActorRef storeActor;
 
     {
