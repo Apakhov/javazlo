@@ -60,7 +60,7 @@ public class JSCheckerApp {
                         "1"
                 ), storeActor
         );
-        sleep(100);
+        sleep(10000);
 
         storeActor.tell(
                 new StoreActor.GetResultMessage(uuid), storeActor
