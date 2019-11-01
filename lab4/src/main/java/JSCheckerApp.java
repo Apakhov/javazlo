@@ -17,7 +17,7 @@ public class JSCheckerApp {
         testActor.tell(
                 new TestActor.TestMessage(
                         "test",
-                        "var divideFn = function(a,b) { return a*b }",
+                        "var divideFn = function(a,b) { return a }",
                         "divideFn",
                         new Object[]{2, 1},
                         "2"
