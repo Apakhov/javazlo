@@ -1,6 +1,10 @@
 import akka.actor.AbstractActor;
 import akka.japi.pf.ReceiveBuilder;
 
+import javax.script.Invocable;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+
 public class TestActor extends AbstractActor {
     public static class TestMessage {
         public String getSourceCode() {
@@ -36,8 +40,10 @@ public class TestActor extends AbstractActor {
     public Receive createReceive() {
         return ReceiveBuilder.create()
                 .match(TestMessage.class, m -> {
-                    store.put(m.getKey(), m.getValue());
-                    System.out.println("receive message! "+m.toString());
+                    ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
+                    engine.eval(m.getSourceCode());
+                    Invocable invocable = (Invocable) engine;
+                     invocable.invokeFunction(m.getFuncName(), (Object[]) m.getArgs());
                 })
                 .build();
     }
