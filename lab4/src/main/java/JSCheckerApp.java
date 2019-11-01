@@ -11,6 +11,7 @@ import akka.pattern.Patterns;
 import akka.pattern.PatternsCS;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
+import scala.concurrent.Future;
 
 import java.io.IOException;
 import java.util.concurrent.CompletionStage;
@@ -22,7 +23,8 @@ public class JSCheckerApp {
         ActorRef storeActor = system.actorOf(
                 Props.create(StoreActor.class)
         );
-        Patterns.ask(storeActor, new StoreActor.CreateStoreMessage(2), 100);
+        Future<Object> future = Patterns.ask(storeActor, new StoreActor.CreateStoreMessage(2), 100);
+        future.
         storeActor.tell(
                 new StoreActor.StoreMessage("test", "test"),
                 ActorRef.noSender()
