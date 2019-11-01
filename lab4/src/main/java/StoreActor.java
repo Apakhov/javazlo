@@ -28,7 +28,7 @@ public class StoreActor extends AbstractActor {
             this.uuid = uuid;
         }
 
-        public UUID getUuid() {
+        public UUID getUUID() {
             return uuid;
         }
     }
@@ -40,22 +40,16 @@ public class StoreActor extends AbstractActor {
             this.uuid = uuid;
         }
 
-        public UUID getUuid() {
+        public UUID getUUID() {
             return uuid;
         }
     }
 
     public static class GetResultResponse {
-        private final Integer testsAmount;
         private final ArrayList<TestResult> results;
 
-        public GetResultResponse(Integer testsAmount, ArrayList<TestResult> results){
-            this.testsAmount = testsAmount;
+        public GetResultResponse(ArrayList<TestResult> results){
             this.results = results;
-        }
-
-        public Integer getTestsAmount() {
-            return testsAmount;
         }
 
         public ArrayList<TestResult> getResults() {
@@ -92,18 +86,17 @@ public class StoreActor extends AbstractActor {
     public Receive createReceive() {
         return ReceiveBuilder.create()
                 .match(TestActor.ResultMessage.class, m -> {
-                    if (!store.containsKey(m.getUuid()))
-                        store.put(req.getUuid(), new Pair<>(req.getTestsAmount(), new ArrayList<>()));
+                    if (!store.containsKey(m.getUUID()))
+                        store.put(m.getUUID(), new ArrayList<>());
+
                     ArrayList<TestResult> res = store.get(m.getUUID());
                     res.add(new TestResult(m));
                 })
                 .match(GetResultMessage.class, req -> {
-                    if (!store.containsKey(req.getUuid()))
-                        store.put(req.getUuid(), new Pair<>(req.getTestsAmount(), new ArrayList<>()));
-                    Pair<Integer, ArrayList<TestResult>> res = store.get(req.getUuid());
-                    if
+                    if (!store.containsKey(req.getUUID()))
+                        store.put(req.getUUID(), new ArrayList<>());
                     sender().tell(
-                            new GetResultResponse(res.first(), res.second()), self()
+                            new GetResultResponse(store.get(req.getUUID())), self()
                     );
                 })
                 .build();
