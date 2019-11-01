@@ -33,10 +33,10 @@ public class JSCheckerApp {
         testActor.tell(
                 new TestActor.TestMessage(
                         UUID.randomUUID(),
-                        "",
-                        "",
-                        new Object[]{""},
-                        ""
+                        "var divideFn = function(a,b) { return a/b}",
+                        "divideFn",
+                        new Object[]{1,2},
+                        "1"
                 ), storeActor
         );
 
