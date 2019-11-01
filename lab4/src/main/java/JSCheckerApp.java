@@ -16,6 +16,7 @@ import scala.concurrent.Await;
 import scala.concurrent.Future;
 
 import java.io.IOException;
+import java.sql.Time;
 import java.util.UUID;
 import java.util.concurrent.CompletionStage;
 
@@ -57,6 +58,7 @@ public class JSCheckerApp {
                         "1"
                 ), storeActor
         );
+        System
         storeActor.tell(
                 new StoreActor.GetResultMessage(uuid), storeActor
         );
