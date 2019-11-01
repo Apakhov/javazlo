@@ -103,9 +103,9 @@ public class StoreActor extends AbstractActor {
                     );
                 })
                 .match(GetResultMessage.class, req -> {
-                    Pair<Integer, ArrayList<TestResult>> tests = store.get(req.getUuid());
+                    Pair<Integer, ArrayList<TestResult>> res = store.get(req.getUuid());
                     sender().tell(
-                            new GetResultResponse(), self()
+                            new GetResultResponse(res.first(), res.second()), self()
                     );
                 })
                 .build();
