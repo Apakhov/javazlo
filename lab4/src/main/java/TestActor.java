@@ -39,7 +39,7 @@ public class TestActor extends AbstractActor {
     @Override
     public Receive createReceive() {
         return ReceiveBuilder.create()
-                .match(TestMessage.class, m -> {
+                .match(TestMessage.class, m -> sender().tell({
                     ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
                     engine.eval(m.getSourceCode());
                     Invocable invocable = (Invocable) engine;
