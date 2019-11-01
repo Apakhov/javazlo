@@ -15,7 +15,7 @@ public class JSCheckerApp {
                 Props.create(TestActor.class)
         );
         testActor.tell(new TestActor.TestMessage(
-                "test", "", "",String[]{""}, ""
+                "test", "", "",new String[1], ""
         ),
                 ActorRef.noSender());
     }
