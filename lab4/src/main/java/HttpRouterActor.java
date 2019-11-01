@@ -18,7 +18,7 @@ public class HttpRouterActor extends AllDirectives {
     ActorRef storeActor;
 
     {
-        storeActor = system.actorOf(
+        storeActor = getContext().actorOf(
                 Props.create(StoreActor.class)
         );
         router = new Router(new RoundRobinRoutingLogic(), routees);
