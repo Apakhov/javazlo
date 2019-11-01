@@ -22,7 +22,7 @@ public class JSCheckerApp {
         ActorRef storeActor = system.actorOf(
                 Props.create(StoreActor.class)
         );
-        Patterns.ask(storeActor, new StoreActor.CreateStoreMessage(2), );
+        Patterns.ask(storeActor, new StoreActor.CreateStoreMessage(2), 100);
         storeActor.tell(
                 new StoreActor.StoreMessage("test", "test"),
                 ActorRef.noSender()
