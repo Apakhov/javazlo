@@ -17,11 +17,11 @@ public class JSCheckerApp {
         testActor.tell(
                 new TestActor.TestMessage(
                         "test",
-                    "",
-                    "",
-                new String[]{""},
-                ""
-        ),
+                        "",
+                        "",
+                        new String[]{""},
+                        ""
+                ),
                 ActorRef.noSender());
     }
 }
