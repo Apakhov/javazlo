@@ -29,7 +29,7 @@ public class JSCheckerApp {
             public void onSuccess(StoreActor.CreateStoreResponse result) {
                 System.out.println(result.toString());
             }
-        }, );
+        }, system.dispatcher());
 
 
         storeActor.tell(
