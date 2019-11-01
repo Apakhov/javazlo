@@ -86,14 +86,16 @@ public class StoreActor extends AbstractActor {
         }
     }
 
-    private Map<UUID, Pair<Integer, ArrayList<TestResult>>> store = new HashMap<>();
+    private Map<UUID, ArrayList<TestResult>> store = new HashMap<>();
 
     @Override
     public Receive createReceive() {
         return ReceiveBuilder.create()
                 .match(TestActor.ResultMessage.class, m -> {
-                    Pair<Integer, ArrayList<TestResult>> res = store.get(m.getUUID());
-                    res.second().add(new TestResult(m));
+                    if (!store.containsKey(m.getUuid()))
+                        store.put(req.getUuid(), new Pair<>(req.getTestsAmount(), new ArrayList<>()));
+                    ArrayList<TestResult> res = store.get(m.getUUID());
+                    res.add(new TestResult(m));
                 })
                 .match(GetResultMessage.class, req -> {
                     if (!store.containsKey(req.getUuid()))
