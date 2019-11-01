@@ -63,6 +63,13 @@ public class StoreActor extends AbstractActor {
             this.m = m;
         }
 
+        @Override
+        public String toString() {
+            return "TestResult{" +
+                    "m=" + m +
+                    '}';
+        }
+
         public String getExpectedRes() {
             return m.getExpectedRes();
         }
