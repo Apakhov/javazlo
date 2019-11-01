@@ -25,8 +25,13 @@ public class JSCheckerApp {
                 Props.create(StoreActor.class)
         );
         Future<Object> future = Patterns.ask(storeActor, new StoreActor.CreateStoreMessage(2), 100);
-        future.onSuccess(new OnSuccess<StoreActor.CreateStoreResponse>() {
-            public void onSuccess(StoreActor.CreateStoreResponse result) {
+        future.onSuccess(new OnSuccess<Object>() {
+            @Override
+            public void onSuccess(public Object result) throws Throwable, Throwable {
+
+            }
+
+            public void onSuccess(Throwable t, StoreActor.CreateStoreResponse result) {
                 System.out.println(result.toString());
             }
         }, system.dispatcher());
