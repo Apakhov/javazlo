@@ -25,13 +25,11 @@ public class JSCheckerApp {
                 Props.create(StoreActor.class)
         );
         Future<Object> future = Patterns.ask(storeActor, new StoreActor.CreateStoreMessage(2), 100);
-        future.onSuccess(new OnSuccess<String>() {
-            public void onSuccess(String result) {
-                if ("bar" == result) {
-//Do something if it resulted in "bar"
-                }
+        future.onSuccess(new OnSuccess<StoreActor.CreateStoreResponse>() {
+            public void onSuccess(StoreActor.CreateStoreResponse result) {
+                System.out.println(result.toString());
             }
-        }, ec);
+        }, );
 
 
         storeActor.tell(
