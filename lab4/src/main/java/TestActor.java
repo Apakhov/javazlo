@@ -36,6 +36,14 @@ public class TestActor extends AbstractActor {
         }
     }
 
+    public static class ResultMessage {
+        private final String expectedRes;
+        private final String actualRes;
+        private final boolean isOK;
+    }
+
+    private static test()
+
     @Override
     public Receive createReceive() {
         return ReceiveBuilder.create()
