@@ -1,11 +1,7 @@
-package com.example;
-
 import java.time.Duration;
 import java.util.Optional;
 import java.util.concurrent.CompletionStage;
 
-import com.example.UserRegistryActor.User;
-import com.example.UserRegistryMessages.ActionPerformed;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.event.Logging;
@@ -60,7 +56,7 @@ public class UserRoutes extends AllDirectives {
     private Route getUser(String name) {
       return get(() -> {
           // #retrieve-user-info
-          CompletionStage<Optional<User>> maybeUser = Patterns
+          CompletionStage<Optional<UserRegistryActor.User>> maybeUser = Patterns
                   .ask(userRegistryActor, new UserRegistryMessages.GetUser(name), timeout)
                   .thenApply(Optional.class::cast);
 
@@ -80,9 +76,9 @@ public class UserRoutes extends AllDirectives {
       return
           //#users-delete-logic
           delete(() -> {
-            CompletionStage<ActionPerformed> userDeleted = Patterns
+            CompletionStage<UserRegistryMessages.ActionPerformed> userDeleted = Patterns
               .ask(userRegistryActor, new UserRegistryMessages.DeleteUser(name), timeout)
-              .thenApply(ActionPerformed.class::cast);
+              .thenApply(UserRegistryMessages.ActionPerformed.class::cast);
 
             return onSuccess(() -> userDeleted,
               performed -> {
@@ -108,11 +104,11 @@ public class UserRoutes extends AllDirectives {
                 }),
                 post(() ->
                     entity(
-                        Jackson.unmarshaller(User.class),
+                        Jackson.unmarshaller(UserRegistryActor.User.class),
                         user -> {
-                            CompletionStage<ActionPerformed> userCreated = Patterns
+                            CompletionStage<UserRegistryMessages.ActionPerformed> userCreated = Patterns
                                 .ask(userRegistryActor, new UserRegistryMessages.CreateUser(user), timeout)
-                                .thenApply(ActionPerformed.class::cast);
+                                .thenApply(UserRegistryMessages.ActionPerformed.class::cast);
                             return onSuccess(() -> userCreated,
                                 performed -> {
                                     log.info("Created user [{}]: {}", user.getName(), performed.getDescription());
