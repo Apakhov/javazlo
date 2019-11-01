@@ -37,12 +37,32 @@ public class TestActor extends AbstractActor {
     }
 
     public static class ResultMessage {
+        public ResultMessage(String expectedRes, String actualRes, boolean isOK) {
+            this.expectedRes = expectedRes;
+            this.actualRes = actualRes;
+            this.isOK = isOK;
+        }
+
+        public String getExpectedRes() {
+            return expectedRes;
+        }
+
+        public String getActualRes() {
+            return actualRes;
+        }
+
+        public boolean isOK() {
+            return isOK;
+        }
+
         private final String expectedRes;
         private final String actualRes;
         private final boolean isOK;
     }
 
-    private static test()
+    private static ResultMessage test(TestMessage m){
+
+    }
 
     @Override
     public Receive createReceive() {
