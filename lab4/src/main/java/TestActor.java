@@ -102,7 +102,7 @@ public class TestActor extends AbstractActor {
     public Receive createReceive() {
         return ReceiveBuilder.create()
                 .match(TestMessage.class, m -> sender().tell({
-                    test(m), 
+                    test(m), self()
                 })
                 .build();
     }
