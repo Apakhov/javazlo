@@ -38,8 +38,12 @@ public class HttpRouterActor extends AllDirectives {
 
     private Route createRoute() {
         return concat(
-                path("hello", () ->
+                path("test", () ->
                         get(() ->
-                                complete("<h1>Say hello to akka-http</h1>"))));
+                                complete("<h1>Say hello to akka-http</h1>"))),
+                path("kek", () ->
+                        post(() ->
+                                complete("lol")))
+        );
     }
 }
