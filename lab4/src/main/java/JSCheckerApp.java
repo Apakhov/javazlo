@@ -25,18 +25,13 @@ public class JSCheckerApp {
                 Props.create(StoreActor.class)
         );
         Future<Object> future = Patterns.ask(storeActor, new StoreActor.CreateStoreMessage(2), 100);
-        future.onSuccess(new OnSuccess<Object>() {
-            @Override
-            public void onSuccess( Object result) {
-                System.out.println(result.toString());
-            }
-        }, system.dispatcher());
+        StoreActor.CreateStoreResponse resp = (StoreActor.CreateStoreResponse) future.value().get().get();
+        System.out.println(resp.getUuid());
 
-
-        storeActor.tell(
-                new StoreActor.StoreMessage("test", "test"),
-                ActorRef.noSender()
-        );
+//        storeActor.tell(
+//                new StoreActor.StoreMessage("test", "test"),
+//                ActorRef.noSender()
+//        );
 
 
 //        final Http http = Http.get(system);
