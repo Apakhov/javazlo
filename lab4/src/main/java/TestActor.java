@@ -4,6 +4,7 @@ import akka.japi.pf.ReceiveBuilder;
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 
 public class TestActor extends AbstractActor {
     public static class TestMessage {
@@ -37,10 +38,18 @@ public class TestActor extends AbstractActor {
     }
 
     public static class ResultMessage {
-        public ResultMessage(String expectedRes, String actualRes, boolean isOK) {
+        public ResultMessage(String expectedRes, String actualRes) {
             this.expectedRes = expectedRes;
             this.actualRes = actualRes;
-            this.isOK = isOK;
+            this.isOK = expectedRes.equals(actualRes);
+            this.error = null;
+        }
+
+        public ResultMessage(Exception error, String expectedRes) {
+            this.error = error;
+            this.expectedRes = expectedRes;
+            this.actualRes = "";
+            this.isOK = false;
         }
 
         public String getExpectedRes() {
@@ -55,23 +64,32 @@ public class TestActor extends AbstractActor {
             return isOK;
         }
 
+        public Exception getError() {
+            return error;
+        }
+
         private final String expectedRes;
         private final String actualRes;
         private final boolean isOK;
+        private final Exception error;
     }
 
     private static ResultMessage test(TestMessage m){
-
+        ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
+        try {
+            engine.eval(m.getSourceCode());
+            Invocable invocable = (Invocable) engine;
+            invocable.invokeFunction(m.getFuncName(), (Object[]) m.getArgs());
+        } catch (Exception e){
+            return new ResultMessage(e, m.getExpectedRes());
+        }
     }
 
     @Override
     public Receive createReceive() {
         return ReceiveBuilder.create()
                 .match(TestMessage.class, m -> sender().tell({
-                    ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
-                    engine.eval(m.getSourceCode());
-                    Invocable invocable = (Invocable) engine;
-                     invocable.invokeFunction(m.getFuncName(), (Object[]) m.getArgs());
+
                 })
                 .build();
     }
