@@ -16,6 +16,7 @@ import scala.concurrent.Await;
 import scala.concurrent.Future;
 
 import java.io.IOException;
+import java.util.UUID;
 import java.util.concurrent.CompletionStage;
 
 public class JSCheckerApp {
@@ -24,6 +25,19 @@ public class JSCheckerApp {
         ActorSystem system = ActorSystem.create("routes");
         ActorRef storeActor = system.actorOf(
                 Props.create(StoreActor.class)
+        );
+        ActorRef testActor = system.actorOf(
+                Props.create(TestActor.class)
+        );
+
+        testActor.tell(
+                new TestActor.TestMessage(
+                        UUID.randomUUID(),
+                        "",
+                        "",
+                        new Object[]{""},
+                        ""
+                ), storeActor
         );
 
 //        storeActor.tell(
