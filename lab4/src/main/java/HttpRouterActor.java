@@ -2,6 +2,7 @@ import akka.NotUsed;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
+import akka.actor.UntypedAbstractActor;
 import akka.http.javadsl.ConnectHttp;
 import akka.http.javadsl.Http;
 import akka.http.javadsl.ServerBinding;
@@ -14,7 +15,7 @@ import akka.stream.javadsl.Flow;
 
 import java.util.concurrent.CompletionStage;
 
-public class HttpRouterActor extends AllDirectives {
+public class HttpRouterActor extends UntypedAbstractActor, AllDirectives {
     ActorRef storeActor;
 
     {
@@ -33,5 +34,10 @@ public class HttpRouterActor extends AllDirectives {
                         get(() -> complete("lol")
                         ))
         );
+    }
+
+    @Override
+    public void onReceive(public Object message) throws Throwable, Throwable {
+
     }
 }
