@@ -25,9 +25,9 @@ public class JSCheckerApp {
         ActorRef storeActor = system.actorOf(
                 Props.create(StoreActor.class)
         );
-        Future<Object> future = Patterns.ask(storeActor, new StoreActor.CreateStoreMessage(2), 100);
+        CompletionStage<Object> future = PatternsCS.ask(storeActor, new StoreActor.CreateStoreMessage(2), 100);
         future.andThen(
-                
+
         );
 //        storeActor.tell(
 //                new StoreActor.StoreMessage("test", "test"),
