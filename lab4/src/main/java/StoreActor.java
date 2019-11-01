@@ -1,7 +1,5 @@
 import akka.actor.AbstractActor;
 import akka.japi.pf.ReceiveBuilder;
-import com.sun.xml.internal.xsom.impl.scd.Iterators;
-
 import java.util.HashMap;
 import java.util.Map;
 public class StoreActor extends AbstractActor {
@@ -12,13 +10,13 @@ public class StoreActor extends AbstractActor {
 
     }
 
-    private Map<String, Array<TestActor.ResultMessage>> store = new HashMap<>();
+    private Map<String, TestActor.ResultMessage[]> store = new HashMap<>();
 
     @Override
     public Receive createReceive() {
         return ReceiveBuilder.create()
                 .match(TestActor.ResultMessage.class, m -> {
-                    Iterators.Array res = store.get(m.getUUID());
+                    TestActor.ResultMessage[] res = store.get(m.getUUID());
                     res.
                     System.out.println("receive message! "+m.toString());
                 })
