@@ -4,6 +4,7 @@ import akka.japi.pf.ReceiveBuilder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class StoreActor extends AbstractActor {
     public static class CreateStoreMessage {
@@ -11,13 +12,13 @@ public class StoreActor extends AbstractActor {
     }
 
     public static class CreateStoreResponse {
-        private final String uuid;
+        private final UUID uuid;
 
-        public CreateStoreResponse(String uuid) {
+        public CreateStoreResponse(UUID uuid) {
             this.uuid = uuid;
         }
 
-        public String getUuid() {
+        public UUID getUuid() {
             return uuid;
         }
     }
@@ -33,7 +34,7 @@ public class StoreActor extends AbstractActor {
                     System.out.println("receive message! " + m.toString());
                 })
                 .match(CreateStoreMessage.class, req -> {
-                    
+                    UUID uuid = UUID.randomUUID();
                             return sender().tell(
                                     new StoreMessage(req.getKey(), store.get(req.getKey())), self()
                             );
