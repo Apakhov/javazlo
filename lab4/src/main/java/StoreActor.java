@@ -95,15 +95,11 @@ public class StoreActor extends AbstractActor {
                     Pair<Integer, ArrayList<TestResult>> res = store.get(m.getUUID());
                     res.second().add(new TestResult(m));
                 })
-                .match(CreateStoreMessage.class, req -> {
-                    UUID uuid = UUID.randomUUID();
-                    store.put(uuid, new Pair<>(req.getTestsAmount(), new ArrayList<>()));
-                    sender().tell(
-                            new CreateStoreResponse(uuid), self()
-                    );
-                })
                 .match(GetResultMessage.class, req -> {
+                    if (!store.containsKey(req.getUuid()))
+                        store.put(req.getUuid(), new Pair<>(req.getTestsAmount(), new ArrayList<>()));
                     Pair<Integer, ArrayList<TestResult>> res = store.get(req.getUuid());
+                    if
                     sender().tell(
                             new GetResultResponse(res.first(), res.second()), self()
                     );
