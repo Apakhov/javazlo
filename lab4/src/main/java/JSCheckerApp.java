@@ -2,6 +2,7 @@ import akka.NotUsed;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
+import akka.dispatch.OnSuccess;
 import akka.http.javadsl.ConnectHttp;
 import akka.http.javadsl.Http;
 import akka.http.javadsl.ServerBinding;
@@ -24,7 +25,15 @@ public class JSCheckerApp {
                 Props.create(StoreActor.class)
         );
         Future<Object> future = Patterns.ask(storeActor, new StoreActor.CreateStoreMessage(2), 100);
-        future.onSuccess();
+        future.onSuccess(new OnSuccess<String>() {
+            public void onSuccess(String result) {
+                if ("bar" == result) {
+//Do something if it resulted in "bar"
+                }
+            }
+        }, ec);
+
+
         storeActor.tell(
                 new StoreActor.StoreMessage("test", "test"),
                 ActorRef.noSender()
