@@ -80,6 +80,7 @@ public class TestActor extends AbstractActor {
             engine.eval(m.getSourceCode());
             Invocable invocable = (Invocable) engine;
             invocable.invokeFunction(m.getFuncName(), (Object[]) m.getArgs());
+            String res = invocable.invokeFunction(functionName, params).toString();
         } catch (Exception e){
             return new ResultMessage(e, m.getExpectedRes());
         }
