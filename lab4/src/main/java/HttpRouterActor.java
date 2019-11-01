@@ -22,8 +22,9 @@ public class HttpRouterActor extends AllDirectives {
                 path("kek", () ->
                         get(() ->{
                                 parameter();
-                                complete("lol")))
+                                return complete("lol");
                         }
+                        ))
         );
     }
 }
