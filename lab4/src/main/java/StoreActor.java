@@ -23,7 +23,7 @@ public class StoreActor extends AbstractActor {
         }
     }
 
-    private Map<String, ArrayList<TestActor.ResultMessage>> store = new HashMap<>();
+    private Map<UUID, ArrayList<TestActor.ResultMessage>> store = new HashMap<>();
 
     @Override
     public Receive createReceive() {
@@ -34,9 +34,10 @@ public class StoreActor extends AbstractActor {
                     System.out.println("receive message! " + m.toString());
                 })
                 .match(CreateStoreMessage.class, req -> {
-                    UUID uuid = UUID.randomUUID();
-                            return sender().tell(
-                                    new StoreMessage(req.getKey(), store.get(req.getKey())), self()
+                            UUID uuid = UUID.randomUUID();
+                            store.put(uuid, new ArrayList<>());
+                            sender().tell(
+                                    new CreateStoreResponse(uuid), self()
                             );
                         }
                 ).build();

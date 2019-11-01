@@ -20,8 +20,10 @@ public class HttpRouterActor extends AllDirectives {
                         get(() ->
                                 complete("<h1>Say hello to akka-http</h1>"))),
                 path("kek", () ->
-                        post(() ->
+                        get(() ->{
+                                parameter();
                                 complete("lol")))
+                        }
         );
     }
 }

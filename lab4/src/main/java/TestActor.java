@@ -1,13 +1,10 @@
 import akka.actor.AbstractActor;
-import akka.actor.OneForOneStrategy;
-import akka.actor.SupervisorStrategy;
-import akka.japi.pf.DeciderBuilder;
 import akka.japi.pf.ReceiveBuilder;
-import scala.concurrent.duration.Duration;
 
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
+import java.util.UUID;
 
 public class TestActor extends AbstractActor {
     public static class TestMessage {
@@ -27,17 +24,17 @@ public class TestActor extends AbstractActor {
             return expectedRes;
         }
 
-        public String getUuid() {
+        public UUID getUuid() {
             return uuid;
         }
 
-        private final String uuid;
+        private final UUID uuid;
         private final String sourceCode;
         private final String funcName;
         private final Object[] args;
         private final String expectedRes;
 
-        public TestMessage(String uuid, String sourceCode, String funcName, Object[] args, String expectedRes) {
+        public TestMessage(UUID uuid, String sourceCode, String funcName, Object[] args, String expectedRes) {
             this.uuid = uuid;
             this.sourceCode = sourceCode;
             this.funcName = funcName;
@@ -47,7 +44,7 @@ public class TestActor extends AbstractActor {
     }
 
     public static class ResultMessage {
-        ResultMessage(String uuid, String expectedRes, String actualRes) {
+        ResultMessage(UUID uuid, String expectedRes, String actualRes) {
             this.uuid = uuid;
             this.expectedRes = expectedRes;
             this.actualRes = actualRes;
@@ -55,14 +52,14 @@ public class TestActor extends AbstractActor {
             this.error = null;
         }
 
-        ResultMessage(String uuid, String expectedRes, Exception error) {
+        ResultMessage(UUID uuid, String expectedRes, Exception error) {
             this.uuid = uuid;
             this.error = error;
             this.expectedRes = expectedRes;
             this.actualRes = "";
             this.isOK = false;
         }
-        public String getUUID() {
+        public UUID getUUID() {
             return uuid;
         }
 
@@ -82,7 +79,7 @@ public class TestActor extends AbstractActor {
             return error;
         }
 
-        private final String uuid;
+        private final UUID uuid;
         private final String expectedRes;
         private final String actualRes;
         private final boolean isOK;
