@@ -6,7 +6,9 @@ public class TestActor extends AbstractActor {
 
 
         private final String sourceCode;
-        private final String ;
+        private final String funcName;
+        private final String[] args;
+        private final 
     }
 
     @Override
