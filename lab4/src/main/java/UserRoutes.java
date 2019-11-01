@@ -45,10 +45,11 @@ public class UserRoutes extends AllDirectives {
         ));
     }
 
-    private Route getResult() {
+    private Route getResult(String name) {
         return get(() -> {
+
             CompletionStage<Optional<StoreActor.GetResultResponse>> maybeUser = Patterns
-                    .ask(userRegistryActor, new UserRegistryMessages.GetUser(name), timeout)
+                    .ask(StoreActor, new StoreActor.GetResultMessage()), timeout)
                     .thenApply(Optional.class::cast);
 
             return onSuccess(() -> maybeUser,
