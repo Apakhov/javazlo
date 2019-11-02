@@ -121,9 +121,12 @@ public class TestActor extends AbstractActor {
     @Override
     public Receive createReceive() {
         return ReceiveBuilder.create()
-                .match(TestMessage.class, m -> sender().tell(
-                        test(m), self()
-                ))
+                .match(TestMessage.class, m -> {
+                    log.info(m.toString());
+                    sender().tell(
+                            test(m), self()
+                    );
+                })
                 .build();
     }
 
