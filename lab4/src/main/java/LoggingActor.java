@@ -1,4 +1,5 @@
 import akka.actor.AbstractActor;
+import akka.actor.Props;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
 
@@ -8,5 +9,9 @@ public class LoggingActor extends AbstractActor {
     @Override
     public Receive createReceive() {
         return null;
+    }
+
+    static Props props() {
+        return Props.create(RouterActor.class);
     }
 }
