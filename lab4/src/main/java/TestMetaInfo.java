@@ -19,6 +19,12 @@ public class TestMetaInfo {
         this.funcName = funcName;
     }
 
+    public TestMetaInfo(TestMetaInfo info){
+        this.sourceCode = info.sourceCode;
+        this.funcName = info.funcName;
+        this.uuid = info.uuid;
+    }
+
     public void setUUID(UUID uuid) {
         this.uuid = uuid;
     }
