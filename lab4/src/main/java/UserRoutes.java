@@ -1,5 +1,6 @@
 import java.time.Duration;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.concurrent.CompletionStage;
 
 import akka.actor.ActorRef;
@@ -21,11 +22,13 @@ public class UserRoutes extends AllDirectives {
     //#user-routes-class
     final private ActorRef userRegistryActor;
     final private LoggingAdapter log;
+    final private ActorRef storeActor;
 
 
-    public UserRoutes(ActorSystem system, ActorRef userRegistryActor) {
+    public UserRoutes(ActorSystem system, ActorRef userRegistryActor, ActorRef storeActor) {
         this.userRegistryActor = userRegistryActor;
         log = Logging.getLogger(system, this);
+        this.storeActor = storeActor;
     }
 
     // Required by the `ask` (?) method below
@@ -37,10 +40,14 @@ public class UserRoutes extends AllDirectives {
     //#all-routes
     //#users-get-delete
     public Route routes() {
-        return (pathPrefix("users", () ->
+        return route(pathPrefix("users", () ->
                 route(
-                        submitTest(),
-
+                        getOrPostUsers(),
+                        path(PathMatchers.segment(), name -> route(
+                                getUser(name),
+                                deleteUser(name)
+                                )
+                        )
                 )
         ));
     }
@@ -49,7 +56,7 @@ public class UserRoutes extends AllDirectives {
         return get(() -> {
 
             CompletionStage<Optional<StoreActor.GetResultResponse>> maybeUser = Patterns
-                    .ask(StoreActor, new StoreActor.GetResultMessage()), timeout)
+                    .ask(storeActor, new StoreActor.GetResultMessage(UUID.fromString(name))), timeout)
                     .thenApply(Optional.class::cast);
 
             return onSuccess(() -> maybeUser,
