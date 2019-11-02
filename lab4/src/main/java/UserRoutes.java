@@ -22,15 +22,13 @@ public class UserRoutes extends AllDirectives {
     //#user-routes-class
     final private ActorRef userRegistryActor;
     final private LoggingAdapter log;
-    final private ActorRef storeActor;
-    final private ActorRef testActorPool;
+    final private ActorRef routerActor;
 
 
-    public UserRoutes(ActorSystem system, ActorRef userRegistryActor, ActorRef storeActor, ActorRef testActorPool) {
+    public UserRoutes(ActorSystem system, ActorRef userRegistryActor, ActorRef routerActor) {
         this.userRegistryActor = userRegistryActor;
         log = Logging.getLogger(system, this);
-        this.storeActor = storeActor;
-        this.testActorPool = testActorPool;
+        this.routerActor = routerActor;
     }
 
     // Required by the `ask` (?) method below

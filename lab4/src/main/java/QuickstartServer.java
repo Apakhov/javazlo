@@ -16,8 +16,8 @@ public class QuickstartServer extends AllDirectives {
     // set up ActorSystem and other dependencies here
     private final UserRoutes userRoutes;
 
-    public QuickstartServer(ActorSystem system, ActorRef userRegistryActor, ActorRef storeActor, ActorRef ) {
-        userRoutes = new UserRoutes(system, userRegistryActor, storeActor);
+    public QuickstartServer(ActorSystem system, ActorRef t, ActorRef routerActor ) {
+        userRoutes = new UserRoutes(system, t, routerActor);
     }
     //#main-class
 
