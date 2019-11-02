@@ -42,7 +42,7 @@ public class UserRoutes extends AllDirectives {
     public Route routes() {
         return concat(
                 getResult(),
-                pre
+                pathPrefix("submit", this::submitTests)
         );
     }
 
@@ -75,6 +75,7 @@ public class UserRoutes extends AllDirectives {
         return post(() -> entity(Jackson.unmarshaller(Submit.class),
                 content ->{
                     UUID uuid = UUID.randomUUID();
+                    log.info("generated:"+uuid);
                     return complete(StatusCodes.OK, uuid, Jackson.marshaller());
                 })
         );
