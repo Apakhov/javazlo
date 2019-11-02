@@ -99,7 +99,7 @@ public class UserRoutes extends AllDirectives {
                                     log.info("generated:" + uuid);
                                     return complete(
                                             StatusCodes.CREATED,
-                                            "Tests started!", Jackson.marshaller()
+                                            uuid, Jackson.marshaller()
                                     );
                                 }))
                 )
