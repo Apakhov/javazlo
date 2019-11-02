@@ -68,7 +68,9 @@ public class UserRoutes extends AllDirectives {
     }
 
     private class Submit {
+        Submit(){
 
+        }
     }
 
     private Route submitTests() {
