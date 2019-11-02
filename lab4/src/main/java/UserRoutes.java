@@ -41,7 +41,8 @@ public class UserRoutes extends AllDirectives {
     //#users-get-delete
     public Route routes() {
         return concat(
-                getResult()
+                getResult(),
+                pre
         );
     }
 
@@ -74,8 +75,7 @@ public class UserRoutes extends AllDirectives {
         return post(() -> entity(Jackson.unmarshaller(Submit.class),
                 content ->{
                     UUID uuid = UUID.randomUUID();
-                    complete(StatusCodes.OK, uuid, Jackson.marshaller());
-                    return 
+                    return complete(StatusCodes.OK, uuid, Jackson.marshaller());
                 })
         );
     }
