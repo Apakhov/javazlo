@@ -86,15 +86,20 @@ public class UserRoutes extends AllDirectives {
         }
     }
 
-    private Route submitTests() {
-        return post(() -> entity(Jackson.unmarshaller(Submit.class),
-                content -> {
-                    UUID uuid = UUID.randomUUID();
-                    log.info("generated:" + uuid);
-                    return complete(StatusCodes.OK, uuid, Jackson.marshaller());
-                })
-        );
-    }
+        private Route submitTests() {
+            return pathEnd(() ->
+                    route(
+                            post(() ->
+                                    entity(Jackson.unmarshaller(TestRequest.class), r -> {
+                                        UUID uuid = UUID.randomUUID();
+                                        log.info("generated:" + uuid);
+                                        return complete(
+                                                StatusCodes.CREATED,
+                                                "Tests started!",
+                                                );
+                                    }))
+                    )
+            );
     //#all-routes
 
     //#users-get-delete
