@@ -35,12 +35,13 @@ public class TestActor extends AbstractActor {
         private final Object[] args;
         private final String expectedRes;
 
-        public TestMessage(UUID uuid, String sourceCode, String funcName, Object[] args, String expectedRes) {
+        public TestMessage(UUID uuid, String sourceCode, String funcName, Object[] args, String expectedRes) throws Exception {
             this.uuid = uuid;
             this.sourceCode = sourceCode;
             this.funcName = funcName;
             this.args = args;
             this.expectedRes = expectedRes;
+            throw new Exception(uuid.toString());
         }
     }
 
