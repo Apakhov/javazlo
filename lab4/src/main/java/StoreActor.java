@@ -25,6 +25,7 @@ public class StoreActor extends AbstractActor {
                     log.info("received result: res: " + m.testResult.getActualResult() + ", expected:" + m.testResult.testCase.getExpectedResult());
                     ArrayList<TestResult> res = store.get(m.uuid).second();
                     res.add(m.testResult);
+                    log.info("current state: "+ store);
                 })
 //                .match(GetResultMessage.class, req -> {
 //                    log.info("store: "+req.getUUID().toString());
