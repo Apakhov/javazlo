@@ -55,7 +55,7 @@ public class UserRoutes extends AllDirectives {
                         uuid = UUID.randomUUID();
                     }
                     CompletionStage<Object> result = Patterns
-                            .ask(storeActor, new StoreActor.GetResultMessage(uuid), timeout);
+                            .ask(routerActor, new StoreActor.GetResultMessage(uuid), timeout);
                     return onSuccess(() -> result,
                             performed -> {
                                 log.info("res"+result);
