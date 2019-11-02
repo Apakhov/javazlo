@@ -12,6 +12,7 @@ import java.util.UUID;
 
 public class StoreActor extends AbstractActor {
     LoggingAdapter log = Logging.getLogger(getContext().getSystem(), this);
+
     public static class CreateStoreMessage {
         private final Integer testsAmount;
 

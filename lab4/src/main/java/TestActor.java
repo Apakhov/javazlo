@@ -1,5 +1,7 @@
 import akka.actor.AbstractActor;
 import akka.actor.Props;
+import akka.event.Logging;
+import akka.event.LoggingAdapter;
 import akka.japi.pf.ReceiveBuilder;
 
 import javax.script.Invocable;
@@ -8,6 +10,7 @@ import javax.script.ScriptEngineManager;
 import java.util.UUID;
 
 public class TestActor extends AbstractActor {
+    LoggingAdapter log = Logging.getLogger(getContext().getSystem(), this);
     public static class TestMessage {
         public String getSourceCode() {
             return sourceCode;
