@@ -47,19 +47,25 @@ public class UserRoutes extends AllDirectives {
 
     private Route getResult() {
         return get(() ->
-            parameter("uuid", (uuid) ->{
-                    CompletionStage<Optional<StoreActor.GetResultResponse>> maybeUser = Patterns
-                    .ask(storeActor, new StoreActor.GetResultMessage(UUID.fromString(uuid)), timeout)
-                    .thenApply(Optional.class::cast);
-            return onSuccess(() -> maybeUser,
-                    performed -> {
-                        if (performed.isPresent())
-                            return complete(StatusCodes.OK, performed.get(), Jackson.marshaller());
-                        else
-                            return complete(StatusCodes.NOT_FOUND);
+                parameter("uuid", (uuidStr) -> {
+                    UUID uuid;
+                    try {
+                        uuid = UUID.fromString(uuidStr);
+                    } catch (Exception e) {
+                        uuid = UUID.randomUUID();
                     }
-            );
-        }));
+                    CompletionStage<Optional<StoreActor.GetResultResponse>> maybeUser = Patterns
+                            .ask(storeActor, new StoreActor.GetResultMessage(uuid), timeout)
+                            .thenApply(Optional.class::cast);
+                    return onSuccess(() -> maybeUser,
+                            performed -> {
+                                if (performed.isPresent())
+                                    return complete(StatusCodes.OK, performed.get(), Jackson.marshaller());
+                                else
+                                    return complete(StatusCodes.NOT_FOUND);
+                            }
+                    );
+                }));
     }
     //#all-routes
 
