@@ -31,13 +31,13 @@ public class StoreActor extends AbstractActor {
                     log.info("store get res with: "+req.uuid);
                     if (!store.containsKey(req.getUUID())){
                         sender().tell(
-                                new GetResultResponse(), self()
+                                new ResMsg(), self()
                         );
                         return;
                     }
-                    log.info(req.getUUID().toString());
+                    log.info(req.uuid.toString());
                     sender().tell(
-                            new GetResultResponse(store.get(req.getUUID())), self()
+                            new ResMsg(store.get(req.getUUID())), self()
                     );
                 })
                 .build();
