@@ -68,8 +68,6 @@ public class HTTPRoutes extends AllDirectives {
                 }));
     }
 
-
-
     private Route submitTests() {
         return pathEnd(() ->
                 route(
