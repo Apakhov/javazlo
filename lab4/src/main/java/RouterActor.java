@@ -42,9 +42,7 @@ public class RouterActor extends AbstractActor {
                 .match(StoreActor.GetResultMessage.class, req -> {
                             log.info("Receive ! {}", req.toString());
                             storeActor.forward(req, getContext());
-                        }
-
-                )
+                        })
                 .matchAny(o -> log.info(o.toString() + o.getClass()))
                 .build();
     }
