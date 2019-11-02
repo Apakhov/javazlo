@@ -3,8 +3,11 @@ import akka.actor.ActorRef;
 import akka.actor.OneForOneStrategy;
 import akka.actor.SupervisorStrategy;
 import akka.japi.pf.DeciderBuilder;
+import akka.japi.pf.ReceiveBuilder;
 import akka.routing.RoundRobinPool;
 import scala.concurrent.duration.Duration;
+
+import java.util.ArrayList;
 
 public class RouterActor extends AbstractActor {
     private final ActorRef storeActor;
@@ -29,6 +32,26 @@ public class RouterActor extends AbstractActor {
 
     @Override
     public Receive createReceive() {
-        return null;
+        return ReceiveBuilder.create()
+                .match(TestActor.ResultMessage.class, m -> {
+                    if (!store.containsKey(m.getUUID()))
+                        store.put(m.getUUID(), new ArrayList<>());
+                    System.out.println("received result: res: " + m.getActualRes() + ", expected:" + m.getExpectedRes().toString());
+                    ArrayList<StoreActor.TestResult> res = store.get(m.getUUID());
+                    res.add(new StoreActor.TestResult(m));
+                })
+                .match(StoreActor.GetResultMessage.class, req -> {
+                    if (!store.containsKey(req.getUUID())){
+                        sender().tell(
+                                new StoreActor.GetResultResponse(), self()
+                        );
+                        return;
+                    }
+                    System.out.println(store.get(req.getUUID()));
+                    sender().tell(
+                            new StoreActor.GetResultResponse(store.get(req.getUUID())), self()
+                    );
+                })
+                .build();
     }
 }
