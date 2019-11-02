@@ -40,23 +40,16 @@ public class UserRoutes extends AllDirectives {
     //#all-routes
     //#users-get-delete
     public Route routes() {
-        return route(pathPrefix("users", () ->
-                route(
-                        getOrPostUsers(),
-                        path(PathMatchers.segment(), name -> route(
-                                getUser(name),
-                                deleteUser(name)
-                                )
-                        )
-                        
-                )
-        ));
+        return concat(
+                getResult()
+        );
     }
 
-    private Route getResult(String name) {
-        return get(() -> {
-            CompletionStage<Optional<StoreActor.GetResultResponse>> maybeUser = Patterns
-                    .ask(storeActor, new StoreActor.GetResultMessage(UUID.fromString(name)), timeout)
+    private Route getResult() {
+        return get(() ->
+            parameter("uuid", (uuid) ->{
+                    CompletionStage<Optional<StoreActor.GetResultResponse>> maybeUser = Patterns
+                    .ask(storeActor, new StoreActor.GetResultMessage(UUID.fromString(uuid)), timeout)
                     .thenApply(Optional.class::cast);
             return onSuccess(() -> maybeUser,
                     performed -> {
@@ -66,12 +59,7 @@ public class UserRoutes extends AllDirectives {
                             return complete(StatusCodes.NOT_FOUND);
                     }
             );
-        });
-    }
-    private Route getResult(String name) {
-    return get(() ->
-    parameter("key", (key) -> parameter("value", (value) -> { // тут юзаешь
-         })))
+        }));
     }
     //#all-routes
 
