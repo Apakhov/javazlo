@@ -117,7 +117,47 @@ public class UserRoutes extends AllDirectives {
             return functionName;
         }
     }
-    
+    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+    public class Test {
+        private String packageID;
+        private String testName;
+        private String expectedResult;
+        private Object[] params;
+
+        public Test() {
+            this.packageID = "";
+            this.testName = "";
+            this.expectedResult = "";
+            this.params = new Object[]{};
+        }
+
+        public Test(String name, String expectedResult, Object[] params) {
+            this.packageID = "";
+            this.testName = name;
+            this.expectedResult = expectedResult;
+            this.params = params;
+        }
+
+        public void setPackageID(String packageID) {
+            this.packageID = packageID;
+        }
+
+        public String getPackageID() {
+            return packageID;
+        }
+
+        public String getTestName() {
+            return testName;
+        }
+
+        public String getExpectedResult() {
+            return expectedResult;
+        }
+
+        public Object[] getParams() {
+            return params;
+        }
+    }
     @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
     public class TestRequest extends TestMetaInfo {
         private Test[] tests;
@@ -156,71 +196,5 @@ public class UserRoutes extends AllDirectives {
     //#users-get-delete
 
     //#users-get-delete
-    private Route getUser(String name) {
-        return get(() -> {
-            // #retrieve-user-info
-            CompletionStage<Optional<UserRegistryActor.User>> maybeUser = Patterns
-                    .ask(userRegistryActor, new UserRegistryMessages.GetUser(name), timeout)
-                    .thenApply(Optional.class::cast);
 
-            return onSuccess(() -> maybeUser,
-                    performed -> {
-                        if (performed.isPresent())
-                            return complete(StatusCodes.OK, performed.get(), Jackson.marshaller());
-                        else
-                            return complete(StatusCodes.NOT_FOUND);
-                    }
-            );
-            //#retrieve-user-info
-        });
-    }
-
-    private Route deleteUser(String name) {
-        return
-                //#users-delete-logic
-                delete(() -> {
-                    CompletionStage<UserRegistryMessages.ActionPerformed> userDeleted = Patterns
-                            .ask(userRegistryActor, new UserRegistryMessages.DeleteUser(name), timeout)
-                            .thenApply(UserRegistryMessages.ActionPerformed.class::cast);
-
-                    return onSuccess(() -> userDeleted,
-                            performed -> {
-                                log.info("Deleted user [{}]: {}", name, performed.getDescription());
-                                return complete(StatusCodes.OK, performed, Jackson.marshaller());
-                            }
-                    );
-                });
-        //#users-delete-logic
-    }
-    //#users-get-delete
-
-    //#users-get-post
-    private Route getOrPostUsers() {
-        return pathEnd(() ->
-                route(
-                        get(() -> {
-                            CompletionStage<UserRegistryActor.Users> futureUsers = Patterns
-                                    .ask(userRegistryActor, new UserRegistryMessages.GetUsers(), timeout)
-                                    .thenApply(UserRegistryActor.Users.class::cast);
-                            return onSuccess(() -> futureUsers,
-                                    users -> complete(StatusCodes.OK, users, Jackson.marshaller()));
-                        }),
-                        post(() ->
-                                entity(
-                                        Jackson.unmarshaller(UserRegistryActor.User.class),
-                                        user -> {
-                                            CompletionStage<UserRegistryMessages.ActionPerformed> userCreated = Patterns
-                                                    .ask(userRegistryActor, new UserRegistryMessages.CreateUser(user), timeout)
-                                                    .thenApply(UserRegistryMessages.ActionPerformed.class::cast);
-                                            return onSuccess(() -> userCreated,
-                                                    performed -> {
-                                                        log.info("Created user [{}]: {}", user.getName(), performed.getDescription());
-                                                        return complete(StatusCodes.CREATED, performed, Jackson.marshaller());
-                                                    });
-                                        }))
-                )
-        );
-    }
-
-    //#users-get-post
 }
