@@ -1,5 +1,7 @@
 import akka.actor.AbstractActor;
 import akka.actor.Props;
+import akka.event.Logging;
+import akka.event.LoggingAdapter;
 import akka.japi.Pair;
 import akka.japi.pf.ReceiveBuilder;
 
@@ -9,6 +11,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class StoreActor extends AbstractActor {
+    LoggingAdapter log = Logging.getLogger(getContext().getSystem(), this);
     public static class CreateStoreMessage {
         private final Integer testsAmount;
 

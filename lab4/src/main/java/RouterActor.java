@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class RouterActor extends AbstractActor {
     LoggingAdapter log = Logging.getLogger(getContext().getSystem(), this);
+
     private final ActorRef storeActor;
     private final ActorRef testPool;
     private static SupervisorStrategy strategy =
