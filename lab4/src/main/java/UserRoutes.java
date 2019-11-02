@@ -54,15 +54,13 @@ public class UserRoutes extends AllDirectives {
                     } catch (Exception e) {
                         uuid = UUID.randomUUID();
                     }
-                    CompletionStage<Optional<StoreActor.GetResultResponse>> maybeUser = Patterns
-                            .ask(storeActor, new StoreActor.GetResultMessage(uuid), timeout)
-                            .thenApply(Optional.class::cast);
-                    return onSuccess(() -> maybeUser,
+                    CompletionStage<Object> result = Patterns
+                            .ask(storeActor, new StoreActor.GetResultMessage(uuid), timeout);
+                    return onSuccess(() -> result,
                             performed -> {
-                                if (performed.isPresent())
-                                    return complete(StatusCodes.OK, performed.get(), Jackson.marshaller());
-                                else
-                                    return complete(StatusCodes.NOT_FOUND);
+                                System.out.println("res"+result);
+                                System.out.println("perf"+performed);
+                                    return complete(StatusCodes.OK, performed, Jackson.marshaller());
                             }
                     );
                 }));
