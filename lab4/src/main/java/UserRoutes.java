@@ -87,7 +87,7 @@ public class UserRoutes extends AllDirectives {
                                                 test.getParams(),
                                                 test.getExpectedResult()
 
-                                        ), ActorRef.noSender()Z);
+                                        ), ActorRef.noSender());
                                     }
                                     return complete(
                                             StatusCodes.CREATED,
