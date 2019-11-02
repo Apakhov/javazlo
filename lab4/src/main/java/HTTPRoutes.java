@@ -42,11 +42,11 @@ public class HTTPRoutes extends AllDirectives {
                     try {
                         uuid = UUID.fromString(uuidStr);
                     } catch (Exception e) {
-                        uuid = UUID.randomUUID();
+                        return complete(StatusCodes.BAD_REQUEST, "uuid is not valid", Jackson.marshaller());
                     }
                     log.info("!-->{}" + routerActor);
                     CompletionStage<Object> result = Patterns
-                            .ask(routerActor, new TestMetaInfo(), timeout);
+                            .ask(routerActor, new GetResMsg(uuid), timeout);
                     return onSuccess(() -> result,
                             performed -> {
                                 log.info("res" + result);

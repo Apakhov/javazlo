@@ -27,20 +27,19 @@ public class StoreActor extends AbstractActor {
                     res.add(m.testResult);
                     log.info("current state: "+ store);
                 })
-//                .match(GetResultMessage.class, req -> {
-//                    log.info("store: "+req.getUUID().toString());
-//                    log.info("store i: "+self());
-//                    if (!store.containsKey(req.getUUID())){
-//                        sender().tell(
-//                                new GetResultResponse(), self()
-//                        );
-//                        return;
-//                    }
-//                    log.info(req.getUUID().toString());
-//                    sender().tell(
-//                            new GetResultResponse(store.get(req.getUUID())), self()
-//                    );
-//                })
+                .match(GetResMsg.class, req -> {
+                    log.info("store get res with: "+req.uuid);
+                    if (!store.containsKey(req.getUUID())){
+                        sender().tell(
+                                new GetResultResponse(), self()
+                        );
+                        return;
+                    }
+                    log.info(req.getUUID().toString());
+                    sender().tell(
+                            new GetResultResponse(store.get(req.getUUID())), self()
+                    );
+                })
                 .build();
     }
 

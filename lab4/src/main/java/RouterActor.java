@@ -37,8 +37,8 @@ public class RouterActor extends AbstractActor {
                             for (TestCase testCase: req.getTestCases())
                                 testPool.tell(new TestCaseMsg(testCase, new TestMetaInfo(req)), storeActor);
                         })
-//                .match(StoreActor.GetResultMessage.class,
-//                        req -> storeActor.forward(req, getContext()))
+                .match(GetResMsg.class,
+                        req -> storeActor.forward(req, getContext()))
                 .matchAny(o -> log.info(o.toString() + o.getClass()))
                 .build();
     }
