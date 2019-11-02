@@ -1,4 +1,5 @@
 import akka.actor.AbstractActor;
+import akka.actor.Props;
 import akka.japi.pf.ReceiveBuilder;
 
 import javax.script.Invocable;
@@ -119,5 +120,9 @@ public class TestActor extends AbstractActor {
                         test(m), self()
                 ))
                 .build();
+    }
+
+    static Props props() {
+        return Props.create(StoreActor.class);
     }
 }
