@@ -56,6 +56,7 @@ public class HTTPRoutes extends AllDirectives {
                     } catch (Exception e) {
                         uuid = UUID.randomUUID();
                     }
+                    log.info("!-->{}"+routerActor);
                     CompletionStage<Object> result = Patterns
                             .ask(routerActor, new StoreActor.GetResultMessage(uuid), timeout);
                     return onSuccess(() -> result,
@@ -79,6 +80,7 @@ public class HTTPRoutes extends AllDirectives {
                                     for(int i = 0; i < tests.length; i++){
                                         log.info("sending to test: "+tests[i]);
                                         Test test = tests[i];
+                                        log.info("?-->{}"+routerActor);
                                         routerActor.tell(new TestActor.TestMessage(
                                                 uuid,
                                                 r.getJsCode(),
