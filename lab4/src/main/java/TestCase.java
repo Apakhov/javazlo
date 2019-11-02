@@ -1,33 +1,35 @@
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
+import java.util.UUID;
+
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class TestCase {
-    private String packageID;
+    private UUID uuid;
     private String testName;
     private String expectedResult;
     private Object[] params;
 
     public TestCase() {
-        this.packageID = "";
+        this.uuid = null;
         this.testName = "";
         this.expectedResult = "";
         this.params = new Object[]{};
     }
 
     public TestCase(String name, String expectedResult, Object[] params) {
-        this.packageID = "";
+        this.uuid = null;
         this.testName = name;
         this.expectedResult = expectedResult;
         this.params = params;
     }
 
-    public void setPackageID(String packageID) {
-        this.packageID = packageID;
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
     }
 
-    public String getPackageID() {
-        return packageID;
+    public UUID getUuid() {
+        return uuid;
     }
 
     public String getTestName() {
