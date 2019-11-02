@@ -7,14 +7,13 @@ import akka.japi.pf.ReceiveBuilder;
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
-import java.util.UUID;
 
 public class TestActor extends AbstractActor {
     LoggingAdapter log = Logging.getLogger(getContext().getSystem(), this);
 
 
 
-    private ResultMessage test(TestMsg m) {
+    private TestResult test(TestMsg m) {
         ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
         try {
             engine.eval(m.testMetaInfo.getSourceCode());
@@ -23,10 +22,10 @@ public class TestActor extends AbstractActor {
             String res = invocable.invokeFunction(m.testMetaInfo.getFuncName(), args).toString();
             log.info("Successful test: res: " + res.toString() + ", expected:" + m.testCase.getExpectedResult());
             //throw new Exception("Successful test: res: " + res.toString() + ", expected:" + m.getExpectedRes().toString() + m.uuid);
-            return new ResultMessage(m.testMetaInfo.getUUID(), m.testCase.getExpectedResult(), res);
+            return new TestResult(m.testMetaInfo.getUUID(), m.testCase.getExpectedResult(), res);
         } catch (Exception e) {
             System.out.println("exception occurred: " + e.toString());
-            return new ResultMessage(m.testMetaInfo.getUUID(), m.testCase.getExpectedResult(), e);
+            return new TestResult(m.testMetaInfo.getUUID(), m.testCase.getExpectedResult(), e);
         }
     }
 
