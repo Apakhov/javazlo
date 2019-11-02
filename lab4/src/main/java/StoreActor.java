@@ -128,6 +128,6 @@ public class StoreActor extends AbstractActor {
     }
 
     static Props props() {
-        return Props.create(UserRegistryActor.class);
+        return Props.create(StoreActor.class);
     }
 }

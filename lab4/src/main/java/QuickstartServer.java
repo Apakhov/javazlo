@@ -35,7 +35,7 @@ public class QuickstartServer extends AllDirectives {
 
         //#http-server
         //In order to access all directives we need an instance where the routes are define.
-        QuickstartServer app = new QuickstartServer(system, userRegistryActor, );
+        QuickstartServer app = new QuickstartServer(system, userRegistryActor, storeActor);
 
         final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = app.createRoute().flow(system, materializer);
         http.bindAndHandle(routeFlow, ConnectHttp.toHost("localhost", 8080), materializer);
