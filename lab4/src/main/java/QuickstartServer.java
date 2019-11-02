@@ -32,7 +32,6 @@ public class QuickstartServer extends AllDirectives {
 
         ActorRef userRegistryActor = system.actorOf(UserRegistryActor.props(), "userRegistryActor");
         ActorRef storeActor = system.actorOf(StoreActor.props(), "storeActor");
-        ActorRef 
 
         //#http-server
         //In order to access all directives we need an instance where the routes are define.
