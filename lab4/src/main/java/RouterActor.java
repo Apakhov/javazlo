@@ -48,6 +48,6 @@ public class RouterActor extends AbstractActor {
     }
 
     static Props props() {
-        return Props.create(StoreActor.class);
+        return Props.create(RouterActor.class);
     }
 }
