@@ -33,7 +33,7 @@ public class RouterActor extends AbstractActor {
     @Override
     public Receive createReceive() {
         return ReceiveBuilder.create()
-                .match(TestActor.ResultMessage.class, m -> {
+                .match(TestActor.ResultMessage.class, req -> {
                     if (!store.containsKey(m.getUUID()))
                         store.put(m.getUUID(), new ArrayList<>());
                     System.out.println("received result: res: " + m.getActualRes() + ", expected:" + m.getExpectedRes().toString());
