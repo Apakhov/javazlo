@@ -46,7 +46,7 @@ public class HTTPRoutes extends AllDirectives {
                     }
                     log.info("!-->{}" + routerActor);
                     CompletionStage<Object> result = Patterns
-                            .ask(routerActor, new StoreActor.GetResultMessage(uuid), timeout);
+                            .ask(routerActor, new TestMetaInfo(), timeout);
                     return onSuccess(() -> result,
                             performed -> {
                                 log.info("res" + result);
