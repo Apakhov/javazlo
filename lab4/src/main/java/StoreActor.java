@@ -1,4 +1,5 @@
 import akka.actor.AbstractActor;
+import akka.actor.Props;
 import akka.japi.Pair;
 import akka.japi.pf.ReceiveBuilder;
 
@@ -124,5 +125,9 @@ public class StoreActor extends AbstractActor {
                     );
                 })
                 .build();
+    }
+
+    static Props props() {
+        return Props.create(UserRegistryActor.class);
     }
 }
