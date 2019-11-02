@@ -23,9 +23,7 @@ public class RouterActor extends AbstractActor {
         super();
         this.storeActor = getContext().actorOf(StoreActor.props(), "second");
         this.testPool = getContext().actorOf(
-                new RoundRobinPool(5)
-                        .withSupervisorStrategy(strategy)
-                        .props(TestActor.props()),
+                TestActor.props(),
                 "routerForTests"
         );
     }
