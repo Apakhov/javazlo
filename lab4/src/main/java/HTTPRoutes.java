@@ -30,6 +30,7 @@ public class HTTPRoutes extends AllDirectives {
         this.userRegistryActor = userRegistryActor;
         this.routerActor = routerActor;
         log = Logging.getLogger(system, this);
+        log.info("router inited: "+routerActor);
     }
 
     // Required by the `ask` (?) method below
