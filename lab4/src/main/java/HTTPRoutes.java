@@ -48,10 +48,12 @@ public class HTTPRoutes extends AllDirectives {
                     CompletionStage<Object> result = Patterns
                             .ask(routerActor, new GetResMsg(uuid), timeout);
                     return onSuccess(() -> result,
-                            performed -> {
-                                log.info("res" + result);
-                                log.info("perf" + performed);
-                                return complete(StatusCodes.OK, new TestResponse((ResMsg) performed), Jackson.marshaller());
+                            p -> {
+                                ResMsg res = (ResMsg) p;
+                                if (res.result == null) {
+                                    return complete(StatusCodes.NOT_FOUND, "tests with this uuid doesnt exist or in progress", Jackson.marshaller());
+                                }
+                                return complete(StatusCodes.OK, new TestResponse(res), Jackson.marshaller());
                             }
                     );
                 }));
