@@ -1,7 +1,4 @@
-import akka.actor.AbstractActor;
-import akka.actor.ActorRef;
-import akka.actor.OneForOneStrategy;
-import akka.actor.SupervisorStrategy;
+import akka.actor.*;
 import akka.japi.pf.DeciderBuilder;
 import akka.japi.pf.ReceiveBuilder;
 import akka.routing.RoundRobinPool;
@@ -33,26 +30,16 @@ public class RouterActor extends AbstractActor {
     @Override
     public Receive createReceive() {
         return ReceiveBuilder.create()
-                .match(TestActor.ResultMessage.class, req -> {
-                    
-                    if (!store.containsKey(m.getUUID()))
-                        store.put(m.getUUID(), new ArrayList<>());
-                    System.out.println("received result: res: " + m.getActualRes() + ", expected:" + m.getExpectedRes().toString());
-                    ArrayList<StoreActor.TestResult> res = store.get(m.getUUID());
-                    res.add(new StoreActor.TestResult(m));
-                })
-                .match(StoreActor.GetResultMessage.class, req -> {
-                    if (!store.containsKey(req.getUUID())){
-                        sender().tell(
-                                new StoreActor.GetResultResponse(), self()
-                        );
-                        return;
-                    }
-                    System.out.println(store.get(req.getUUID()));
-                    sender().tell(
-                            new StoreActor.GetResultResponse(store.get(req.getUUID())), self()
-                    );
-                })
+                .match(TestActor.TestMessage.class, req ->
+                    testPool.forward(req, getContext())
+                )
+                .match(StoreActor.GetResultMessage.class, req ->
+                    storeActor.forward(req, getContext())
+                )
                 .build();
+    }
+
+    static Props props() {
+        return Props.create(StoreActor.class);
     }
 }
