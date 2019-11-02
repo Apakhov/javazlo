@@ -79,7 +79,15 @@ public class UserRoutes extends AllDirectives {
                                     log.info("generated:" + uuid);
                                     Test[] tests = r.getTests();
                                     for(int i = 0; i < tests.length; i++){
-                                        routerActor.
+                                        Test test = tests[i];
+                                        routerActor.tell(new TestActor.TestMessage(
+                                                uuid,
+                                                r.getJsCode(),
+                                                r.getFunctionName(),
+                                                test.getParams(),
+                                                test.getExpectedResult()
+
+                                        ), ActorRef.noSender());
                                     }
                                     return complete(
                                             StatusCodes.CREATED,
