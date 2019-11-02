@@ -14,9 +14,10 @@ public class TestMetaInfo {
     }
 
     public TestMetaInfo(TestMetaInfo e){
-
+        this.packageID = e.packageID;
+        this.jsCode = e.jsCode;
+        this.functionName = e.functionName;
     }
-
 
     public TestMetaInfo(String packageID, String jsCode, String functionName) {
         this.packageID = packageID;
