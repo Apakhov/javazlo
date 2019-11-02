@@ -6,7 +6,7 @@ public class TestResult {
 
     public TestResult(String error, String actualResult, TestCase testCase) {
         this.error = error;
-        this.ok = error != null && actualResult.equals(testCase.getExpectedResult());
+        this.ok = error != null && actualResult.compareTo(testCase.getExpectedResult()) == 0;
         this.actualResult = actualResult;
         this.testCase = testCase;
     }
