@@ -28,7 +28,7 @@ public class UserRoutes extends AllDirectives {
 
     public UserRoutes(ActorSystem system, ActorRef userRegistryActor, ActorRef routerActor) {
         this.userRegistryActor = userRegistryActor;
-        this.routerActor = system.actorOf(RouterActor.props());
+        this.routerActor = routerActor;
         log = Logging.getLogger(system, this);
     }
 
