@@ -29,7 +29,7 @@ public class StoreActor extends AbstractActor {
                 })
                 .match(GetResMsg.class, req -> {
                     log.info("store get res with: "+req.uuid);
-                    if (!store.containsKey(req.getUUID())){
+                    if (!store.containsKey(req.uuid)){
                         sender().tell(
                                 new ResMsg(), self()
                         );
@@ -37,7 +37,7 @@ public class StoreActor extends AbstractActor {
                     }
                     log.info(req.uuid.toString());
                     sender().tell(
-                            new ResMsg(store.get(req.getUUID())), self()
+                            new ResMsg(store.get(req.uuid)), self()
                     );
                 })
                 .build();
