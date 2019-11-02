@@ -68,26 +68,6 @@ public class UserRoutes extends AllDirectives {
                 }));
     }
 
-    public class Submit {
-        public String code;
-
-        public void setCode(String code) {
-            this.code = code;
-        }
-
-        Submit() {
-            this.code = "";
-        }
-
-        Submit(String code) {
-            this.code = code;
-        }
-
-        public String getCode() {
-            return code;
-        }
-    }
-
 
 
     private Route submitTests() {
@@ -97,7 +77,10 @@ public class UserRoutes extends AllDirectives {
                                 entity(Jackson.unmarshaller(TestRequest.class), r -> {
                                     UUID uuid = UUID.randomUUID();
                                     log.info("generated:" + uuid);
-                                    for ()
+                                    Test[] tests = r.getTests();
+                                    for(int i = 0; i < tests.length; i++){
+                                        routerActor.
+                                    }
                                     return complete(
                                             StatusCodes.CREATED,
                                             uuid, Jackson.marshaller()
