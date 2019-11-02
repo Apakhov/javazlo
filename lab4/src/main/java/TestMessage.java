@@ -1,6 +1,6 @@
 import java.util.UUID;
 
-public static class TestMessage {
+public class TestMessage {
     public String getSourceCode() {
         return sourceCode;
     }
