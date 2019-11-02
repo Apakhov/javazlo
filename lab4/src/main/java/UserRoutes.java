@@ -67,10 +67,12 @@ public class UserRoutes extends AllDirectives {
     }
 
     private Route submitTests() {
-       return post(() -> {
-            UUID uuid = UUID.randomUUID();
-           CompletionStage<Object> result = Patterns
-                   .ask(routerActor, new TestActor.TestMessage(uuid, ), timeout);
+       return post(() -> decodeRequest {
+            entity(as[BidRequest]) { bidRequest =>
+                val response: BidResponse = process(bidRequest)
+
+                complete(response)
+            }
         });
     }
     //#all-routes
