@@ -131,6 +131,6 @@ public class TestActor extends AbstractActor {
     }
 
     static Props props() {
-        return Props.create(StoreActor.class);
+        return Props.create(TestActor.class);
     }
 }
