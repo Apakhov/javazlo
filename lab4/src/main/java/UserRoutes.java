@@ -48,17 +48,16 @@ public class UserRoutes extends AllDirectives {
                                 deleteUser(name)
                                 )
                         )
+                        
                 )
         ));
     }
 
     private Route getResult(String name) {
         return get(() -> {
-
             CompletionStage<Optional<StoreActor.GetResultResponse>> maybeUser = Patterns
-                    .ask(storeActor, new StoreActor.GetResultMessage(UUID.fromString(name))), timeout)
+                    .ask(storeActor, new StoreActor.GetResultMessage(UUID.fromString(name)), timeout)
                     .thenApply(Optional.class::cast);
-
             return onSuccess(() -> maybeUser,
                     performed -> {
                         if (performed.isPresent())
