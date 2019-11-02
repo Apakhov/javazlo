@@ -16,8 +16,8 @@ public class QuickstartServer extends AllDirectives {
     // set up ActorSystem and other dependencies here
     private final HTTPRoutes userRoutes;
 
-    public QuickstartServer(ActorSystem system, ActorRef t, ActorRef routerActor ) {
-        userRoutes = new HTTPRoutes(system, t, routerActor);
+    public QuickstartServer(ActorSystem system, ActorRef routerActor ) {
+        userRoutes = new HTTPRoutes(system, routerActor);
     }
     //#main-class
 
@@ -30,12 +30,11 @@ public class QuickstartServer extends AllDirectives {
         final ActorMaterializer materializer = ActorMaterializer.create(system);
         //#server-bootstrapping
 
-        ActorRef userRegistryActor = system.actorOf(UserRegistryActor.props(), "userRegistryActor");
         ActorRef routerActor = system.actorOf(RouterActor.props(), "router");
 
         //#http-server
         //In order to access all directives we need an instance where the routes are define.
-        QuickstartServer app = new QuickstartServer(system, userRegistryActor, routerActor);
+        QuickstartServer app = new QuickstartServer(system, routerActor);
 
         final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = app.createRoute().flow(system, materializer);
         http.bindAndHandle(routeFlow, ConnectHttp.toHost("localhost", 8080), materializer);

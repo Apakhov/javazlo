@@ -12,35 +12,23 @@ import akka.http.javadsl.model.StatusCodes;
 import akka.http.javadsl.server.AllDirectives;
 import akka.http.javadsl.server.Route;
 import akka.pattern.Patterns;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
-/**
- * Routes can be defined in separated classes like shown in here
- */
-//#user-routes-class
 public class HTTPRoutes extends AllDirectives {
     //#user-routes-class
-    final private ActorRef userRegistryActor;
     final private LoggingAdapter log;
     final private ActorRef routerActor;
 
 
-    public HTTPRoutes(ActorSystem system, ActorRef userRegistryActor, ActorRef routerActor) {
-        this.userRegistryActor = userRegistryActor;
+    public HTTPRoutes(ActorSystem system, ActorRef routerActor) {
         this.routerActor = routerActor;
         log = Logging.getLogger(system, this);
         log.info("router inited: "+routerActor);
     }
 
-    // Required by the `ask` (?) method below
-    Duration timeout = Duration.ofSeconds(5l); // usually we'd obtain the timeout from the system's configuration
 
-    /**
-     * This method creates one route (of possibly many more that will be part of your Web App)
-     */
-    //#all-routes
-    //#users-get-delete
+    private final static Duration timeout = Duration.ofSeconds(5l);
+
+
     public Route routes() {
         return concat(
                 getResult(),
@@ -82,7 +70,7 @@ public class HTTPRoutes extends AllDirectives {
                                         log.info("sending to test: "+tests[i]);
                                         Test test = tests[i];
                                         log.info("?-->{}",routerActor);
-                                        routerActor.tell(new TestActor.TestMessage(
+                                        routerActor.tell(new TestMessage(
                                                 uuid,
                                                 r.getJsCode(),
                                                 r.getFunctionName(),
@@ -99,10 +87,4 @@ public class HTTPRoutes extends AllDirectives {
                 )
         );
     }
-    //#all-routes
-
-    //#users-get-delete
-
-    //#users-get-delete
-
 }
