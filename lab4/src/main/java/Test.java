@@ -1,2 +1,5 @@
-public class Test extends TestCase extends TestMetaInfo {
+public class Test extends TestMetaInfo {
+    public Test(TestMetaInfo i){
+        super(i);
+    }
 }
