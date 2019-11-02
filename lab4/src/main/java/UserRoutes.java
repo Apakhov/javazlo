@@ -72,7 +72,9 @@ public class UserRoutes extends AllDirectives {
         public void setCode(String code) {
             this.code = code;
         }
-
+        Submit(){
+            this.code = "";
+        }
         public String getCode() {
             return code;
         }
