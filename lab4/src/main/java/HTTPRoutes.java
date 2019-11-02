@@ -19,14 +19,14 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
  * Routes can be defined in separated classes like shown in here
  */
 //#user-routes-class
-public class UserRoutes extends AllDirectives {
+public class HTTPRoutes extends AllDirectives {
     //#user-routes-class
     final private ActorRef userRegistryActor;
     final private LoggingAdapter log;
     final private ActorRef routerActor;
 
 
-    public UserRoutes(ActorSystem system, ActorRef userRegistryActor, ActorRef routerActor) {
+    public HTTPRoutes(ActorSystem system, ActorRef userRegistryActor, ActorRef routerActor) {
         this.userRegistryActor = userRegistryActor;
         this.routerActor = routerActor;
         log = Logging.getLogger(system, this);
@@ -87,7 +87,6 @@ public class UserRoutes extends AllDirectives {
                                                 r.getFunctionName(),
                                                 test.getParams(),
                                                 test.getExpectedResult()
-
                                         ), ActorRef.noSender());
                                     }
                                     log.info("tests sent");

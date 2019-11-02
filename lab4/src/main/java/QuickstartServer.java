@@ -14,10 +14,10 @@ import akka.stream.javadsl.Flow;
 public class QuickstartServer extends AllDirectives {
 
     // set up ActorSystem and other dependencies here
-    private final UserRoutes userRoutes;
+    private final HTTPRoutes userRoutes;
 
     public QuickstartServer(ActorSystem system, ActorRef t, ActorRef routerActor ) {
-        userRoutes = new UserRoutes(system, t, routerActor);
+        userRoutes = new HTTPRoutes(system, t, routerActor);
     }
     //#main-class
 
