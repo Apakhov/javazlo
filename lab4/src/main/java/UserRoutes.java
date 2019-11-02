@@ -67,13 +67,9 @@ public class UserRoutes extends AllDirectives {
                 }));
     }
 
-    public class ExtendableBean {
-        public String name;
-        private Map<String, String> properties;
+    private class Submit {
+        Submit(){
 
-        @JsonAnyGetter
-        public Map<String, String> getProperties() {
-            return properties;
         }
     }
 
