@@ -1,5 +1,6 @@
 import akka.actor.AbstractActor;
 import akka.actor.ActorRef;
+import akka.routing.RoundRobinPool;
 
 public class RouterActor extends AbstractActor {
     private final ActorRef storeActor;
@@ -11,7 +12,7 @@ public class RouterActor extends AbstractActor {
         this.testPool = getContext().actorOf(
                 new RoundRobinPool(5)
                         .withSupervisorStrategy(strategy)
-                        .props(TestActor.p)),
+                        .props(TestActor.props())),
                 "routerForTests"
         );
     }
