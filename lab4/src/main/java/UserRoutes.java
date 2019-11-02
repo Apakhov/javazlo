@@ -12,6 +12,8 @@ import akka.http.javadsl.model.StatusCodes;
 import akka.http.javadsl.server.AllDirectives;
 import akka.http.javadsl.server.Route;
 import akka.pattern.Patterns;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 /**
  * Routes can be defined in separated classes like shown in here
@@ -77,7 +79,7 @@ public class UserRoutes extends AllDirectives {
             this.code = "";
         }
 
-        Submit(String code){
+        Submit(String code) {
             this.code = code;
         }
 
@@ -85,21 +87,38 @@ public class UserRoutes extends AllDirectives {
             return code;
         }
     }
+    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+    public class TestRequest extends TestMetaInfo {
+        private Test[] tests;
 
-        private Route submitTests() {
-            return pathEnd(() ->
-                    route(
-                            post(() ->
-                                    entity(Jackson.unmarshaller(TestRequest.class), r -> {
-                                        UUID uuid = UUID.randomUUID();
-                                        log.info("generated:" + uuid);
-                                        return complete(
-                                                StatusCodes.CREATED,
-                                                "Tests started!", Jackson.marshaller()
-                                                );
-                                    }))
-                    )
-            );
+        public TestRequest() {
+            super();
+            this.tests = new Test[]{};
+        }
+
+        public TestRequest(String packageID, String jsCode, String functionName, Test[] tests) {
+            super(packageID, jsCode, functionName);
+            this.tests = tests;
+        }
+
+        public Test[] getTests() {
+            return tests;
+        }
+    }
+    private Route submitTests() {
+        return pathEnd(() ->
+                route(
+                        post(() ->
+                                entity(Jackson.unmarshaller(TestRequest.class), r -> {
+                                    UUID uuid = UUID.randomUUID();
+                                    log.info("generated:" + uuid);
+                                    return complete(
+                                            StatusCodes.CREATED,
+                                            "Tests started!", Jackson.marshaller()
+                                    );
+                                }))
+                )
+        );
     }
     //#all-routes
 
