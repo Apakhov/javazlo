@@ -12,8 +12,7 @@ public class TestActor extends AbstractActor {
     LoggingAdapter log = Logging.getLogger(getContext().getSystem(), this);
 
 
-
-    private TestResult test(TestCaseMsg m) {
+    private TestResultMsg test(TestCaseMsg m) {
         ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
         try {
             engine.eval(m.testMetaInfo.getSourceCode());
@@ -21,11 +20,12 @@ public class TestActor extends AbstractActor {
             Object[] args = m.testCase.getArgs();
             String res = invocable.invokeFunction(m.testMetaInfo.getFuncName(), args).toString();
             log.info("Successful test: res: " + res.toString() + ", expected:" + m.testCase.getExpectedResult());
-            //throw new Exception("Successful test: res: " + res.toString() + ", expected:" + m.getExpectedRes().toString() + m.uuid);
-            return new TestResulMsg( TestResult(m.testMetaInfo.getUUID(), m.testCase.getExpectedResult(), res));
+            return new TestResultMsg(m.testMetaInfo.getUUID(),
+                    new TestResult(null, res, m.testCase));
         } catch (Exception e) {
             System.out.println("exception occurred: " + e.toString());
-            return new TestResult(m.testMetaInfo.getUUID(), m.testCase.getExpectedResult(), e);
+            return new TestResultMsg(m.testMetaInfo.getUUID(),
+                    new TestResult(e.toString(), "", m.testCase));
         }
     }
 
@@ -33,7 +33,7 @@ public class TestActor extends AbstractActor {
     public Receive createReceive() {
         return ReceiveBuilder.create()
                 .match(TestCaseMsg.class, m -> {
-                    log.info("on testing"+m.toString());
+                    log.info("on testing" + m.toString());
                     sender().tell(
                             test(m), self()
                     );

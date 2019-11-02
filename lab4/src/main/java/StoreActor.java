@@ -12,81 +12,16 @@ import java.util.UUID;
 
 public class StoreActor extends AbstractActor {
     LoggingAdapter log = Logging.getLogger(getContext().getSystem(), this);
-
-    public static class GetResultMessage {
-        private final UUID uuid;
-
-        public GetResultMessage(UUID uuid) {
-            this.uuid = uuid;
-        }
-
-        public UUID getUUID() {
-            return uuid;
-        }
-    }
-
-    public static class GetResultResponse {
-        private final ArrayList<TestResult> results;
-
-        @Override
-        public String toString() {
-            return "GetResultResponse{" +
-                    "results=" + results +
-                    '}';
-        }
-
-        public GetResultResponse(ArrayList<TestResult> results) {
-            this.results = results;
-        }
-
-        public GetResultResponse() {
-            this.results = new ArrayList<>();
-        }
-
-        public ArrayList<TestResult> getResults() {
-            return results;
-        }
-    }
-
-    public static class TestResult {
-        private final TestActor.ResultMessage m;
-
-        public TestResult(TestActor.ResultMessage m) {
-            this.m = m;
-        }
-
-        @Override
-        public String toString() {
-            return "TestResult{" +
-                    "m=" + m +
-                    '}';
-        }
-
-        public String getExpectedRes() {
-            return m.getExpectedRes();
-        }
-
-        public String getActualRes() {
-            return m.getActualRes();
-        }
-
-        public boolean isOK() {
-            return m.isOK();
-        }
-
-        public String getError() {
-            return m.getError().toString();
-        }
-    }
-
-    private Map<UUID, ArrayList<TestResult>> store = new HashMap<>();
+    private Map<UUID, Pair<TestMetaInfo, ArrayList<TestResult>>> store = new HashMap<>();
 
     @Override
     public Receive createReceive() {
         return ReceiveBuilder.create()
-                .match(TestActor.ResultMessage.class, m -> {
-                    if (!store.containsKey(m.getUUID()))
-                        store.put(m.getUUID(), new ArrayList<>());
+                .match(TestResultMsg.class, m -> {
+                    if (!store.containsKey(m.uuid))
+                        store.put(m.uuid, new Pair<>(
+                                m.
+                                new ArrayList<>());
                     log.info("received result: res: " + m.getActualRes() + ", expected:" + m.getExpectedRes().toString());
                     ArrayList<TestResult> res = store.get(m.getUUID());
                     res.add(new TestResult(m));
