@@ -58,9 +58,9 @@ public class UserRoutes extends AllDirectives {
                             .ask(routerActor, new StoreActor.GetResultMessage(uuid), timeout);
                     return onSuccess(() -> result,
                             performed -> {
-                                log.info("res"+result);
-                                log.info("perf"+performed);
-                                    return complete(StatusCodes.OK, performed, Jackson.marshaller());
+                                log.info("res" + result);
+                                log.info("perf" + performed);
+                                return complete(StatusCodes.OK, performed, Jackson.marshaller());
                             }
                     );
                 }));
@@ -72,9 +72,11 @@ public class UserRoutes extends AllDirectives {
         public void setCode(String code) {
             this.code = code;
         }
-        Submit(){
+
+        Submit() {
             this.code = "";
         }
+
         public String getCode() {
             return code;
         }
@@ -82,9 +84,9 @@ public class UserRoutes extends AllDirectives {
 
     private Route submitTests() {
         return post(() -> entity(Jackson.unmarshaller(Submit.class),
-                content ->{
+                content -> {
                     UUID uuid = UUID.randomUUID();
-                    log.info("generated:"+uuid);
+                    log.info("generated:" + uuid);
                     return complete(StatusCodes.OK, uuid, Jackson.marshaller());
                 })
         );
