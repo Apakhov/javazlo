@@ -90,6 +90,7 @@ public class UserRoutes extends AllDirectives {
 
                                         ), ActorRef.noSender());
                                     }
+                                    log.info("tests sent");
                                     return complete(
                                             StatusCodes.CREATED,
                                             uuid, Jackson.marshaller()
