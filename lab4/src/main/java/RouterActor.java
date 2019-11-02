@@ -1,4 +1,6 @@
 import akka.actor.*;
+import akka.event.Logging;
+import akka.event.LoggingAdapter;
 import akka.japi.pf.DeciderBuilder;
 import akka.japi.pf.ReceiveBuilder;
 import akka.routing.RoundRobinPool;
@@ -7,6 +9,7 @@ import scala.concurrent.duration.Duration;
 import java.util.ArrayList;
 
 public class RouterActor extends AbstractActor {
+    LoggingAdapter log = Logging.getLogger(getContext().getSystem(), this);
     private final ActorRef storeActor;
     private final ActorRef testPool;
     private static SupervisorStrategy strategy =
