@@ -118,7 +118,7 @@ public class StoreActor extends AbstractActor {
                 })
                 .match(GetResultMessage.class, req -> {
                     log.info("store: "+req.getUUID().toString());
-                    log.info("store i"+self());
+                    log.info("store i: "+self());
                     if (!store.containsKey(req.getUUID())){
                         sender().tell(
                                 new GetResultResponse(), self()
