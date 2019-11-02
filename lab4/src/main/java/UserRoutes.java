@@ -23,12 +23,14 @@ public class UserRoutes extends AllDirectives {
     final private ActorRef userRegistryActor;
     final private LoggingAdapter log;
     final private ActorRef storeActor;
+    final private ActorRef testActorPool;
 
 
-    public UserRoutes(ActorSystem system, ActorRef userRegistryActor, ActorRef storeActor) {
+    public UserRoutes(ActorSystem system, ActorRef userRegistryActor, ActorRef storeActor, ActorRef testActorPool) {
         this.userRegistryActor = userRegistryActor;
         log = Logging.getLogger(system, this);
         this.storeActor = storeActor;
+        this.testActorPool = testActorPool;
     }
 
     // Required by the `ask` (?) method below
@@ -58,12 +60,18 @@ public class UserRoutes extends AllDirectives {
                             .ask(storeActor, new StoreActor.GetResultMessage(uuid), timeout);
                     return onSuccess(() -> result,
                             performed -> {
-                                System.out.println("res"+result);
-                                System.out.println("perf"+performed);
+                                log.info("res"+result);
+                                log.info("perf"+performed);
                                     return complete(StatusCodes.OK, performed, Jackson.marshaller());
                             }
                     );
                 }));
+    }
+
+    private Route submitTests() {
+       return post(() -> {
+
+        });
     }
     //#all-routes
 
