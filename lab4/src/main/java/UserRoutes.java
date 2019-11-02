@@ -79,6 +79,7 @@ public class UserRoutes extends AllDirectives {
                                     log.info("generated:" + uuid);
                                     Test[] tests = r.getTests();
                                     for(int i = 0; i < tests.length; i++){
+                                        log.info("sending to test: "+tests[i]);
                                         Test test = tests[i];
                                         routerActor.tell(new TestActor.TestMessage(
                                                 uuid,
