@@ -80,7 +80,7 @@ public class HTTPRoutes extends AllDirectives {
                                     for(int i = 0; i < tests.length; i++){
                                         log.info("sending to test: "+tests[i]);
                                         Test test = tests[i];
-                                        log.info("?-->{}"+routerActor);
+                                        log.info("?-->{}",routerActor);
                                         routerActor.tell(new TestActor.TestMessage(
                                                 uuid,
                                                 r.getJsCode(),
