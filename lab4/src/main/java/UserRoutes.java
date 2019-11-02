@@ -68,6 +68,11 @@ public class UserRoutes extends AllDirectives {
             );
         });
     }
+    private Route getResult(String name) {
+    return get(() ->
+    parameter("key", (key) -> parameter("value", (value) -> { // тут юзаешь
+         })))
+    }
     //#all-routes
 
     //#users-get-delete
