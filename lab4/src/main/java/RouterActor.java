@@ -36,12 +36,13 @@ public class RouterActor extends AbstractActor {
     public Receive createReceive() {
         return ReceiveBuilder.create()
                 .match(TestActor.TestMessage.class, req -> {
-                    log.info("Receive ! {}",req.toString());
+                    log.info("Receive ! {}", req.toString());
                     testPool.tell(req, storeActor);
                 })
-                .match(StoreActor.GetResultMessage.class, req ->
-                    storeActor.forward(req, getContext())
-                )
+                .match(StoreActor.GetResultMessage.class, req -> {
+                            log.info("Receive ! {}", req.toString());
+                            storeActor.forward(req, getContext());
+                        })
                 .matchAny(o -> log.info(o.toString() + o.getClass()))
                 .build();
     }
