@@ -68,11 +68,11 @@ public class UserRoutes extends AllDirectives {
                 }));
     }
 
-    private Route submitTests() {
-       return post(() -> {
-
-        });
-    }
+//    private Route submitTests() {
+//       return post(() -> {
+//
+//        });
+//    }
     //#all-routes
 
     //#users-get-delete
