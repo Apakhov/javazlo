@@ -4,10 +4,7 @@ import akka.event.LoggingAdapter;
 import akka.japi.pf.DeciderBuilder;
 import akka.japi.pf.ReceiveBuilder;
 import akka.routing.BalancingPool;
-import akka.routing.RoundRobinPool;
 import scala.concurrent.duration.Duration;
-
-import java.util.ArrayList;
 
 public class RouterActor extends AbstractActor {
     LoggingAdapter log = Logging.getLogger(getContext().getSystem(), this);
@@ -38,7 +35,7 @@ public class RouterActor extends AbstractActor {
                 .match(TestRequest.class,
                         req -> {
                             for (TestCase testCase: req.getTestCases())
-                                testPool.tell(new TestMsg(testCase, req), storeActor);
+                                testPool.tell(new TestCaseMsg(testCase, req), storeActor);
                         })
                 .match(StoreActor.GetResultMessage.class,
                         req -> storeActor.forward(req, getContext()))

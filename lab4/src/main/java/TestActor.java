@@ -13,7 +13,7 @@ public class TestActor extends AbstractActor {
 
 
 
-    private TestResult test(TestMsg m) {
+    private TestResult test(TestCaseMsg m) {
         ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
         try {
             engine.eval(m.testMetaInfo.getSourceCode());
@@ -32,7 +32,7 @@ public class TestActor extends AbstractActor {
     @Override
     public Receive createReceive() {
         return ReceiveBuilder.create()
-                .match(TestMsg.class, m -> {
+                .match(TestCaseMsg.class, m -> {
                     log.info("on testing"+m.toString());
                     sender().tell(
                             test(m), self()

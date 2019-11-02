@@ -1,8 +1,8 @@
-public class TestMsg {
+public class TestCaseMsg {
     public final TestCase testCase;
     public final TestMetaInfo testMetaInfo;
 
-    TestMsg(TestCase testCase, TestMetaInfo testMetaInfo){
+    TestCaseMsg(TestCase testCase, TestMetaInfo testMetaInfo){
         this.testCase = testCase;
         this.testMetaInfo = testMetaInfo;
     }
