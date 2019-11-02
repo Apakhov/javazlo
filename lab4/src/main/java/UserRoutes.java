@@ -66,7 +66,7 @@ public class UserRoutes extends AllDirectives {
                 }));
     }
 
-    private class Submit {
+    public class Submit {
         public String code;
 
         public void setCode(String code) {
