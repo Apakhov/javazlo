@@ -95,11 +95,12 @@ public class UserRoutes extends AllDirectives {
                                         log.info("generated:" + uuid);
                                         return complete(
                                                 StatusCodes.CREATED,
-                                                "Tests started!",
+                                                "Tests started!", Jackson.marshaller()
                                                 );
                                     }))
                     )
             );
+    }
     //#all-routes
 
     //#users-get-delete
