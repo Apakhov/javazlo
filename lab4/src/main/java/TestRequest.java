@@ -10,8 +10,8 @@ public class TestRequest extends TestMetaInfo {
         this.testCases = new TestCase[]{};
     }
 
-    public TestRequest(String packageID, String jsCode, String functionName, TestCase[] testCases) {
-        super(packageID, jsCode, functionName);
+    public TestRequest(String jsCode, String functionName, TestCase[] testCases) {
+        super(jsCode, functionName);
         this.testCases = testCases;
     }
 

@@ -21,7 +21,7 @@ public class HTTPRoutes extends AllDirectives {
     public HTTPRoutes(ActorSystem system, ActorRef routerActor) {
         this.routerActor = routerActor;
         log = Logging.getLogger(system, this);
-        log.info("router inited: "+routerActor);
+        log.info("router inited: " + routerActor);
     }
 
 
@@ -44,7 +44,7 @@ public class HTTPRoutes extends AllDirectives {
                     } catch (Exception e) {
                         uuid = UUID.randomUUID();
                     }
-                    log.info("!-->{}"+routerActor);
+                    log.info("!-->{}" + routerActor);
                     CompletionStage<Object> result = Patterns
                             .ask(routerActor, new StoreActor.GetResultMessage(uuid), timeout);
                     return onSuccess(() -> result,
@@ -64,19 +64,8 @@ public class HTTPRoutes extends AllDirectives {
                                 entity(Jackson.unmarshaller(TestRequest.class), r -> {
                                     UUID uuid = UUID.randomUUID();
                                     log.info("generated:" + uuid);
-                                    TestCase[] testCases = r.getTestCases();
-                                    for(int i = 0; i < testCases.length; i++){
-                                        log.info("sending to test: "+ testCases[i]);
-                                        TestCase testCase = testCases[i];
-                                        log.info("?-->{}",routerActor);
-                                        routerActor.tell(new TestMessage(
-                                                uuid,
-                                                r.getSourceCode(),
-                                                r.getFuncName(),
-                                                testCase.getArgs(),
-                                                testCase.getExpectedResult()
-                                        ), ActorRef.noSender());
-                                    }
+                                    r.setUUID(uuid);
+                                    routerActor.tell(r, ActorRef.noSender());
                                     log.info("tests sent");
                                     return complete(
                                             StatusCodes.CREATED,
