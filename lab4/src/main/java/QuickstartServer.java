@@ -16,7 +16,7 @@ public class QuickstartServer extends AllDirectives {
     // set up ActorSystem and other dependencies here
     private final UserRoutes userRoutes;
 
-    public QuickstartServer(ActorSystem system, ActorRef userRegistryActor, ActorRef storeActor) {
+    public QuickstartServer(ActorSystem system, ActorRef userRegistryActor, ActorRef storeActor, ActorRef ) {
         userRoutes = new UserRoutes(system, userRegistryActor, storeActor);
     }
     //#main-class
@@ -32,6 +32,7 @@ public class QuickstartServer extends AllDirectives {
 
         ActorRef userRegistryActor = system.actorOf(UserRegistryActor.props(), "userRegistryActor");
         ActorRef storeActor = system.actorOf(StoreActor.props(), "storeActor");
+        ActorRef 
 
         //#http-server
         //In order to access all directives we need an instance where the routes are define.
