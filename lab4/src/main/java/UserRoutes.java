@@ -69,7 +69,7 @@ public class UserRoutes extends AllDirectives {
     private class Submit {
         private final String code;
         Submit(String code){
-
+            log.info(code);
             this.code = code;
         }
 
