@@ -10,7 +10,6 @@ import akka.event.LoggingAdapter;
 import akka.http.javadsl.marshallers.jackson.Jackson;
 import akka.http.javadsl.model.StatusCodes;
 import akka.http.javadsl.server.AllDirectives;
-import akka.http.javadsl.server.PathMatchers;
 import akka.http.javadsl.server.Route;
 import akka.pattern.Patterns;
 
@@ -68,8 +67,14 @@ public class UserRoutes extends AllDirectives {
     }
 
     private class Submit {
-        Submit(){
+        private final String code;
+        Submit(String code){
 
+            this.code = code;
+        }
+
+        public String getCode() {
+            return code;
         }
     }
 
