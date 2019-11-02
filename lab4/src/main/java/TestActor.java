@@ -11,7 +11,7 @@ import javax.script.ScriptEngineManager;
 public class TestActor extends AbstractActor {
     LoggingAdapter log = Logging.getLogger(getContext().getSystem(), this);
 
-    private TestResultMsg test(TestCaseMsg m) {
+    private static TestResultMsg test(TestCaseMsg m) {
         ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
         try {
             engine.eval(m.testMetaInfo.getSourceCode());
