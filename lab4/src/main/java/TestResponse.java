@@ -3,6 +3,7 @@ public class TestResponse extends TestMetaInfo {
 
     TestResponse(ResMsg msg){
         super(msg.result.first());
+        testResults = new TestResult[msg.result.second().size()];
         msg.result.second().toArray(testResults);
     }
 }
