@@ -112,7 +112,7 @@ public class StoreActor extends AbstractActor {
                 .match(TestActor.ResultMessage.class, m -> {
                     if (!store.containsKey(m.getUUID()))
                         store.put(m.getUUID(), new ArrayList<>());
-                    System.out.println("received result: res: " + m.getActualRes() + ", expected:" + m.getExpectedRes().toString());
+                    log.info("received result: res: " + m.getActualRes() + ", expected:" + m.getExpectedRes().toString());
                     ArrayList<TestResult> res = store.get(m.getUUID());
                     res.add(new TestResult(m));
                 })
@@ -123,7 +123,7 @@ public class StoreActor extends AbstractActor {
                         );
                         return;
                     }
-                    System.out.println(store.get(req.getUUID()));
+                    log.info(req.getUUID().toString());
                     sender().tell(
                             new GetResultResponse(store.get(req.getUUID())), self()
                     );
