@@ -3,19 +3,19 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class TestRequest extends TestMetaInfo {
-    private Test[] tests;
+    private TestCase[] testCases;
 
     public TestRequest() {
         super();
-        this.tests = new Test[]{};
+        this.testCases = new TestCase[]{};
     }
 
-    public TestRequest(String packageID, String jsCode, String functionName, Test[] tests) {
+    public TestRequest(String packageID, String jsCode, String functionName, TestCase[] testCases) {
         super(packageID, jsCode, functionName);
-        this.tests = tests;
+        this.testCases = testCases;
     }
 
-    public Test[] getTests() {
-        return tests;
+    public TestCase[] getTestCases() {
+        return testCases;
     }
 }

@@ -1,5 +1,4 @@
 import java.time.Duration;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletionStage;
 
@@ -65,17 +64,17 @@ public class HTTPRoutes extends AllDirectives {
                                 entity(Jackson.unmarshaller(TestRequest.class), r -> {
                                     UUID uuid = UUID.randomUUID();
                                     log.info("generated:" + uuid);
-                                    Test[] tests = r.getTests();
-                                    for(int i = 0; i < tests.length; i++){
-                                        log.info("sending to test: "+tests[i]);
-                                        Test test = tests[i];
+                                    TestCase[] testCases = r.getTestCases();
+                                    for(int i = 0; i < testCases.length; i++){
+                                        log.info("sending to test: "+ testCases[i]);
+                                        TestCase testCase = testCases[i];
                                         log.info("?-->{}",routerActor);
                                         routerActor.tell(new TestMessage(
                                                 uuid,
                                                 r.getJsCode(),
                                                 r.getFunctionName(),
-                                                test.getParams(),
-                                                test.getExpectedResult()
+                                                testCase.getParams(),
+                                                testCase.getExpectedResult()
                                         ), ActorRef.noSender());
                                     }
                                     log.info("tests sent");

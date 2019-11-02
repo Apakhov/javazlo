@@ -2,20 +2,20 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class Test {
+public class TestCase {
     private String packageID;
     private String testName;
     private String expectedResult;
     private Object[] params;
 
-    public Test() {
+    public TestCase() {
         this.packageID = "";
         this.testName = "";
         this.expectedResult = "";
         this.params = new Object[]{};
     }
 
-    public Test(String name, String expectedResult, Object[] params) {
+    public TestCase(String name, String expectedResult, Object[] params) {
         this.packageID = "";
         this.testName = name;
         this.expectedResult = expectedResult;
