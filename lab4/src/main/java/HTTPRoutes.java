@@ -51,7 +51,7 @@ public class HTTPRoutes extends AllDirectives {
                             performed -> {
                                 log.info("res" + result);
                                 log.info("perf" + performed);
-                                return complete(StatusCodes.OK, performed, Jackson.marshaller());
+                                return complete(StatusCodes.OK, new TestResponse((ResMsg) performed), Jackson.marshaller());
                             }
                     );
                 }));
