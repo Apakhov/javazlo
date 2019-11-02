@@ -27,8 +27,8 @@ public class UserRoutes extends AllDirectives {
 
     public UserRoutes(ActorSystem system, ActorRef userRegistryActor, ActorRef routerActor) {
         this.userRegistryActor = userRegistryActor;
-        log = Logging.getLogger(system, this);
         this.routerActor = routerActor;
+        log = Logging.getLogger(system, this);
     }
 
     // Required by the `ask` (?) method below
@@ -66,11 +66,13 @@ public class UserRoutes extends AllDirectives {
                 }));
     }
 
-//    private Route submitTests() {
-//       return post(() -> {
-//
-//        });
-//    }
+    private Route submitTests() {
+       return post(() -> {
+            UUID uuid = UUID.randomUUID();
+           CompletionStage<Object> result = Patterns
+                   .ask(routerActor, new TestActor.TestMessage(uuid, ), timeout);
+        });
+    }
     //#all-routes
 
     //#users-get-delete
