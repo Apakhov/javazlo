@@ -97,6 +97,7 @@ public class UserRoutes extends AllDirectives {
                                 entity(Jackson.unmarshaller(TestRequest.class), r -> {
                                     UUID uuid = UUID.randomUUID();
                                     log.info("generated:" + uuid);
+                                    for ()
                                     return complete(
                                             StatusCodes.CREATED,
                                             uuid, Jackson.marshaller()
