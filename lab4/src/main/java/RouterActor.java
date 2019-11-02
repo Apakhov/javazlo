@@ -6,8 +6,5 @@ public class RouterActor extends AbstractActor {
         getContext().actorOf(StoreActor.props(), "second");
     }
 
-    @Override
-    public void postStop() {
-        System.out.println("first stopped");
-    }
+    
 }
