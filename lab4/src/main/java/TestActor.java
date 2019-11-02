@@ -68,26 +68,26 @@ public class TestActor extends AbstractActor {
         private final Exception error;
     }
 
-    private ResultMessage test(TestMessage m) {
+    private ResultMessage test(TestMsg m) {
         ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
         try {
-            engine.eval(m.getSourceCode());
+            engine.eval(m.testMetaInfo.getSourceCode());
             Invocable invocable = (Invocable) engine;
-            Object[] args = m.getArgs();
-            String res = invocable.invokeFunction(m.getFuncName(), args).toString();
-            log.info("Successful test: res: " + res.toString() + ", expected:" + m.getExpectedRes().toString());
+            Object[] args = m.testCase.getArgs();
+            String res = invocable.invokeFunction(m.testMetaInfo.getFuncName(), args).toString();
+            log.info("Successful test: res: " + res.toString() + ", expected:" + m.testCase.getExpectedResult());
             //throw new Exception("Successful test: res: " + res.toString() + ", expected:" + m.getExpectedRes().toString() + m.uuid);
-            return new ResultMessage(m.getUuid(), m.getExpectedRes(), res);
+            return new ResultMessage(m.testMetaInfo.getUUID(), m.testCase.getExpectedResult(), res);
         } catch (Exception e) {
             System.out.println("exception occurred: " + e.toString());
-            return new ResultMessage(m.getUuid(), m.getExpectedRes(), e);
+            return new ResultMessage(m.testMetaInfo.getUUID(), m.testCase.getExpectedResult(), e);
         }
     }
 
     @Override
     public Receive createReceive() {
         return ReceiveBuilder.create()
-                .match(TestMessage.class, m -> {
+                .match(TestMsg.class, m -> {
                     log.info("on testing"+m.toString());
                     sender().tell(
                             test(m), self()

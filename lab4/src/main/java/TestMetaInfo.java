@@ -1,39 +1,37 @@
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
+import java.util.UUID;
+
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class TestMetaInfo {
-    private String packageID;
-    private String jsCode;
-    private String functionName;
+    private UUID uuid;
+    private String sourceCode;
+    private String funcName;
 
     public TestMetaInfo() {
-        this.packageID = "";
-        this.jsCode = "";
-        this.functionName = "";
+        this.sourceCode = "";
+        this.funcName = "";
     }
 
-    public TestMetaInfo(TestMetaInfo e){
-        this.packageID = e.packageID;
-        this.jsCode = e.jsCode;
-        this.functionName = e.functionName;
+    public TestMetaInfo( String sourceCode, String funcName) {
+        this.sourceCode = sourceCode;
+        this.funcName = funcName;
     }
 
-    public TestMetaInfo(String packageID, String jsCode, String functionName) {
-        this.packageID = packageID;
-        this.jsCode = jsCode;
-        this.functionName = functionName;
+    public void setUUID(UUID uuid) {
+        this.uuid = uuid;
     }
 
-    public String getPackageID() {
-        return packageID;
+    public UUID getUUID() {
+        return uuid;
     }
 
-    public String getJsCode() {
-        return jsCode;
+    public String getSourceCode() {
+        return sourceCode;
     }
 
-    public String getFunctionName() {
-        return functionName;
+    public String getFuncName() {
+        return funcName;
     }
 }

@@ -71,9 +71,9 @@ public class HTTPRoutes extends AllDirectives {
                                         log.info("?-->{}",routerActor);
                                         routerActor.tell(new TestMessage(
                                                 uuid,
-                                                r.getJsCode(),
-                                                r.getFunctionName(),
-                                                testCase.getParams(),
+                                                r.getSourceCode(),
+                                                r.getFuncName(),
+                                                testCase.getArgs(),
                                                 testCase.getExpectedResult()
                                         ), ActorRef.noSender());
                                     }

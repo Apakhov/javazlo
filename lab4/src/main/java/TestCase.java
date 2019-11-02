@@ -5,31 +5,20 @@ import java.util.UUID;
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class TestCase {
-    private UUID uuid;
     private String testName;
     private String expectedResult;
-    private Object[] params;
+    private Object[] args;
 
     public TestCase() {
-        this.uuid = null;
         this.testName = "";
         this.expectedResult = "";
-        this.params = new Object[]{};
+        this.args = new Object[]{};
     }
 
-    public TestCase(String name, String expectedResult, Object[] params) {
-        this.uuid = null;
+    public TestCase(String name, String expectedResult, Object[] args) {
         this.testName = name;
         this.expectedResult = expectedResult;
-        this.params = params;
-    }
-
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
-    }
-
-    public UUID getUuid() {
-        return uuid;
+        this.args = args;
     }
 
     public String getTestName() {
@@ -40,7 +29,7 @@ public class TestCase {
         return expectedResult;
     }
 
-    public Object[] getParams() {
-        return params;
+    public Object[] getArgs() {
+        return args;
     }
 }
