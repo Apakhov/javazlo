@@ -6,4 +6,8 @@ public class TestResponse extends TestMetaInfo {
         testResults = new TestResult[msg.result.second().size()];
         msg.result.second().toArray(testResults);
     }
+
+    public TestResult[] getTestResults() {
+        return testResults;
+    }
 }
