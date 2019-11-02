@@ -14,12 +14,12 @@ public class TestMetaInfo {
         this.funcName = "";
     }
 
-    public TestMetaInfo( String sourceCode, String funcName) {
+    public TestMetaInfo(String sourceCode, String funcName) {
         this.sourceCode = sourceCode;
         this.funcName = funcName;
     }
 
-    public TestMetaInfo(TestMetaInfo info){
+    public TestMetaInfo(TestMetaInfo info) {
         this.sourceCode = info.sourceCode;
         this.funcName = info.funcName;
         this.uuid = info.uuid;

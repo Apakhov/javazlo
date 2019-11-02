@@ -21,7 +21,6 @@ public class HTTPRoutes extends AllDirectives {
     public HTTPRoutes(ActorSystem system, ActorRef routerActor) {
         this.routerActor = routerActor;
         log = Logging.getLogger(system, this);
-        log.info("router inited: " + routerActor);
     }
 
 
@@ -42,9 +41,8 @@ public class HTTPRoutes extends AllDirectives {
                     try {
                         uuid = UUID.fromString(uuidStr);
                     } catch (Exception e) {
-                        return complete(StatusCodes.BAD_REQUEST, "uuid `"+uuidStr+"` is not valid", Jackson.marshaller());
+                        return complete(StatusCodes.BAD_REQUEST, "uuid `" + uuidStr + "` is not valid", Jackson.marshaller());
                     }
-                    log.info("!-->{}" + routerActor);
                     CompletionStage<Object> result = Patterns
                             .ask(routerActor, new GetResMsg(uuid), timeout);
                     return onSuccess(() -> result,
@@ -65,10 +63,8 @@ public class HTTPRoutes extends AllDirectives {
                         post(() ->
                                 entity(Jackson.unmarshaller(TestRequest.class), r -> {
                                     UUID uuid = UUID.randomUUID();
-                                    log.info("generated:" + uuid);
                                     r.setUUID(uuid);
                                     routerActor.tell(r, ActorRef.noSender());
-                                    log.info("tests sent");
                                     return complete(
                                             StatusCodes.CREATED,
                                             uuid, Jackson.marshaller()

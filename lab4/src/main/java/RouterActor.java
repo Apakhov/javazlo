@@ -7,12 +7,14 @@ import akka.routing.BalancingPool;
 import scala.concurrent.duration.Duration;
 
 public class RouterActor extends AbstractActor {
+    final private static int TESTING_WORKERS_AM = 5;
+    final private static int MAX_NUM_OF_RETRIES = 5;
     LoggingAdapter log = Logging.getLogger(getContext().getSystem(), this);
 
     private final ActorRef storeActor;
     private final ActorRef testPool;
     private static SupervisorStrategy strategy =
-            new OneForOneStrategy(10,
+            new OneForOneStrategy(MAX_NUM_OF_RETRIES,
                     Duration.create("1 minute"),
                     DeciderBuilder.
                             matchAny(o -> SupervisorStrategy.escalate()).build());
@@ -21,7 +23,7 @@ public class RouterActor extends AbstractActor {
         super();
         this.storeActor = getContext().actorOf(StoreActor.props(), "second");
         this.testPool = getContext().actorOf(
-                new BalancingPool(5)
+                new BalancingPool(TESTING_WORKERS_AM)
                         .withSupervisorStrategy(strategy)
                         .props(TestActor.props()),
                 "routerForTests"
@@ -34,7 +36,7 @@ public class RouterActor extends AbstractActor {
         return ReceiveBuilder.create()
                 .match(TestRequest.class,
                         req -> {
-                            for (TestCase testCase: req.getTestCases())
+                            for (TestCase testCase : req.getTestCases())
                                 testPool.tell(new TestCaseMsg(testCase, new TestMetaInfo(req)), storeActor);
                         })
                 .match(GetResMsg.class,

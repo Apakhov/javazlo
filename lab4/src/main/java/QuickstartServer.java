@@ -16,39 +16,27 @@ public class QuickstartServer extends AllDirectives {
     // set up ActorSystem and other dependencies here
     private final HTTPRoutes userRoutes;
 
-    public QuickstartServer(ActorSystem system, ActorRef routerActor ) {
+    public QuickstartServer(ActorSystem system, ActorRef routerActor) {
         userRoutes = new HTTPRoutes(system, routerActor);
     }
     //#main-class
 
     public static void main(String[] args) throws Exception {
-        //#server-bootstrapping
-        // boot up server using the route as defined below
-        ActorSystem system = ActorSystem.create("helloAkkaHttpServer");
+        ActorSystem system = ActorSystem.create("testServer");
 
         final Http http = Http.get(system);
         final ActorMaterializer materializer = ActorMaterializer.create(system);
-        //#server-bootstrapping
 
         ActorRef routerActor = system.actorOf(RouterActor.props(), "router");
 
-        //#http-server
-        //In order to access all directives we need an instance where the routes are define.
         QuickstartServer app = new QuickstartServer(system, routerActor);
 
         final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = app.createRoute().flow(system, materializer);
         http.bindAndHandle(routeFlow, ConnectHttp.toHost("localhost", 8080), materializer);
 
         System.out.println("Server online at http://localhost:8080/");
-        //#http-server
     }
 
-    //#main-class
-
-    /**
-     * Here you can define all the different routes you want to have served by this web server
-     * Note that routes might be defined in separated classes like the current case
-     */
     protected Route createRoute() {
         return userRoutes.routes();
     }

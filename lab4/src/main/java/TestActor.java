@@ -11,7 +11,6 @@ import javax.script.ScriptEngineManager;
 public class TestActor extends AbstractActor {
     LoggingAdapter log = Logging.getLogger(getContext().getSystem(), this);
 
-
     private TestResultMsg test(TestCaseMsg m) {
         ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
         try {
@@ -19,13 +18,11 @@ public class TestActor extends AbstractActor {
             Invocable invocable = (Invocable) engine;
             Object[] args = m.testCase.getArgs();
             String res = invocable.invokeFunction(m.testMetaInfo.getFuncName(), args).toString();
-            log.info("Successful test: res: " + res.toString() + ", expected:" + m.testCase.getExpectedResult());
             return new TestResultMsg(
                     m.testMetaInfo.getUUID(),
                     new TestResult(null, res, m.testCase),
                     m.testMetaInfo);
         } catch (Exception e) {
-            System.out.println("exception occurred: " + e.toString());
             return new TestResultMsg(
                     m.testMetaInfo.getUUID(),
                     new TestResult(e.toString(), "", m.testCase),
