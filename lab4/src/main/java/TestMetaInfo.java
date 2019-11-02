@@ -13,6 +13,7 @@ public class TestMetaInfo {
         this.functionName = "";
     }
 
+    @org.jetbrains.annotations.Contract(pure = true)
     public TestMetaInfo(TestMetaInfo e){
 
     }
