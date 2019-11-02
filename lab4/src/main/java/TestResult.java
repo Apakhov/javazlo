@@ -4,9 +4,9 @@ public class TestResult {
     private String actualResult;
     private TestCase testCase;
 
-    public TestResult(String error, boolean ok, String actualResult, TestCase testCase) {
+    public TestResult(String error, String actualResult, TestCase testCase) {
         this.error = error;
-        this.ok = ok;
+        this.ok = error != null && actualResult.equals(testCase.getExpectedResult());
         this.actualResult = actualResult;
         this.testCase = testCase;
     }
