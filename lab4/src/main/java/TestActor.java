@@ -102,7 +102,7 @@ public class TestActor extends AbstractActor {
         private final Exception error;
     }
 
-    private static ResultMessage test(TestMessage m) {
+    private ResultMessage test(TestMessage m) {
         ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
         try {
             engine.eval(m.getSourceCode());
