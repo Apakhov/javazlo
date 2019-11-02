@@ -66,12 +66,18 @@ public class UserRoutes extends AllDirectives {
                 }));
     }
 
+    private class Submit {
+
+    }
+
     private Route submitTests() {
-       return post(() -> {
-            UUID uuid = UUID.randomUUID();
-           CompletionStage<Object> result = Patterns
-                   .ask(routerActor, new TestActor.TestMessage().GetResultMessage(uuid), timeout);
-        });
+        return post(() -> entity(Jackson.unmarshaller(Submit.class),
+                content ->{
+                    UUID uuid = UUID.randomUUID();
+                    complete(StatusCodes.OK, uuid, Jackson.marshaller());
+                    return 
+                })
+        );
     }
     //#all-routes
 
