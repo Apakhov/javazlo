@@ -13,31 +13,6 @@ import java.util.UUID;
 public class StoreActor extends AbstractActor {
     LoggingAdapter log = Logging.getLogger(getContext().getSystem(), this);
 
-    public static class CreateStoreMessage {
-        private final Integer testsAmount;
-
-        public CreateStoreMessage(Integer testsAmount) {
-
-            this.testsAmount = testsAmount;
-        }
-
-        public Integer getTestsAmount() {
-            return testsAmount;
-        }
-    }
-
-    public static class CreateStoreResponse {
-        private final UUID uuid;
-
-        public CreateStoreResponse(UUID uuid) {
-            this.uuid = uuid;
-        }
-
-        public UUID getUUID() {
-            return uuid;
-        }
-    }
-
     public static class GetResultMessage {
         private final UUID uuid;
 
