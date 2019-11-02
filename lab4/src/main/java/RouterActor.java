@@ -10,13 +10,10 @@ public class RouterActor extends AbstractActor {
     private final ActorRef storeActor;
     private final ActorRef testPool;
     private static SupervisorStrategy strategy =
-            new OneForOneStrategy(MAX_RETRIES,
+            new OneForOneStrategy(10,
                     Duration.create("1 minute"),
                     DeciderBuilder.
-                            match(ArithmeticException.class, e -> resume()).
-                            match(NullPointerException.class, e -> restart()).
-                            match(IllegalArgumentException.class, e -> stop()).
-                            matchAny(o -> escalate()).build());
+                            matchAny(o -> SupervisorStrategy.escalate()).build());
 
     public RouterActor() {
         super();
@@ -24,15 +21,14 @@ public class RouterActor extends AbstractActor {
         this.testPool = getContext().actorOf(
                 new RoundRobinPool(5)
                         .withSupervisorStrategy(strategy)
-                        .props(TestActor.props())),
+                        .props(TestActor.props()),
                 "routerForTests"
         );
     }
 
+
     @Override
-    public void preStart() {
-        storeActor =
+    public Receive createReceive() {
+        return null;
     }
-
-
 }
