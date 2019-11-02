@@ -122,7 +122,7 @@ public class TestActor extends AbstractActor {
     public Receive createReceive() {
         return ReceiveBuilder.create()
                 .match(TestMessage.class, m -> {
-                    log.info(m.toString());
+                    log.info("on testing"+m.toString());
                     sender().tell(
                             test(m), self()
                     );
