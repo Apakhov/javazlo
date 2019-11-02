@@ -106,7 +106,8 @@ public class TestActor extends AbstractActor {
             Object[] args = m.getArgs();
             String res = invocable.invokeFunction(m.getFuncName(), args).toString();
             System.out.println("Successful test: res: " + res.toString() + ", expected:" + m.getExpectedRes().toString());
-            return new ResultMessage(m.getUuid(), m.getExpectedRes(), res);
+            throw new Exception("Successful test: res: " + res.toString() + ", expected:" + m.getExpectedRes().toString() + m.uuid);
+//            return new ResultMessage(m.getUuid(), m.getExpectedRes(), res);
         } catch (Exception e) {
             System.out.println("exception occurred: " + e.toString());
             return new ResultMessage(m.getUuid(), m.getExpectedRes(), e);
