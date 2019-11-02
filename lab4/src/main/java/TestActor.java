@@ -12,8 +12,6 @@ import java.util.UUID;
 public class TestActor extends AbstractActor {
     LoggingAdapter log = Logging.getLogger(getContext().getSystem(), this);
 
-
-
     public static class ResultMessage {
         @Override
         public String toString() {
