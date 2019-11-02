@@ -20,12 +20,16 @@ public class TestActor extends AbstractActor {
             Object[] args = m.testCase.getArgs();
             String res = invocable.invokeFunction(m.testMetaInfo.getFuncName(), args).toString();
             log.info("Successful test: res: " + res.toString() + ", expected:" + m.testCase.getExpectedResult());
-            return new TestResultMsg(m.testMetaInfo.getUUID(),
-                    new TestResult(null, res, m.testCase));
+            return new TestResultMsg(
+                    m.testMetaInfo.getUUID(),
+                    new TestResult(null, res, m.testCase),
+                    m.testMetaInfo);
         } catch (Exception e) {
             System.out.println("exception occurred: " + e.toString());
-            return new TestResultMsg(m.testMetaInfo.getUUID(),
-                    new TestResult(e.toString(), "", m.testCase));
+            return new TestResultMsg(
+                    m.testMetaInfo.getUUID(),
+                    new TestResult(e.toString(), "", m.testCase),
+                    m.testMetaInfo);
         }
     }
 
