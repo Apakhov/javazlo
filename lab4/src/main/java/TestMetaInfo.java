@@ -13,6 +13,9 @@ public class TestMetaInfo {
         this.functionName = "";
     }
 
+    public TestMetaInfo(TestMetaInfo e){
+
+    }
 
 
     public TestMetaInfo(String packageID, String jsCode, String functionName) {
