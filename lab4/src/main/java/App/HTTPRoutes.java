@@ -19,8 +19,9 @@ import akka.http.javadsl.server.Route;
 import akka.pattern.Patterns;
 
 public class HTTPRoutes extends AllDirectives {
-    //#user-routes-class
     final private static String SUBMIT_PREF = "submit";
+    final private static String UUID_PARAM = "uuid";
+
     final private LoggingAdapter log;
     final private ActorRef routerActor;
 
@@ -43,7 +44,7 @@ public class HTTPRoutes extends AllDirectives {
 
     private Route getResult() {
         return get(() ->
-                parameter("uuid", (uuidStr) -> {
+                parameter(UUID_PARAM, (uuidStr) -> {
                     UUID uuid;
                     try {
                         uuid = UUID.fromString(uuidStr);
