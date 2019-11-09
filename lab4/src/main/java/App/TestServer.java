@@ -1,3 +1,5 @@
+package App;
+
 import Actors.RouterActor;
 import akka.NotUsed;
 import akka.actor.ActorRef;
@@ -11,29 +13,26 @@ import akka.http.javadsl.server.Route;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
 
-//#main-class
-public class QuickstartServer extends AllDirectives {
-
-    // set up ActorSystem and other dependencies here
+public class TestServer extends AllDirectives {
+    private final static String HOST = "localhost";
+    private final static int PORT = 8080;
     private final HTTPRoutes userRoutes;
 
-    public QuickstartServer(ActorSystem system, ActorRef routerActor) {
+    public TestServer(ActorSystem system, ActorRef routerActor) {
         userRoutes = new HTTPRoutes(system, routerActor);
     }
-    //#main-class
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         ActorSystem system = ActorSystem.create("testServer");
-
         final Http http = Http.get(system);
         final ActorMaterializer materializer = ActorMaterializer.create(system);
 
         ActorRef routerActor = system.actorOf(RouterActor.props(), "router");
 
-        QuickstartServer app = new QuickstartServer(system, routerActor);
+        TestServer app = new TestServer(system, routerActor);
 
         final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = app.createRoute().flow(system, materializer);
-        http.bindAndHandle(routeFlow, ConnectHttp.toHost("localhost", 8080), materializer);
+        http.bindAndHandle(routeFlow, ConnectHttp.toHost(HOST, PORT), materializer);
 
         System.out.println("Server online at http://localhost:8080/");
     }
@@ -42,6 +41,3 @@ public class QuickstartServer extends AllDirectives {
         return userRoutes.routes();
     }
 }
-//#main-class
-
-
