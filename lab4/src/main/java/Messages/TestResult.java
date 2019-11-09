@@ -1,3 +1,5 @@
+package Messages;
+
 public class TestResult {
     public final String error;
     public final boolean ok;

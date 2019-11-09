@@ -1,3 +1,5 @@
+package Messages;
+
 public class TestResponse extends TestMetaInfo {
     private TestResult[] testResults;
 

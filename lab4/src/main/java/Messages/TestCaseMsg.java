@@ -1,3 +1,5 @@
+package Messages;
+
 public class TestCaseMsg {
     public final TestCase testCase;
     public final TestMetaInfo testMetaInfo;

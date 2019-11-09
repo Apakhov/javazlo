@@ -2,6 +2,10 @@ import java.time.Duration;
 import java.util.UUID;
 import java.util.concurrent.CompletionStage;
 
+import Messages.GetResMsg;
+import Messages.ResMsg;
+import Messages.TestRequest;
+import Messages.TestResponse;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.event.Logging;
