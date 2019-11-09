@@ -1,5 +1,10 @@
 package Actors;
 
+import Messages.TestResult;
+import Messages.TestMetaInfo;
+import Messages.TestResultMsg;
+import Messages.GetResMsg;
+import Messages.ResMsg;
 import akka.actor.*;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
