@@ -20,6 +20,7 @@ import akka.pattern.Patterns;
 
 public class HTTPRoutes extends AllDirectives {
     //#user-routes-class
+    final private static String SUBMIT_PREF = "submit";
     final private LoggingAdapter log;
     final private ActorRef routerActor;
 
@@ -36,7 +37,7 @@ public class HTTPRoutes extends AllDirectives {
     public Route routes() {
         return concat(
                 getResult(),
-                pathPrefix("submit", this::submitTests)
+                pathPrefix(SUBMIT_PREF, this::submitTests)
         );
     }
 
