@@ -12,20 +12,4 @@ public class TestResult {
         this.actualResult = actualResult;
         this.testCase = testCase;
     }
-
-    public String getError() {
-        return error;
-    }
-
-    public boolean isOK() {
-        return ok;
-    }
-
-    public String getActualResult() {
-        return actualResult;
-    }
-
-    public TestCase getTestCase() {
-        return testCase;
-    }
 }
