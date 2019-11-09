@@ -29,7 +29,7 @@ public class StoreActor extends AbstractActor {
                         store.put(m.uuid, new Pair<>(
                                 m.testMetaInfo,
                                 new ArrayList<>()));
-                    log.info("received result: res: " + m.testResult.getActualResult() + ", expected:" + m.testResult.testCase.getExpectedResult());
+                    log.info("received result: res: " + m.testResult.actualResult + ", expected:" + m.testResult.testCase.getExpectedResult());
                     ArrayList<TestResult> res = store.get(m.uuid).second();
                     res.add(m.testResult);
                     log.info("current state: " + store);
