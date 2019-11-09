@@ -52,7 +52,7 @@ public class RouterActor extends AbstractActor {
                 .build();
     }
 
-    static Props props() {
+    public static Props props() {
         return Props.create(RouterActor.class);
     }
 }
