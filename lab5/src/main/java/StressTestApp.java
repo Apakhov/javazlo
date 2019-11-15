@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.Future;
 
@@ -50,7 +51,8 @@ public class StressTestApp {
                                         return myList;
                                     })
                                     .mapAsync(1, url -> {
-                                        httpClient = Dsl.asyncHttpClient();
+                                        AsyncHttpClient httpClient = asyncHttpClient();
+                                        long start = System.nanoTime();
                                         httpClient
                                                 .prepareGet(url)
                                                 .execute()
