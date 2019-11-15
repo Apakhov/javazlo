@@ -38,10 +38,7 @@ public class StressTestApp {
                     res = Source.from(Collections.singletonList(p))
                             .toMat(Flow.<TestRequest>create()
                                     .mapConcat(t -> {
-                                        List list = Collections.<String>emptyList();
-                                        for(int i = 0; i < p.count; i++){
-                                            list.add(p.url);
-                                        }
+                                        
                                     }), Keep.right()).run(materializer);
                 });
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
