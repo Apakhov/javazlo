@@ -57,8 +57,9 @@ public class StressTestApp {
                                                 .prepareGet("http://www.example.com/")
                                                 .execute()
                                                 .toCompletableFuture()
-                                                .exceptionally(t -> { return timing;  } )
-                                                .thenApply(response -> { /*  Do something with the Response */ return resp; });
+                                                .thenCompose(t -> {
+                                                    return t.;
+                                                })
                                     }), Keep.right()).run(materializer);
                 });
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
