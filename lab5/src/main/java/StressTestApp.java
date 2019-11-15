@@ -10,12 +10,15 @@ import akka.stream.javadsl.Flow;
 import akka.stream.javadsl.Keep;
 import akka.stream.javadsl.Source;
 import jdk.internal.util.xml.impl.Pair;
+import org.asynchttpclient.Request;
+import org.asynchttpclient.Response;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletionStage;
+import java.util.concurrent.Future;
 
 public class StressTestApp {
     public static void main(String[] args) throws IOException {
@@ -46,7 +49,8 @@ public class StressTestApp {
                                         return myList;
                                     })
                                     .mapAsync(1, url -> {
-                                        HttpGet req = new HttpGet(url);
+                                        Request request = get("http://www.example.com/").build();
+                                        Future<Response> whenResponse = asyncHttpClient.execute(request);
                                     }), Keep.right()).run(materializer);
                 });
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
