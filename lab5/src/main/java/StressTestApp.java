@@ -46,7 +46,7 @@ public class StressTestApp {
                                         return myList;
                                     })
                                     .mapAsync(1, url -> {
-                                        
+                                        HttpGet = new HttpGet
                                     }), Keep.right()).run(materializer);
                 });
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
