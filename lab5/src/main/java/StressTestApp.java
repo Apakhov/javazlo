@@ -40,7 +40,6 @@ public class StressTestApp {
 
                     return new TestRequest(url,count);
                 }).mapAsync(1, p ->
-
                      Source.from(Collections.singletonList(p))
                             .toMat(Flow.create()
                                     .mapConcat(t -> {
