@@ -13,6 +13,7 @@ import akka.stream.javadsl.Source;
 import jdk.internal.util.xml.impl.Pair;
 import org.asynchttpclient.Request;
 import org.asynchttpclient.*;
+
 import static org.asynchttpclient.Dsl.*;
 
 import java.io.IOException;
@@ -35,33 +36,33 @@ public class StressTestApp {
                     String url = req.getUri().query().get("testURL").orElse("");
                     String rawCount = req.getUri().query().get("count").orElse("1");
                     int count = 1;
-                    if (rawCount.matches("-?\\d+")){
+                    if (rawCount.matches("-?\\d+")) {
                         count = Integer.parseInt(rawCount);
                     }
 
-                    return new TestRequest(url,count);
+                    return new TestRequest(url, count);
                 }).mapAsync(1, p ->
-                     Source.from(Collections.singletonList(p))
-                            .toMat(Flow.<TestRequest>create()
-                                    .mapConcat(t -> {
-                                        List<String> myList = new ArrayList<>();
-                                        for (int i = 0; i < t.count; i++) {
-                                            myList.add(p.url);
-                                        }
-                                        return myList;
-                                    })
-                                    .mapAsync(1, url -> {
-                                        AsyncHttpClient httpClient = asyncHttpClient();
-                                        long start = System.nanoTime();
-                                        CompletableFuture<Long> f = httpClient
-                                                .prepareGet(url)
-                                                .execute()
-                                                .toCompletableFuture()
-                                                .thenCompose(response ->
-                                                        CompletableFuture.completedFuture(System.nanoTime() - start));
-                                        return f;
-                                    }).toMat(Sink.fold( 0, (agg, next) -> agg + next
-                                            , Keep.right() )), Keep.right()).run(materializer)
+                        Source.from(Collections.singletonList(p))
+                                .toMat(Flow.<TestRequest>create()
+                                        .mapConcat(t -> {
+                                            List<String> myList = new ArrayList<>();
+                                            for (int i = 0; i < t.count; i++) {
+                                                myList.add(p.url);
+                                            }
+                                            return myList;
+                                        })
+                                        .mapAsync(1, url -> {
+                                            AsyncHttpClient httpClient = asyncHttpClient();
+                                            long start = System.nanoTime();
+                                            CompletableFuture<Long> f = httpClient
+                                                    .prepareGet(url)
+                                                    .execute()
+                                                    .toCompletableFuture()
+                                                    .thenCompose(response ->
+                                                            CompletableFuture.completedFuture(System.nanoTime() - start));
+                                            return f;
+                                        }).toMat(Sink.<Long, Long>fold(0L, Long::sum
+                                        ), Keep.right()), Keep.right()).run(materializer)
                 ).map();
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
