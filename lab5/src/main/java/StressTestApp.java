@@ -35,7 +35,7 @@ public class StressTestApp {
                 }).mapAsync(1, p -> {
 
                     res = Source.from(Collections.singletonList(p))
-                            .toMat(Flow.create(), Keep.right()).run(materializer);
+                            .toMat(Flow.<TestRequest>create(), Keep.right()).run(materializer);
                 });
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
