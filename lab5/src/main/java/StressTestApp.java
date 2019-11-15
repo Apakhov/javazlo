@@ -62,9 +62,9 @@ public class StressTestApp {
                     Source<TestRequest, NotUsed> source = Source.from(Collections.singletonList(p));
                     RunnableGraph<CompletionStage<Long>> r = source.toMat(sink, Keep.right());
                     return r.run(materializer);
-                }).map(l -> {
-                    return HttpResponse.create().withStatus(200).withEntity(l.toString());
-                });
+                }).map(l ->
+                     HttpResponse.create().withStatus(200).withEntity(l.toString())
+                );
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
                 ConnectHttp.toHost("localhost", 8080),
