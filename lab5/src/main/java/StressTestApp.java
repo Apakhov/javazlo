@@ -60,7 +60,7 @@ public class StressTestApp {
                                                 CompletableFuture.completedFuture(System.nanoTime() - start));
                                 return f;
                             });
-                    counted = Source.from(Collections.singletonList(p)).viaMat()
+                    counted = Source.from(Collections.singletonList(p)).viaMat(flow)
                     return Source.from(Collections.singletonList(p))
                             .toMat(flow
                             .toMat(Sink.fold(0L, Long::sum),
