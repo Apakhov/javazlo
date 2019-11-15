@@ -50,16 +50,13 @@ public class StressTestApp {
                                         return myList;
                                     })
                                     .mapAsync(1, url -> {
-                                        AsyncHttpClient asyncHttpClient = asyncHttpClient();
-                                        Request request = get("http://www.example.com/").build();
-                                        int timing = 0;
-                                        return asyncHttpClient
-                                                .prepareGet("http://www.example.com/")
+                                        httpClient = Dsl.asyncHttpClient();
+                                        httpClient
+                                                .prepareGet(url)
                                                 .execute()
                                                 .toCompletableFuture()
-                                                .thenCompose(t -> {
-                                                    return t.;
-                                                })
+                                                .thenCompose(response ->
+                                                        CompletableFuture.completedFuture(System.nanoTime() - start));
                                     }), Keep.right()).run(materializer);
                 });
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
