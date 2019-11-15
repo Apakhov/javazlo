@@ -6,10 +6,7 @@ import akka.http.javadsl.ServerBinding;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 import akka.stream.ActorMaterializer;
-import akka.stream.javadsl.Flow;
-import akka.stream.javadsl.Keep;
-import akka.stream.javadsl.Sink;
-import akka.stream.javadsl.Source;
+import akka.stream.javadsl.*;
 import jdk.internal.util.xml.impl.Pair;
 import org.asynchttpclient.Request;
 import org.asynchttpclient.*;
@@ -63,12 +60,8 @@ public class StressTestApp {
                     Sink<Long, CompletionStage<Long>> fold = Sink.fold(0L, Long::sum);
                     Sink<TestRequest, CompletionStage<Long>> sink = flow.toMat(fold, Keep.right());
                     Source<TestRequest, NotUsed> source = Source.from(Collections.singletonList(p));
-                    source.toMat(sink, Keep.right());
-                    return Source.from(Collections.singletonList(p))
-                            .toMat(flow
-                            .toMat(),
-                            Keep.right())
-                                .run(materializer);
+                    RunnableGraph<CompletionStage<Long>> r = source.toMat(sink, Keep.right());
+                    return r;
                 } ).map(l -> {
                     return HttpResponse.create().withStatus(200).withEntity(l.toString());
                 });
