@@ -42,8 +42,8 @@ public class StressTestApp {
                 }).mapAsync(1, p ->
 
                      Source.from(Collections.singletonList(p))
-                            .toMat(Flow.<>create()
-                                    .<String>mapConcat(t -> {
+                            .toMat(Flow.create()
+                                    .mapConcat(t -> {
                                         List<String> myList = new ArrayList<>();
                                         for (int i = 0; i < t.count; i++) {
                                             myList.add(p.url);
@@ -51,7 +51,6 @@ public class StressTestApp {
                                         return myList;
                                     })
                                     .mapAsync(1, url -> {
-
                                         AsyncHttpClient httpClient = asyncHttpClient();
                                         long start = System.nanoTime();
                                         CompletableFuture<Long> f = httpClient
