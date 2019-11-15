@@ -50,7 +50,7 @@ public class StressTestApp {
                             })
                             .mapAsync(1, url -> {
                                 long start = System.nanoTime();
-                                return  httpClient
+                                return httpClient
                                         .prepareGet(url)
                                         .execute()
                                         .toCompletableFuture()
@@ -63,7 +63,7 @@ public class StressTestApp {
                     RunnableGraph<CompletionStage<Long>> r = source.toMat(sink, Keep.right());
                     return r.run(materializer);
                 }).map(l ->
-                     HttpResponse.create().withStatus(200).withEntity(l.toString())
+                        HttpResponse.create().withStatus(200).withEntity(l.toString())
                 );
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
