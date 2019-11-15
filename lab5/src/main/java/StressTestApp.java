@@ -61,7 +61,7 @@ public class StressTestApp {
                                                         CompletableFuture.completedFuture(System.nanoTime() - start));
                                         return f;
                                     }), Keep.right()).run(materializer)
-                )
+                ).map()
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
                 ConnectHttp.toHost("localhost", 8080),
