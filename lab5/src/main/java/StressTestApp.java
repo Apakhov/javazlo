@@ -39,9 +39,9 @@ public class StressTestApp {
                     }
 
                     return new TestRequest(url,count);
-                }).mapAsync(1, p -> {
+                }).mapAsync(1, p ->
 
-                    M2 res = Source.from(Collections.singletonList(p))
+                     Source.from(Collections.singletonList(p))
                             .toMat(Flow.<TestRequest>create()
                                     .mapConcat(t -> {
                                         List<String> myList = new ArrayList<>();
@@ -61,7 +61,7 @@ public class StressTestApp {
                                                         CompletableFuture.completedFuture(System.nanoTime() - start));
                                         return f;
                                     }), Keep.right()).run(materializer);
-                });
+                );
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
                 ConnectHttp.toHost("localhost", 8080),
