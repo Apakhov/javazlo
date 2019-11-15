@@ -61,7 +61,7 @@ public class StressTestApp {
                     Sink<TestRequest, CompletionStage<Long>> sink = flow.toMat(fold, Keep.right());
                     Source<TestRequest, NotUsed> source = Source.from(Collections.singletonList(p));
                     RunnableGraph<CompletionStage<Long>> r = source.toMat(sink, Keep.right());
-                    return r;
+                    return r.;
                 } ).map(l -> {
                     return HttpResponse.create().withStatus(200).withEntity(l.toString());
                 });
