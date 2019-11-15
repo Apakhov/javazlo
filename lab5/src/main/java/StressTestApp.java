@@ -28,7 +28,7 @@ public class StressTestApp {
                         count = Integer.parseInt(rawCount);
                     }
 
-                    return new Pair(url,count);
+                    return new TestRequest(url,count);
 
                 }).mapAsync(p -> {
                     p.
