@@ -11,6 +11,7 @@ import akka.stream.javadsl.Source;
 import jdk.internal.util.xml.impl.Pair;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.concurrent.CompletionStage;
 
 public class StressTestApp {
@@ -32,8 +33,8 @@ public class StressTestApp {
                     return new TestRequest(url,count);
                 }).mapAsync(1, p -> {
 
-                    Source.from(Collections.singletonList(r))
-                            .toMat(testSink, Keep.right()).run(materializer);
+                    Source.from(Collections.singletonList(p))
+                            .toMat(Flow.of(), Keep.right()).run(materializer);
                 });
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
