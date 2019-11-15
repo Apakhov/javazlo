@@ -63,7 +63,9 @@ public class StressTestApp {
                                             return f;
                                         }).toMat(Sink.fold(0L, Long::sum
                                         ), Keep.right()), Keep.right()).run(materializer)
-                ).map();
+                ).map(l -> {
+                    return HttpResponse.create().withStatus(200).withEntity(l.toString());
+                });
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
                 ConnectHttp.toHost("localhost", 8080),
