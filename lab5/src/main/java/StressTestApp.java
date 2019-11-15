@@ -39,7 +39,6 @@ public class StressTestApp {
                     if (rawCount.matches("-?\\d+")) {
                         count = Integer.parseInt(rawCount);
                     }
-
                     return new TestRequest(url, count);
                 }).mapAsync(1, p ->
                         Source.from(Collections.singletonList(p))
