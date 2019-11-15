@@ -61,7 +61,7 @@ public class StressTestApp {
                                                     .thenCompose(response ->
                                                             CompletableFuture.completedFuture(System.nanoTime() - start));
                                             return f;
-                                        }).toMat(Sink.<Long, Long>fold(0L, Long::sum
+                                        }).toMat(Sink.fold(0L, Long::sum
                                         ), Keep.right()), Keep.right()).run(materializer)
                 ).map();
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
