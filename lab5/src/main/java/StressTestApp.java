@@ -48,6 +48,7 @@ public class StressTestApp {
                                         return myList;
                                     })
                                     .mapAsync(1, url -> {
+                                        AsyncHttpClient asyncHttpClient = asyncHttpClient();
                                         Request request = get("http://www.example.com/").build();
                                         Future<Response> whenResponse = asyncHttpClient.execute(request);
                                     }), Keep.right()).run(materializer);
