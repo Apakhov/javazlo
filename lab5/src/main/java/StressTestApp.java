@@ -29,7 +29,7 @@ public class StressTestApp {
                     }
 
                     return new TestRequest(url,count);
-                }).mapAsync(p -> {
+                }).mapAsync(1)(p -> {
                     p.url;
                     return
                 });
