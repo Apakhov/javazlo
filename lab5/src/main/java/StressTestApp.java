@@ -63,6 +63,7 @@ public class StressTestApp {
                     Sink<Long, CompletionStage<Long>> fold = Sink.fold(0L, Long::sum);
                     Sink<TestRequest, CompletionStage<Long>> sink = flow.toMat(fold, Keep.right());
                     Source<TestRequest, NotUsed> source = Source.from(Collections.singletonList(p));
+                    source.toMat(sink, Keep.right());
                     return Source.from(Collections.singletonList(p))
                             .toMat(flow
                             .toMat(),
