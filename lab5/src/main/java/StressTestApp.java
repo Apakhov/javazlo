@@ -43,7 +43,7 @@ public class StressTestApp {
                     return new TestRequest(url, count);
                 }).mapAsync(1, p ->
                         Source.from(Collections.singletonList(p))
-                                .toMat(Flow.<Long>create()
+                                .toMat(Flow.<TestRequest>create()
                                                 .mapConcat(t -> {
                                                     List<String> myList = new ArrayList<>();
                                                     for (int i = 0; i < t.count; i++) {
