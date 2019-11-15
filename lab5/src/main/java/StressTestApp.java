@@ -33,7 +33,7 @@ public class StressTestApp {
                     return new TestRequest(url,count);
                 }).mapAsync(1, p -> {
 
-                    Source.from(Collections.singletonList(p))
+                    res = Source.from(Collections.singletonList(p))
                             .toMat(Flow.of(), Keep.right()).run(materializer);
                 });
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
