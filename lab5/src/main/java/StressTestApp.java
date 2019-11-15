@@ -12,6 +12,7 @@ import akka.stream.javadsl.Source;
 import jdk.internal.util.xml.impl.Pair;
 import org.asynchttpclient.Request;
 import org.asynchttpclient.*;
+import static org.asynchttpclient.Dsl.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
