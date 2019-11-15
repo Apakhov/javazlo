@@ -7,7 +7,7 @@ import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
-import javafx.util.Pair;
+import jdk.internal.util.xml.impl.Pair;
 
 import java.io.IOException;
 import java.util.concurrent.CompletionStage;
@@ -29,8 +29,11 @@ public class StressTestApp {
                     }
 
                     return new Pair(url,count);
-                    
-                }).mapAsync();
+
+                }).mapAsync(p -> {
+                    p.
+                    return
+                });
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
                 ConnectHttp.toHost("localhost", 8080),
