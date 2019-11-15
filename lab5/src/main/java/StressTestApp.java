@@ -12,6 +12,7 @@ import akka.stream.javadsl.Source;
 import jdk.internal.util.xml.impl.Pair;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletionStage;
@@ -38,8 +39,13 @@ public class StressTestApp {
                     res = Source.from(Collections.singletonList(p))
                             .toMat(Flow.<TestRequest>create()
                                     .mapConcat(t -> {
-                                        
-                                    }), Keep.right()).run(materializer);
+                                        List<String> myList = new ArrayList<>();
+                                        for (int i = 0; i < t.count; i++){
+                                            myList.add(p.url);
+                                        }
+                                        return myList;
+                                    })
+                                    ., Keep.right()).run(materializer);
                 });
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
