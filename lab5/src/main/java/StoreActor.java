@@ -12,13 +12,13 @@ import java.util.UUID;
 
 public class StoreActor extends AbstractActor {
     LoggingAdapter log = Logging.getLogger(getContext().getSystem(), this);
-    private Map<UUID, Pair<TestMetaInfo, ArrayList<TestResult>>> store = new HashMap<>();
+    private Map<String, Pair<Integer, Long>> store = new HashMap<>();
 
     @Override
     public Receive createReceive() {
         return ReceiveBuilder.create()
-                .match(TestResultMsg.class, m -> {
-                    if (!store.containsKey(m.uuid))
+                .match(TestRequest.class, m -> {
+                    if (!store.containsKey(m.url) && store.get(m.url).first() > m.count)
                         store.put(m.uuid, new Pair<>(
                                 m.testMetaInfo,
                                 new ArrayList<>()));
