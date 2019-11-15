@@ -29,10 +29,7 @@ public class StressTestApp {
                     }
 
                     return new TestRequest(url,count);
-                }).mapAsync(0x1)(p -> {
-                    p.url;
-                    return
-                });
+                }).mapAsync(1)
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
                 ConnectHttp.toHost("localhost", 8080),
