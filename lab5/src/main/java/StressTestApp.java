@@ -28,6 +28,8 @@ public class StressTestApp {
         final Http http = Http.get(system);
         final ActorMaterializer materializer =
                 ActorMaterializer.create(system);
+        AsyncHttpClient httpClient = asyncHttpClient();
+
         final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = Flow.of(HttpRequest.class)
                 .map(req -> {
                     String url = req.getUri().query().get("testURL").orElse("");
@@ -47,7 +49,6 @@ public class StressTestApp {
                                 return myList;
                             })
                             .mapAsync(1, url -> {
-                                AsyncHttpClient httpClient = asyncHttpClient();
                                 long start = System.nanoTime();
                                 return  httpClient
                                         .prepareGet(url)
