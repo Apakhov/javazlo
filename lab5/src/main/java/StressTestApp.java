@@ -29,9 +29,8 @@ public class StressTestApp {
                     }
 
                     return new TestRequest(url,count);
-
                 }).mapAsync(p -> {
-                    p.
+                    p.url;
                     return
                 });
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
