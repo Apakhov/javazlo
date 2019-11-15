@@ -59,7 +59,7 @@ public class StressTestApp {
                                                 .thenCompose(response ->
                                                         CompletableFuture.completedFuture(System.nanoTime() - start));
                                         return f;
-                                    }), Keep.right()).run(materializer)
+                                    }).toMat(), Keep.right()).run(materializer)
                 ).map();
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
