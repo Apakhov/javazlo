@@ -44,25 +44,28 @@ public class StressTestApp {
                 }).mapAsync(1, p ->
                         Source.from(Collections.singletonList(p))
                                 .toMat(Flow.<TestRequest>create()
-                                        .mapConcat(t -> {
-                                            List<String> myList = new ArrayList<>();
-                                            for (int i = 0; i < t.count; i++) {
-                                                myList.add(p.url);
-                                            }
-                                            return myList;
-                                        })
-                                        .mapAsync(1, url -> {
-                                            AsyncHttpClient httpClient = asyncHttpClient();
-                                            long start = System.nanoTime();
-                                            CompletableFuture<Long> f = httpClient
-                                                    .prepareGet(url)
-                                                    .execute()
-                                                    .toCompletableFuture()
-                                                    .thenCompose(response ->
-                                                            CompletableFuture.completedFuture(System.nanoTime() - start));
-                                            return f;
-                                        }).toMat(Sink.fold(0L, Long::sum
-                                        ), Keep.right()), Keep.right()).run(materializer)
+                                                .mapConcat(t -> {
+                                                    List<String> myList = new ArrayList<>();
+                                                    for (int i = 0; i < t.count; i++) {
+                                                        myList.add(p.url);
+                                                    }
+                                                    return myList;
+                                                })
+                                                .mapAsync(1, url -> {
+                                                    AsyncHttpClient httpClient = asyncHttpClient();
+                                                    long start = System.nanoTime();
+                                                    CompletableFuture<Long> f = httpClient
+                                                            .prepareGet(url)
+                                                            .execute()
+                                                            .toCompletableFuture()
+                                                            .thenCompose(response ->
+                                                                    CompletableFuture.completedFuture(System.nanoTime() - start));
+                                                    return f;
+                                                })
+                                                .toMat(Sink.fold(0L, Long::sum),
+                                                        Keep.right()),
+                                        Keep.right())
+                                .run(materializer)
                 ).map(l -> {
                     return HttpResponse.create().withStatus(200).withEntity(l.toString());
                 });
