@@ -52,7 +52,7 @@ public class StressTestApp {
                                     .mapAsync(1, url -> {
                                         AsyncHttpClient asyncHttpClient = asyncHttpClient();
                                         Request request = get("http://www.example.com/").build();
-                                        Future<Response> whenResponse = asyncHttpClient.execute(request);
+                                        return asyncHttpClient.executeRequest(request);
                                     }), Keep.right()).run(materializer);
                 });
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
