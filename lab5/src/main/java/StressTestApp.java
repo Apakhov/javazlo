@@ -11,14 +11,13 @@ import akka.stream.javadsl.Keep;
 import akka.stream.javadsl.Source;
 import jdk.internal.util.xml.impl.Pair;
 import org.asynchttpclient.Request;
-import org.asynchttpclient.Response;
+import org.asynchttpclient.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletionStage;
-import java.util.concurrent.Future;
 
 public class StressTestApp {
     public static void main(String[] args) throws IOException {
