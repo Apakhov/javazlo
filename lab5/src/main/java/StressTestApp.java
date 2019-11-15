@@ -49,13 +49,12 @@ public class StressTestApp {
                             .mapAsync(1, url -> {
                                 AsyncHttpClient httpClient = asyncHttpClient();
                                 long start = System.nanoTime();
-                                CompletableFuture<Long> f = httpClient
+                                return  httpClient
                                         .prepareGet(url)
                                         .execute()
                                         .toCompletableFuture()
                                         .thenCompose(response ->
                                                 CompletableFuture.completedFuture(System.nanoTime() - start));
-                                return f;
                             });
                     Sink<Long, CompletionStage<Long>> fold = Sink.fold(0L, Long::sum);
                     Sink<TestRequest, CompletionStage<Long>> sink = flow.toMat(fold, Keep.right());
