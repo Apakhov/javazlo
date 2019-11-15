@@ -8,6 +8,7 @@ import akka.http.javadsl.model.HttpResponse;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
 import akka.stream.javadsl.Keep;
+import akka.stream.javadsl.Sink;
 import akka.stream.javadsl.Source;
 import jdk.internal.util.xml.impl.Pair;
 import org.asynchttpclient.Request;
@@ -59,8 +60,8 @@ public class StressTestApp {
                                                 .thenCompose(response ->
                                                         CompletableFuture.completedFuture(System.nanoTime() - start));
                                         return f;
-                                    }).toMat(Sink.fold( 0, agg, next) -ом в ответ на запрос события > agg +
-                                    next);, ), Keep.right()).run(materializer)
+                                    }).toMat(Sink.fold( 0, (agg, next) -> agg + next
+                                            , Keep.right() )), Keep.right()).run(materializer)
                 ).map();
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
