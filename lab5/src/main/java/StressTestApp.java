@@ -1,5 +1,6 @@
 import akka.NotUsed;
 import akka.actor.ActorSystem;
+import akka.actor.Props;
 import akka.http.javadsl.ConnectHttp;
 import akka.http.javadsl.Http;
 import akka.http.javadsl.ServerBinding;
@@ -28,6 +29,7 @@ public class StressTestApp {
         final Http http = Http.get(system);
         final ActorMaterializer materializer =
                 ActorMaterializer.create(system);
+        Props.create(StoreActor.props());
         AsyncHttpClient httpClient = asyncHttpClient();
 
         final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = Flow.of(HttpRequest.class)
