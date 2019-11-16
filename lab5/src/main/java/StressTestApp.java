@@ -17,6 +17,7 @@ import org.asynchttpclient.*;
 import static org.asynchttpclient.Dsl.*;
 
 import java.io.IOException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -45,7 +46,7 @@ public class StressTestApp {
                     return new TestRequest(url, count);
                 }).mapAsync(1, p -> {
                     CompletionStage<Object> result = Patterns
-                            .ask(store, p, timeout);
+                            .ask(store, p,   private final static Duration timeout = Duration.ofSeconds(5l););
 
                     Flow<TestRequest, Long, NotUsed> flow = Flow.<TestRequest>create()
                             .mapConcat(t -> {
