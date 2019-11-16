@@ -51,15 +51,16 @@ public class StressTestApp {
                     return result.thenCompose(v -> {
                         StoreResp resp = (StoreResp) v;
                         if (resp.hasInfo) {
-                            return CompletableFuture.completedFuture(new TestResult(testRequest, resp.timing));
+                            return CompletableFuture.completedFuture(new Pair<TestRequest, Long>(testRequest, resp.timing));
                         }
                         Source<TestRequest, NotUsed> source = Source.from(Collections.singletonList(testRequest));
-                        RunnableGraph<CompletionStage<TestResult>> r = source.toMat(testSink, Keep.right());
+                        RunnableGraph<CompletionStage<Pair<TestRequest, Long>>> r = source.toMat(testSink, Keep.right());
                         return r.run(materializer);
                     });
                 }).map(l -> {
-                    store.tell(l, ActorRef.noSender());
-                    return HttpResponse.create().withStatus(200).withEntity(l + " ns");
+                    long timing = l.second() / l.first().count;
+                    store.tell(new TestResult(l.first(), timing), ActorRef.noSender());
+                    return HttpResponse.create().withStatus(200).withEntity(timing + " ns");
                 });
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
@@ -75,7 +76,7 @@ public class StressTestApp {
 
     static final AsyncHttpClient httpClient = asyncHttpClient();
 
-    static final Sink<TestRequest, CompletionStage<TestResult>> testSink = Flow.<TestRequest>create()
+    static final Sink<TestRequest, CompletionStage<Pair<TestRequest, Long>>> testSink = Flow.<TestRequest>create()
             .mapConcat(t -> {
                 List<TestRequest> myList = new ArrayList<>();
                 for (int i = 0; i < t.count; i++) {
@@ -90,8 +91,8 @@ public class StressTestApp {
                         .execute()
                         .toCompletableFuture()
                         .thenCompose(response ->
-                                CompletableFuture.completedFuture( new Pair<TestRequest, Long>(request, System.nanoTime() - start)));
-            }).toMat(Sink.fold( new TestResult(new TestRequest("", 0), 0L), (list, p) -> {
-                return list;
+                                CompletableFuture.completedFuture(new Pair<TestRequest, Long>(request, System.nanoTime() - start)));
+            }).toMat(Sink.fold(new Pair<TestRequest, Long>(new TestRequest("", 0), 0L), (acc, p) -> {
+                return new Pair<TestRequest, Long>(p.first(), acc.second() + p.second());
             }), Keep.right());
 }
