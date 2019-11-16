@@ -13,6 +13,6 @@ public class StoreResp {
     }
 
     public static StoreResp withInfo(Long t){
-        return new StoreResp(false, t);
+        return new StoreResp(true, t);
     }
 }

@@ -51,6 +51,7 @@ public class StressTestApp {
                     return result.thenCompose(v -> {
                         StoreResp resp = (StoreResp) v;
                         if (resp.hasInfo) {
+                            System.out.println("hasInfo");
                             return CompletableFuture.completedFuture(new Pair<TestRequest, Long>(testRequest, resp.timing));
                         }
                         Source<TestRequest, NotUsed> source = Source.from(Collections.singletonList(testRequest));
