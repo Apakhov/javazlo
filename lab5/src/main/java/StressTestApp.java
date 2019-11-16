@@ -91,7 +91,7 @@ public class StressTestApp {
                         .toCompletableFuture()
                         .thenCompose(response ->
                                 CompletableFuture.completedFuture( new Pair<TestRequest, Long>(request, System.nanoTime() - start)));
-            }).toMat(Sink.fold(new Pair<TestRequest, Long>(new TestRequest("", 0), 0L), (list, p) -> {
+            }).toMat(Sink.fold( new TestResult(new TestRequest("", 0), 0L), (list, p) -> {
                 return list;
             }), Keep.right());
 }
