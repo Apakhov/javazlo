@@ -17,7 +17,7 @@ public class StoreActor extends AbstractActor {
     public Receive createReceive() {
         return ReceiveBuilder.create()
                 .match(TestRequest.class, m -> {
-                    if (!store
+                    if (store
                             .containsKey(m.url)
                             && store
                             .get(m.url)
