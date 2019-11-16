@@ -17,19 +17,18 @@ public class StoreActor extends AbstractActor {
     public Receive createReceive() {
         return ReceiveBuilder.create()
                 .match(TestRequest.class, m -> {
-                    System.out.println(m.url + ":::"+m.count);
-                    if (store
-                            .containsKey(m.url)
-                            && store
-                            .get(m.url)
-                            .first() >
-                            m.count)
+                    System.out.println(m.url + ":::" + m.count);
+                    if (store.containsKey(m.url)
+                            && store.get(m.url).first() > m.count) {
+                        System.out.println("found");
                         sender().tell(StoreResp.withInfo(store.get(m.url).second()), self());
-                    else
+                    } else {
+                        System.out.println("not found");
                         sender().tell(StoreResp.noInfo(), self());
+                    }
                 })
                 .match(TestResult.class, m -> {
-                    System.out.println(m.req.url + "!!!"+m.req.count);
+                    System.out.println(m.req.url + "!!!" + m.req.count);
                     if (!store.containsKey(m.req.url) || store.get(m.req.url).first() <= m.req.count)
                         store.put(m.req.url, new Pair<>(m.req.count, m.timing));
                 })
