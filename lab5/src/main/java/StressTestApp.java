@@ -33,7 +33,7 @@ public class StressTestApp {
         final ActorMaterializer materializer =
                 ActorMaterializer.create(system);
         ActorRef store = system.actorOf(StoreActor.props());
-        AsyncHttpClient httpClient = asyncHttpClient();
+
 
         final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = Flow.of(HttpRequest.class)
                 .map(req -> {
@@ -44,34 +44,21 @@ public class StressTestApp {
                         count = Integer.parseInt(rawCount);
                     }
                     return new TestRequest(url, count);
-                }).mapAsync(1, p -> {
+                }).mapAsync(1, testRequest -> {
                     CompletionStage<Object> result = Patterns
-                            .ask(store, p,   private final static Duration timeout = Duration.ofSeconds(5l););
+                            .ask(store, testRequest, Duration.ofSeconds(5L));
 
-                    Flow<TestRequest, Long, NotUsed> flow = Flow.<TestRequest>create()
-                            .mapConcat(t -> {
-                                List<String> myList = new ArrayList<>();
-                                for (int i = 0; i < t.count; i++) {
-                                    myList.add(p.url);
-                                }
-                                return myList;
-                            })
-                            .mapAsync(1, url -> {
-                                long start = System.nanoTime();
-                                return  httpClient
-                                        .prepareGet(url)
-                                        .execute()
-                                        .toCompletableFuture()
-                                        .thenCompose(response ->
-                                                CompletableFuture.completedFuture(System.nanoTime() - start));
-                            });
-                    Sink<Long, CompletionStage<Long>> fold = Sink.fold(0L, Long::sum);
-                    Sink<TestRequest, CompletionStage<Long>> sink = flow.toMat(fold, Keep.right());
-                    Source<TestRequest, NotUsed> source = Source.from(Collections.singletonList(p));
-                    RunnableGraph<CompletionStage<Long>> r = source.toMat(sink, Keep.right());
-                    return r.run(materializer);
+                    return result.thenCompose(v -> {
+                        StoreResp resp = (StoreResp) v;
+                        if (resp.hasInfo) {
+                            return CompletableFuture.completedFuture(resp.timing);
+                        }
+                        Source<TestRequest, NotUsed> source = Source.from(Collections.singletonList(testRequest));
+                        RunnableGraph<CompletionStage<Long>> r = source.toMat(testSink, Keep.right());
+                        return r.run(materializer);
+                    });
                 }).map(l -> {
-                    return HttpResponse.create().withStatus(200).withEntity(l.toString());
+                    return HttpResponse.create().withStatus(200).withEntity(l + " ns");
                 });
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
@@ -84,4 +71,24 @@ public class StressTestApp {
                 .thenCompose(ServerBinding::unbind)
                 .thenAccept(unbound -> system.terminate()); // and shutdownwhen done
     }
+
+    static final AsyncHttpClient httpClient = asyncHttpClient();
+
+    static final Sink<TestRequest, CompletionStage<Long>> testSink = Flow.<TestRequest>create()
+            .mapConcat(t -> {
+                List<String> myList = new ArrayList<>();
+                for (int i = 0; i < t.count; i++) {
+                    myList.add(t.url);
+                }
+                return myList;
+            })
+            .mapAsync(1, url -> {
+                long start = System.nanoTime();
+                return httpClient
+                        .prepareGet(url)
+                        .execute()
+                        .toCompletableFuture()
+                        .thenCompose(response ->
+                                CompletableFuture.completedFuture(System.nanoTime() - start));
+            }).toMat(Sink.fold(0L, Long::sum), Keep.right());
 }
