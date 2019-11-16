@@ -10,7 +10,7 @@ import akka.http.javadsl.model.HttpResponse;
 import akka.pattern.Patterns;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.*;
-import jdk.internal.util.xml.impl.Pair;
+import akka.japi.Pair;
 import org.asynchttpclient.Request;
 import org.asynchttpclient.*;
 
@@ -58,6 +58,7 @@ public class StressTestApp {
                         return r.run(materializer);
                     });
                 }).map(l -> {
+                    store.tell(new TestResult(, l));
                     return HttpResponse.create().withStatus(200).withEntity(l + " ns");
                 });
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
@@ -74,21 +75,33 @@ public class StressTestApp {
 
     static final AsyncHttpClient httpClient = asyncHttpClient();
 
-    static final Sink<TestRequest, CompletionStage<Long>> testSink = Flow.<TestRequest>create()
+    static final Sink<TestRequest, CompletionStage<Pair<TestRequest, Long>>> testSink = Flow.<TestRequest>create()
             .mapConcat(t -> {
-                List<String> myList = new ArrayList<>();
+                List<TestRequest> myList = new ArrayList<>();
                 for (int i = 0; i < t.count; i++) {
-                    myList.add(t.url);
+                    myList.add(t);
                 }
                 return myList;
             })
-            .mapAsync(1, url -> {
+            .mapAsync(1, request -> {
                 long start = System.nanoTime();
                 return httpClient
-                        .prepareGet(url)
+                        .prepareGet(request.url)
                         .execute()
                         .toCompletableFuture()
                         .thenCompose(response ->
-                                CompletableFuture.completedFuture(System.nanoTime() - start));
-            }).toMat(Sink.fold(0L, Long::sum).ma, Keep.right());
+                                CompletableFuture.completedFuture(new Pair<TestRequest, Long>(request, System.nanoTime() - start)));
+            }).toMat(Sink.fold(new ArrayList<>(), (list, p) -> {
+                list.add(p);
+                return list;
+            }), Keep.right())
+            .thenCompose(list -> {
+                Long sum = 0L;
+                TestRequest req = null;
+                for (Object p : list) {
+                    Pair<TestRequest, Long> pair = (Pair<TestRequest, Long>) p;
+                    sum += pair.second();
+                    req = pair.first();
+                }
+                return CompletableFuture.completedFuture(new Pair<TestRequest, Long>(req, sum));;
 }
