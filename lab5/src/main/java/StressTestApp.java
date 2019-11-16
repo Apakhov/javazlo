@@ -1,4 +1,5 @@
 import akka.NotUsed;
+import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
 import akka.http.javadsl.ConnectHttp;
@@ -29,7 +30,7 @@ public class StressTestApp {
         final Http http = Http.get(system);
         final ActorMaterializer materializer =
                 ActorMaterializer.create(system);
-        Props.create(StoreActor.props());
+        ActorRef store = system.actorOf(StoreActor.props());
         AsyncHttpClient httpClient = asyncHttpClient();
 
         final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = Flow.of(HttpRequest.class)
@@ -42,6 +43,8 @@ public class StressTestApp {
                     }
                     return new TestRequest(url, count);
                 }).mapAsync(1, p -> {
+                    store.tell(p, ActorRef.noSender());
+
                     Flow<TestRequest, Long, NotUsed> flow = Flow.<TestRequest>create()
                             .mapConcat(t -> {
                                 List<String> myList = new ArrayList<>();
