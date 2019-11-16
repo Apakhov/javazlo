@@ -60,7 +60,7 @@ public class StressTestApp {
                     });
                 }).map(l -> {
                     long timing = l.second() / l.first().count;
-                    store.tell(new TestResult(l.first(), timing), ActorRef.noSender());
+                    store.tell(new TestResult(l.first(), l.second()), ActorRef.noSender());
                     return HttpResponse.create().withStatus(200).withEntity(timing + " ns");
                 });
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
