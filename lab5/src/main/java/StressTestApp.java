@@ -32,7 +32,7 @@ public class StressTestApp {
         final Http http = Http.get(system);
         final ActorMaterializer materializer =
                 ActorMaterializer.create(system);
-        ActorRef store = system.actorOf(StoreActor.props());
+        ActorRef store = system.actorOf(StoreActor.props(), "store");
 
 
         final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = Flow.of(HttpRequest.class)
