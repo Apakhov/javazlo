@@ -32,6 +32,7 @@ public class StoreActor extends AbstractActor {
                     System.out.println("{}{}"+store.containsKey(m.req.url));
                     if (!store.containsKey(m.req.url) || store.get(m.req.url).first() <= m.req.count)
                         store.put(m.req.url, new Pair<>(m.req.count, m.timing));
+                    System.out.println("LLLLL"+store);
                 })
                 .build();
     }
