@@ -19,7 +19,7 @@ public class StoreActor extends AbstractActor {
                 .match(TestRequest.class, m -> {
                     System.out.println(m.url + ":::" + m.count);
                     if (store.containsKey(m.url)
-                            && store.get(m.url).first() > m.count) {
+                            && store.get(m.url).first() >= m.count) {
                         System.out.println("found");
                         sender().tell(StoreResp.withInfo(store.get(m.url).second()), self());
                     } else {
