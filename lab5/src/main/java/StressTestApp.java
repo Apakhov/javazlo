@@ -45,7 +45,7 @@ public class StressTestApp {
                     return new TestRequest(url, count);
                 }).mapAsync(1, p -> {
                     CompletionStage<Object> result = Patterns
-                            .ask(routerActor, new GetResMsg(uuid), timeout);
+                            .ask(store, p, timeout);
 
                     Flow<TestRequest, Long, NotUsed> flow = Flow.<TestRequest>create()
                             .mapConcat(t -> {
