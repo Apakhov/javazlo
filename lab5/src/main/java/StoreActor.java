@@ -29,7 +29,6 @@ public class StoreActor extends AbstractActor {
                 })
                 .match(TestResult.class, m -> {
                     System.out.println(m.req.url + "!!!" + m.req.count);
-                    System.out.println((new Boolean(store.containsKey(m.req.url))).toString() + " ?? " +(new Boolean( (store.get(m.req.url).first() <= m.req.count))).toString());
                     if (!store.containsKey(m.req.url) || store.get(m.req.url).first() <= m.req.count)
                         store.put(m.req.url, new Pair<>(m.req.count, m.timing));
                 })
