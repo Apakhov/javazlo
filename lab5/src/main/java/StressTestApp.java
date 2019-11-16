@@ -90,5 +90,5 @@ public class StressTestApp {
                         .toCompletableFuture()
                         .thenCompose(response ->
                                 CompletableFuture.completedFuture(System.nanoTime() - start));
-            }).toMat(Sink.fold(0L, Long::sum), Keep.right());
+            }).toMat(Sink.fold(0L, Long::sum).ma, Keep.right());
 }
