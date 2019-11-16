@@ -7,6 +7,7 @@ import akka.http.javadsl.Http;
 import akka.http.javadsl.ServerBinding;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
+import akka.pattern.Patterns;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.*;
 import jdk.internal.util.xml.impl.Pair;
@@ -43,7 +44,8 @@ public class StressTestApp {
                     }
                     return new TestRequest(url, count);
                 }).mapAsync(1, p -> {
-                    store.tell(p, ActorRef.noSender());
+                    CompletionStage<Object> result = Patterns
+                            .ask(routerActor, new GetResMsg(uuid), timeout);
 
                     Flow<TestRequest, Long, NotUsed> flow = Flow.<TestRequest>create()
                             .mapConcat(t -> {
