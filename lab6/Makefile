@@ -4,10 +4,11 @@ JC = javac
 .java.class:
 	$(JC) $(JFLAGS) $*.java
 
-CLASSES =           AnonApp.java \
-	                         RequestConverter.java \
-	                         StoreResp.java \
-	                         TestRequest.java
+CLASSES =  \
+	AnonApp.java \
+	RequestConverter.java \
+	StoreResp.java \
+	TestRequest.java
 
 default: classes
 
