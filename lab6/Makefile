@@ -3,7 +3,10 @@ JC = javac
 .SUFFIXES: .java .class
 .java.class: $(JC) $(JFLAGS) $*.java
 
-CLASSES =  *.java
+CLASSES =  AnonApp.java \
+            RequestConverter.java \
+            StoreResp.java \
+            TestRequest.java
 
 default: classes
 
