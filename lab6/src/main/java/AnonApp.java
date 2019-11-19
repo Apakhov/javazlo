@@ -1,6 +1,7 @@
 import akka.NotUsed;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
+import akka.actor.setup.ActorSystemSetup;
 import akka.http.javadsl.ConnectHttp;
 import akka.http.javadsl.Http;
 import akka.http.javadsl.HttpsConnectionContext;
@@ -22,7 +23,7 @@ import static org.asynchttpclient.Dsl.asyncHttpClient;
 public class AnonApp {
     public static void main(String[] args) throws IOException {
         System.out.println("start!");
-        ActorSystem system = ActorSystem.create("routes");
+        ActorSystem system = ActorSystem.create("routes", ActorSystemSetup.empty());
         final Http http = Http.get(system);
         final ActorMaterializer materializer =
                 ActorMaterializer.create(system);
