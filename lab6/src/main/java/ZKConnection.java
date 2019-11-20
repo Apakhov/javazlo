@@ -38,6 +38,16 @@ public class ZKConnection {
         zoo.setData(path, data.getBytes(), zoo.exists(path, true).getVersion());
     }
 
+    public Object getZNodeData(String path, boolean watchFlag)
+            throws KeeperException,
+            InterruptedException {
+
+        byte[] b = null;
+        zoo.getChildren(path, true).
+        b = zoo.getData(path, null, null);
+        return new String(b, "UTF-8");
+    }
+
     public void close() throws InterruptedException {
         zoo.close();
     }
