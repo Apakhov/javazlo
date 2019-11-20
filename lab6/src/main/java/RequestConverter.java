@@ -10,9 +10,17 @@ import java.util.UUID;
 public class RequestConverter extends AbstractActor {
     private Map<String, Pair<Integer, Long>> store = new HashMap<>();
 
+
     @Override
     public Receive createReceive() {
         return ReceiveBuilder.create()
+                .match(ConverterConfig.class, conf -> {
+                    ZooKeeper(String connectString,
+                    int sessionTimeout,
+                    Watcher watcher
+)
+                    sender().tell(true, self());
+                })
                 .match(TestRequest.class, req -> {
                     String uuid = UUID.randomUUID().toString();
                     System.out.println("["+uuid+"]"+"request:{"+req+"}");
