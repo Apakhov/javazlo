@@ -2,6 +2,7 @@ import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
+import org.apache.zookeeper.data.Stat;
 
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
@@ -28,8 +29,11 @@ public class ZKConnection {
     }
 
     public void set(String path, String data) throws KeeperException, InterruptedException {
-        int version = zoo.exists(path, true).getVersion();
-        zoo.setData(path, data.getBytes(), version);
+        Stat stat = zoo.exists(path, true);
+        if (stat != null)
+        zoo.setData(path, data.getBytes(), stat.getVersion());
+        else
+            System.out.println("no node");
     }
 
     public void close() throws InterruptedException {
