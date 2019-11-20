@@ -1,3 +1,4 @@
+import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
@@ -24,9 +25,9 @@ public class ZKConnection {
         return zoo;
     }
 
-    public void set(String path, byte[] data) {
-        zoo.exists()
-        zoo.setData()
+    public void set(String path, byte[] data) throws KeeperException, InterruptedException {
+        int version = zoo.exists(path, true).getVersion();
+        zoo.setData(path, data, version);
     }
 
     public void close() throws InterruptedException {
