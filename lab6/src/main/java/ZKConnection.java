@@ -24,7 +24,7 @@ public class ZKConnection {
         return zoo;
     }
 
-    public void send() {
+    public void send(String path, []byte data, ) {
         zoo.setData()
     }
 

@@ -16,7 +16,7 @@ public class RequestConverter extends AbstractActor {
     public Receive createReceive() {
         return ReceiveBuilder.create()
                 .match(ConverterConfig.class, conf -> {
-                    zoo.connect("localhost:2181");
+                    zoo.connect("localhost");
 
                 })
                 .match(TestRequest.class, req -> {
