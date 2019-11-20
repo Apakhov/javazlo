@@ -10,13 +10,14 @@ import java.util.UUID;
 
 public class RequestConverter extends AbstractActor {
     private Map<String, Pair<Integer, Long>> store = new HashMap<>();
-    private ZKConnection zoo;
+    private ZKConnection zoo = new ZKConnection();
 
     @Override
     public Receive createReceive() {
         return ReceiveBuilder.create()
                 .match(ConverterConfig.class, conf -> {
-                    zoo = new ZKConnection("localhost:28")
+                    zoo.connect("localhost:2181");
+                    
                 })
                 .match(TestRequest.class, req -> {
                     String uuid = UUID.randomUUID().toString();
