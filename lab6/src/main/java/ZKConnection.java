@@ -1,7 +1,4 @@
-import org.apache.zookeeper.KeeperException;
-import org.apache.zookeeper.WatchedEvent;
-import org.apache.zookeeper.Watcher;
-import org.apache.zookeeper.ZooKeeper;
+import org.apache.zookeeper.*;
 import org.apache.zookeeper.data.Stat;
 
 import java.io.IOException;
@@ -30,10 +27,14 @@ public class ZKConnection {
 
     public void set(String path, String data) throws KeeperException, InterruptedException {
         Stat stat = zoo.exists(path, true);
-        if (stat != null)
-        zoo.setData(path, data.getBytes(), stat.getVersion());
-        else
-            System.out.println("no node");
+        if (stat == null)
+            zoo.create(
+                    path,
+                    data.getBytes(),
+                    ZooDefs.Ids.OPEN_ACL_UNSAFE,
+                    CreateMode.PERSISTENT);
+
+        zoo.setData(path, data.getBytes(), zoo.exists(path, true).getVersion());
     }
 
     public void close() throws InterruptedException {
