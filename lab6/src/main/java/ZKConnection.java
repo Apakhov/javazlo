@@ -24,7 +24,7 @@ public class ZKConnection {
         return zoo;
     }
 
-    public void send(String path, byte[] data) {
+    public void set(String path, byte[] data) {
         zoo.exists()
         zoo.setData()
     }
