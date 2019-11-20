@@ -27,13 +27,14 @@ public class ZKConnection {
 
     public void set(String path, String data) throws KeeperException, InterruptedException {
         Stat stat = zoo.exists(path, true);
+
         if (stat == null)
             zoo.create(
                     path,
                     data.getBytes(),
                     ZooDefs.Ids.OPEN_ACL_UNSAFE,
                     CreateMode.PERSISTENT);
-
+        System.out.println("definetly created");
         zoo.setData(path, data.getBytes(), zoo.exists(path, true).getVersion());
     }
 
