@@ -24,6 +24,10 @@ public class ZKConnection {
         return zoo;
     }
 
+    public void send() {
+        zoo.setData()
+    }
+
     public void close() throws InterruptedException {
         zoo.close();
     }

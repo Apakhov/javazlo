@@ -17,7 +17,7 @@ public class RequestConverter extends AbstractActor {
         return ReceiveBuilder.create()
                 .match(ConverterConfig.class, conf -> {
                     zoo.connect("localhost:2181");
-                    
+
                 })
                 .match(TestRequest.class, req -> {
                     String uuid = UUID.randomUUID().toString();
