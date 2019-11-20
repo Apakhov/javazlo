@@ -25,9 +25,9 @@ public class ZKConnection {
         return zoo;
     }
 
-    public void set(String path, byte[] data) throws KeeperException, InterruptedException {
+    public void set(String path, String data) throws KeeperException, InterruptedException {
         int version = zoo.exists(path, true).getVersion();
-        zoo.setData(path, data, version);
+        zoo.setData(path, data.getBytes(), version);
     }
 
     public void close() throws InterruptedException {

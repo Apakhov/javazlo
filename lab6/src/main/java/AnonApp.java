@@ -4,14 +4,12 @@ import akka.actor.ActorSystem;
 import akka.actor.setup.ActorSystemSetup;
 import akka.http.javadsl.ConnectHttp;
 import akka.http.javadsl.Http;
-import akka.http.javadsl.HttpsConnectionContext;
 import akka.http.javadsl.ServerBinding;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 import akka.pattern.Patterns;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.*;
-import sun.awt.XSettings;
 
 import java.io.IOException;
 import java.time.Duration;
@@ -28,7 +26,7 @@ public class AnonApp {
         final ActorMaterializer materializer =
                 ActorMaterializer.create(system);
         ActorRef reqConv = system.actorOf(RequestConverter.props(), "reqConv");
-
+        Patterns.ask(reqConv, new ConverterConfig("localhost"), Duration.ofSeconds(5L));
 
         final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = Flow.of(HttpRequest.class)
                 .map(req -> { //takes out url and count
