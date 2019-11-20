@@ -19,7 +19,7 @@ public class RequestConverter extends AbstractActor {
                     zoo.connect("localhost");
                     System.out.println("connected");
                     try {
-                        zoo.set("/test/test", "dsa");
+                        zoo.set("/test", "dsa");
                     } catch (Exception e){
                         System.out.println("exception:"+e);
                     }
