@@ -17,6 +17,7 @@ public class RequestConverter extends AbstractActor {
         return ReceiveBuilder.create()
                 .match(ConverterConfig.class, conf -> {
                     zoo.connect("localhost");
+                    System.out.println("connected");
                     try {
                         zoo.set("/test/test", "dsa");
                     } catch (Exception e){

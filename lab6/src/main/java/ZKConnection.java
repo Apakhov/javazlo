@@ -22,6 +22,8 @@ public class ZKConnection {
         });
 
         connectionLatch.await();
+        System.out.println("connected !!");
+
         return zoo;
     }
 
