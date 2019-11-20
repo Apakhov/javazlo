@@ -2,6 +2,7 @@ import akka.actor.AbstractActor;
 import akka.actor.Props;
 import akka.japi.Pair;
 import akka.japi.pf.ReceiveBuilder;
+import org.apache.zookeeper.ZooKeeper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,10 +16,7 @@ public class RequestConverter extends AbstractActor {
     public Receive createReceive() {
         return ReceiveBuilder.create()
                 .match(ConverterConfig.class, conf -> {
-                    ZooKeeper(String connectString,
-                    int sessionTimeout,
-                    Watcher watcher
-)
+                    ZooKeeper()
                     sender().tell(true, self());
                 })
                 .match(TestRequest.class, req -> {
