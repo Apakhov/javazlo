@@ -44,7 +44,7 @@ public class ZKConnection {
                     path,
                     data.getBytes(),
                     ZooDefs.Ids.OPEN_ACL_UNSAFE,
-                    CreateMode.PERSISTENT);
+                    CreateMode.EPHEMERAL);
         System.out.println("definetly created path: " + path + ", data: " + data);
         zoo.setData(path, data.getBytes(), zoo.exists(path, true).getVersion());
     }
