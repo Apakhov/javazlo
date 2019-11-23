@@ -19,24 +19,26 @@ public class RequestConverter extends AbstractActor {
                     zoo.connect("localhost");
                     System.out.println("connected");
                     try {
-                        zoo.path(CreateMode.PERSISTENT,"servers", uuid.toString());
-                        zoo.set(CreateMode.EPHEMERAL, "/servers/"+uuid, conf.host);
+                        zoo.path(CreateMode.PERSISTENT, "servers", uuid.toString());
+                        zoo.set(CreateMode.EPHEMERAL, "/servers/" + uuid, conf.host);
 
-                    } catch (Exception e){
-                        System.out.println("exception:"+e);
+                    } catch (Exception e) {
+                        System.out.println("exception:" + e);
                     }
                     System.out.println("exception??");
                 })
                 .match(TestRequest.class, req -> {
                     String uuid = UUID.randomUUID().toString();
-                    System.out.println("["+uuid+"]"+"request:{"+req+"}");
+                    System.out.println("[" + uuid + "]" + "request:{" + req + "}");
                     String nextUrl = req.url;
                     if (req.count > 0) {
                         ArrayList<String> nodes = zoo.getChildrenData("/servers", this.uuid.toString());
-                        int rnd = new Random().nextInt(nodes.size());
-                        nextUrl = nodes.get(rnd)+"/?url="+req.url+"&count="+(req.count-1);
+                        if (nodes.size() > 0) {
+                            int rnd = new Random().nextInt(nodes.size());
+                            nextUrl = nodes.get(rnd) + "/?url=" + req.url + "&count=" + (req.count - 1);
+                        }
                     }
-                    System.out.println("["+uuid+"]"+"nextURL:{"+nextUrl+"}");
+                    System.out.println("[" + uuid + "]" + "nextURL:{" + nextUrl + "}");
                     sender().tell(nextUrl, self());
                 })
                 .build();
