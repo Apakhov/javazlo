@@ -26,13 +26,14 @@ import static org.asynchttpclient.Dsl.asyncHttpClient;
 public class AnonApp {
     public static void main(String[] args) throws IOException {
         System.out.println("start!");
-        int port;
-        if(args.length < 2){
-            System.out.println("not enough args");
+        int port = 8080;
+        String host = "localhost";
+        if(args.length > 0){
+            host = args[0];
         }
-
-        String host = args[0];
-        port = Integer.parseInt(args[1]);
+        if (args.length > 1){
+            port = Integer.parseInt(args[1]);
+        }
 
         ActorSystem system = ActorSystem.create("routes", ActorSystemSetup.empty());
         final Http http = Http.get(system);
