@@ -1,13 +1,18 @@
 import akka.NotUsed;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
+import akka.actor.OneForOneStrategy;
+import akka.actor.SupervisorStrategy;
 import akka.actor.setup.ActorSystemSetup;
 import akka.http.javadsl.ConnectHttp;
 import akka.http.javadsl.Http;
 import akka.http.javadsl.ServerBinding;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
+import akka.japi.pf.DeciderBuilder;
 import akka.pattern.Patterns;
+import akka.routing.BalancingPool;
+import akka.routing.Broadcast;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.*;
 
@@ -21,12 +26,20 @@ import static org.asynchttpclient.Dsl.asyncHttpClient;
 public class AnonApp {
     public static void main(String[] args) throws IOException {
         System.out.println("start!");
+        int port;
+        if(args.length < 2){
+            System.out.println("not enough args");
+        }
+
+        String host = args[0];
+        port = Integer.parseInt(args[1]);
+
         ActorSystem system = ActorSystem.create("routes", ActorSystemSetup.empty());
         final Http http = Http.get(system);
         final ActorMaterializer materializer =
                 ActorMaterializer.create(system);
         ActorRef reqConv = system.actorOf(RequestConverter.props(), "reqConv");
-        Patterns.ask(reqConv, new ConverterConfig("localhost"), Duration.ofSeconds(5L));
+        Patterns.ask(reqConv, new ConverterConfig("localhost:"+port), Duration.ofSeconds(5L));
 
         final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = Flow.of(HttpRequest.class)
                 .map(req -> { //takes out url and count
@@ -52,13 +65,13 @@ public class AnonApp {
                 );
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
-                ConnectHttp.toHost("localhost", 8080),
+                ConnectHttp.toHost(host, port),
                 materializer
         );
         System.out.println("Server online at http://localhost:8080/\nPress RETURN to stop...");
         System.in.read();
         binding
                 .thenCompose(ServerBinding::unbind)
-                .thenAccept(unbound -> system.terminate()); // and shutdownwhen done
+                .thenAccept(unbound -> system.terminate());
     }
 }

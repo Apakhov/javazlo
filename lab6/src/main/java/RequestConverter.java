@@ -4,12 +4,11 @@ import akka.japi.Pair;
 import akka.japi.pf.ReceiveBuilder;
 import org.apache.zookeeper.ZooKeeper;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class RequestConverter extends AbstractActor {
     private Map<String, Pair<Integer, Long>> store = new HashMap<>();
+    private final UUID uuid = UUID.randomUUID();
     private ZKConnection zoo = new ZKConnection();
 
     @Override
@@ -19,7 +18,9 @@ public class RequestConverter extends AbstractActor {
                     zoo.connect("localhost");
                     System.out.println("connected");
                     try {
-                        zoo.set("/test", "dsa");
+                        zoo.path("servers", uuid.toString());
+                        zoo.set("/servers/"+uuid, conf.host);
+
                     } catch (Exception e){
                         System.out.println("exception:"+e);
                     }
@@ -30,7 +31,9 @@ public class RequestConverter extends AbstractActor {
                     System.out.println("["+uuid+"]"+"request:{"+req+"}");
                     String nextUrl = req.url;
                     if (req.count > 0) {
-                        nextUrl = "http://localhost:8080/?url="+req.url+"&count="+(req.count-1);
+                        ArrayList<String> nodes = zoo.getChildrenData("/servers", this.uuid.toString());
+                        int rnd = new Random().nextInt(nodes.size());
+                        nextUrl = nodes.get(rnd)+"/?url="+req.url+"&count="+(req.count-1);
                     }
                     System.out.println("["+uuid+"]"+"nextURL:{"+nextUrl+"}");
                     sender().tell(nextUrl, self());
