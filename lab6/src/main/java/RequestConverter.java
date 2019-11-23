@@ -2,6 +2,7 @@ import akka.actor.AbstractActor;
 import akka.actor.Props;
 import akka.japi.Pair;
 import akka.japi.pf.ReceiveBuilder;
+import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.ZooKeeper;
 
 import java.util.*;
@@ -18,8 +19,8 @@ public class RequestConverter extends AbstractActor {
                     zoo.connect("localhost");
                     System.out.println("connected");
                     try {
-                        zoo.path("servers", uuid.toString());
-                        zoo.set("/servers/"+uuid, conf.host);
+                        zoo.path(CreateMode.PERSISTENT,"servers", uuid.toString());
+                        zoo.set(CreateMode.EPHEMERAL, "/servers/"+uuid, conf.host);
 
                     } catch (Exception e){
                         System.out.println("exception:"+e);

@@ -26,17 +26,17 @@ public class ZKConnection {
         return zoo;
     }
 
-    public void path(String... path) throws KeeperException, InterruptedException {
+    public void path(CreateMode mode, String... path) throws KeeperException, InterruptedException {
         StringBuilder builder = new StringBuilder();
         for (String p :
                 path) {
             builder.append("/").append(p);
             System.out.println("setting path:" + builder.toString());
-            set(builder.toString(), "");
+            set(mode, builder.toString(), "");
         }
     }
 
-    public void set(String path, String data) throws KeeperException, InterruptedException {
+    public void set(CreateMode mode, String path, String data) throws KeeperException, InterruptedException {
         Stat stat = zoo.exists(path, true);
         System.out.println("PATH" + path);
         if (stat == null)
@@ -44,7 +44,7 @@ public class ZKConnection {
                     path,
                     data.getBytes(),
                     ZooDefs.Ids.OPEN_ACL_UNSAFE,
-                    CreateMode.EPHEMERAL);
+                    mode);
         System.out.println("definetly created path: " + path + ", data: " + data);
         zoo.setData(path, data.getBytes(), zoo.exists(path, true).getVersion());
     }
