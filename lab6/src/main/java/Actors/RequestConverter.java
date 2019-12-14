@@ -9,6 +9,7 @@ import akka.japi.Pair;
 import akka.japi.pf.ReceiveBuilder;
 
 import java.util.*;
+import Main.ZKConnection;
 
 public class RequestConverter extends AbstractActor {
     private Map<String, Pair<Integer, Long>> store = new HashMap<>();
