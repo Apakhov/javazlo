@@ -1,0 +1,42 @@
+Hi,
+
+I’ve been involved with data race detection tools for about 5 years now. Currently, I am working on ThreadSanitizer, a data race detector for C/C++ and Go language. I am getting recurring questions from users about so called “benign” data races -- Why does the tool flag them? Are they actually harmful? How to suppress them? I think it’s the time to write up a detailed answer.
+
+So, a data race occurs when two threads access the same variable concurrently and at least one of the accesses is a write. Data races are one of the most common and hardest to debug types of bugs in concurrent systems. I hope it’s not necessary to explain that data races on complex data structures (like strings and hash maps) are undoubtedly harmful and can lead crashes and memory corruption. They do.
+
+But consider we have such an "innocent" code as:
+
+First, it’s undefined behavior according to C++ standard, C standard, POSIX, Go memory model and any other relevant combination of standards. The fact that the behavior is undefined means that it can lead to basically any runtime behavior, including accidental nuclear missile launch (see an example below). And it’s declared as undefined for a reason.
+The correct way to express such pattern is to use atomic operations. C/C++ provide standard <atomic> header for that, Go provides sync/atomic package and there are other implementations (gcc/clang builtin atomics, Threading Building Blocks, Google perf tools, etc). Despite common misconception, atomic operations do not necessarily incur significant overheads. There are so called relaxed loads and stores that can express the pattern w/o incurring additional costs (except perhaps suppressing some optimizations that can lead to bad things). Here is the correct way to express the pattern in C++:
+
+Second, usage of atomic operations greatly improves code readability. Plain memory accesses and shared memory synchronization are hideously different operations, and that must be visible in the code. If a shared memory operation is as invisible in the code as simple “x->cnt++”, that will waste developers time trying to understand what actually happens in the code and lead to introduction of bugs during maintenance. Verbose atomic operations clearly say “Be extremely cautious here!”
+
+Third, data race detection tools will bark at such code, and you can miss important warnings in the noise about “benign” races. Think about compiler warnings, you keep your code clean just to not miss the important ones. The same with data races, race-free code will allow you to quickly identify new bugs and perhaps even setup continuous automatic testing for data races.
+
+OK, if you are already convinced, go test and clean up your code. If not, follow with me to the most interesting part -- I am going to show how even the most “innocent” and “benign” races can break badly.
+
+To make it more interesting, let’s assume that we are running on IA-32/Intel64 architecture with quite strong memory consistency and 1/2/4/8-byte memory accesses are atomic. Consider we have such an “innocent” code as:
+
+Compilers assume that programs are race-free (otherwise it’s undefined behavior and all bets are off). So if a program stores to a variable X, the compiler can legally reuse X’s storage for any temporal data inside of some region of code before the store (e.g. to reduce stack frame size). That is, the code can be compiled as:
+
+Note that such transformation can’t break any legal race-free programs, because the stop variable can’t be accessed concurrently by other threads and so nobody can see the garbage value. Such transformations can work across function boundaries due to inlining. So if you have a function that solely sets the stop variable, it won’t help.
+As a result of such transformation, the stop variable will have random values during program execution. In this particular case other threads will exit prematurely.
+
+Now let’s consider that several threads write to a shared variable without proper synchronization:
+
+Consider that the compiler does the same transformation as in the example above (spills some temp value into op_count), and that the temp value is a function pointer (potentially from virtual table, if you don’t use raw function pointers).
+Consider that one thread spills pointer to write_file() function, and another thread spills pointer to launch_nuclear_missile() function. When the first thread restores its pointer, it will get the wrong pointer to launch_nuclear_missile(). Our “innocent” data race just lead to an accidental missile launch. Oops.
+
+So, if a data race involves non-atomic writes, it always can go wrong.
+But what if we modify shared state with atomic operations but read with plain loads? Like in the following example:
+
+This can also break after all. The compiler can legally re-read the stat2 variable after the check, and it yet leads to division by zero exception.
+
+You may say that it can’t possibly affect your code, because you have a very simple code along the lines of:
+
+Are you joking me? This can’t possibly break!
+You are right. Almost.
+
+Modern compilers work in mysterious ways. Especially at high optimization levels. If you disassemble sufficiently large program, you can find code like this (I’ve observed such code with both gcc, clang, -O0 and -O2):
+
+

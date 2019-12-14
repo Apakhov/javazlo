@@ -1,90 +1,79 @@
+import akka.actor.ActorRef;
 import org.apache.zookeeper.*;
 import org.apache.zookeeper.data.Stat;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class ZKConnection {
+    private static final int SESSION_TIMEOUT = 2000;
+    private static final String REG_NODE_S = "/reg";
     private ZooKeeper zoo;
-    CountDownLatch connectionLatch = new CountDownLatch(1);
+    private String host;
+    private String path;
+    private ActorRef reqConv;
 
-    public ZooKeeper connect(String host)
-            throws IOException,
-            InterruptedException {
-        zoo = new ZooKeeper(host, 2000, we -> {
-            if (we.getState() == Watcher.Event.KeeperState.SyncConnected) {
-                connectionLatch.countDown();
-            }
-        });
+    public ZKConnection(String host, String path, String name, ActorRef reqConv)
+            throws IOException, KeeperException, InterruptedException {
+        this.host = host;
+        this.path = path;
+        this.reqConv = reqConv;
 
-        connectionLatch.await();
+        reconnect();
+        zoo.create(
+                path + REG_NODE_S,
+                name.getBytes(),
+                ZooDefs.Ids.OPEN_ACL_UNSAFE,
+                CreateMode.EPHEMERAL_SEQUENTIAL
+        );
         System.out.println("connected !!");
-
-        return zoo;
     }
 
-    public void path(CreateMode mode, String... path) throws KeeperException, InterruptedException {
-        StringBuilder builder = new StringBuilder();
-        for (String p :
-                path) {
-            builder.append("/").append(p);
-            System.out.println("setting path:" + builder.toString());
-            set(mode, builder.toString(), "");
-        }
-    }
-
-    public void set(CreateMode mode, String path, String data) throws KeeperException, InterruptedException {
-        Stat stat = zoo.exists(path, true);
-        System.out.println("PATH" + path);
-        if (stat == null)
-            zoo.create(
-                    path,
-                    data.getBytes(),
-                    ZooDefs.Ids.OPEN_ACL_UNSAFE,
-                    mode);
-        System.out.println("definetly created path: " + path + ", data: " + data);
-        zoo.setData(path, data.getBytes(), zoo.exists(path, true).getVersion());
-    }
-
-    public ArrayList<String> getChildrenData(String path, String except)
-            throws KeeperException,
-            InterruptedException, UnsupportedEncodingException {
-        ArrayList<String> nodes = new ArrayList<>();
-        AtomicReference<KeeperException> ke = new AtomicReference<>();
-        AtomicReference<InterruptedException> ie = new AtomicReference<>();
-        AtomicReference<UnsupportedEncodingException> uee = new AtomicReference<>();
-        System.out.println("FUCK" + path);
-        zoo.getChildren(path, true).forEach(x -> {
-            try {
-                String res = new String(zoo.getData(path + "/" + x, true, null), "UTF-8");
-                if (!res.equals(except))
-                    nodes.add(res);
-            } catch (InterruptedException e) {
-                ie.set(e);
-            } catch (KeeperException e) {
-                ke.set(e);
-            } catch (UnsupportedEncodingException e) {
-                uee.set(e);
+    public void reconnect() throws IOException {
+        zoo = new ZooKeeper(host, SESSION_TIMEOUT, we -> {
+            if (we.getState() == Watcher.Event.KeeperState.Expired
+                    || we.getState() == Watcher.Event.KeeperState.Disconnected) {
+                try {
+                    reconnect();
+                    System.out.println("reconnected !!");
+                } catch (IOException e) {
+                    System.out.println("got state watch error: " + e);
+                }
             }
         });
-        if (ie.get() != null){
-            throw ie.get();
-        }
-        if (ke.get() != null){
-            throw ke.get();
-        }
-        if (uee.get() != null){
-            throw uee.get();
-        }
 
-        System.out.println("data: " + nodes);
-        return nodes;
+        watchNodes();
     }
 
-    public void close() throws InterruptedException {
-        zoo.close();
+    private void watchNodes() {
+        try {
+            ArrayList<String> serverNodeNames = new ArrayList<>(zoo.getChildren(path, we -> {
+                if (we.getType() == Watcher.Event.EventType.NodeChildrenChanged) {
+                    watchNodes();
+                }
+            }));
+
+            ArrayList<String> addresses = new ArrayList<>();
+            for (String nodeName : serverNodeNames) {
+                byte[] addr = zoo.getData(path + "/" + nodeName, false, null);
+                addresses.add(new String(addr));
+            }
+
+            reqConv.tell(new NodesMsg(addresses), ActorRef.noSender());
+        } catch (KeeperException | InterruptedException e) {
+            System.out.println("got getChildren error:" + e);
+        }
+    }
+
+    public void close() {
+        try {
+            zoo.close();
+        } catch (InterruptedException e) {
+            System.out.println("can not close zookeeper connection: " + e);
+        }
     }
 }
