@@ -70,7 +70,7 @@ public class AnonApp {
                 ConnectHttp.toHost(host, port),
                 materializer
         );
-        System.out.println("Server online at http://localhost:8080/\nPress RETURN to stop...");
+        System.out.println("Server online at "+host+":"+port+"Press RETURN to stop...");
         System.in.read();
         binding
                 .thenCompose(ServerBinding::unbind)
