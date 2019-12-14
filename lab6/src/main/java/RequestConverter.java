@@ -1,9 +1,8 @@
+import Messages.NodesMsg;
 import akka.actor.AbstractActor;
 import akka.actor.Props;
 import akka.japi.Pair;
 import akka.japi.pf.ReceiveBuilder;
-import org.apache.zookeeper.CreateMode;
-import org.apache.zookeeper.ZooKeeper;
 
 import java.util.*;
 
