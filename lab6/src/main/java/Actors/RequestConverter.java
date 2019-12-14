@@ -9,6 +9,7 @@ import akka.japi.Pair;
 import akka.japi.pf.ReceiveBuilder;
 
 import java.util.*;
+
 import Main.ZKConnection;
 
 public class RequestConverter extends AbstractActor {
@@ -24,7 +25,7 @@ public class RequestConverter extends AbstractActor {
                         zoo = new ZKConnection(conf.host, "/servers", uuid.toString(), self()))
                 .match(TestRequest.class, req -> {
                     String nextUrl = req.url;
-                    if (req.count > 0) {
+                    if (req.count > 0 && nodes != null) {
                         int rnd = new Random().nextInt(nodes.size());
                         nextUrl = nodes.get(rnd) + "/?url=" + req.url + "&count=" + (req.count - 1);
                     }
