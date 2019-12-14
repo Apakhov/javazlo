@@ -1,6 +1,8 @@
 package Main;
 
 import Messages.TestRequest;
+import Messages.ConverterConfig;
+import Actors.RequestConverter;
 
 import akka.NotUsed;
 import akka.actor.ActorRef;

@@ -1,3 +1,5 @@
+package Main;
+
 import Messages.NodesMsg;
 import akka.actor.ActorRef;
 import org.apache.zookeeper.*;
