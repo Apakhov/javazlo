@@ -18,7 +18,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>AnonApp</mainClass>
+                  <mainClass>Main.AnonApp</mainClass>
                 </transformer>
               </transformers>
             </configuration>

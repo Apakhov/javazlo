@@ -5,7 +5,7 @@ JC = javac
 	$(JC) $(JFLAGS) $*.java
 
 CLASSES =  \
-	AnonApp.java \
+	Main.AnonApp.java \
 	RequestConverter.java \
 	StoreResp.java \
 	Messages.TestRequest.java

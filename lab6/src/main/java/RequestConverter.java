@@ -32,7 +32,7 @@ public class RequestConverter extends AbstractActor {
                 .build();
     }
 
-    static Props props() {
+    public static Props props() {
         return Props.create(RequestConverter.class);
     }
 }
