@@ -1,3 +1,4 @@
+import Messages.ConverterConfig;
 import Messages.NodesMsg;
 import Messages.TestRequest;
 import akka.actor.AbstractActor;
