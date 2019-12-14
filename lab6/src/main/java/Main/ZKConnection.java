@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class ZKConnection {
     private static final int SESSION_TIMEOUT = 2000;
-    private static final String REG_NODE_S = "/reg";
+    private static final String REG_NODE_STR = "/reg";
     private ZooKeeper zoo;
     private String host;
     private String path;
@@ -23,7 +23,7 @@ public class ZKConnection {
 
         reconnect();
         zoo.create(
-                path + REG_NODE_S,
+                path + REG_NODE_STR,
                 name.getBytes(),
                 ZooDefs.Ids.OPEN_ACL_UNSAFE,
                 CreateMode.EPHEMERAL_SEQUENTIAL
