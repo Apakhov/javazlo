@@ -31,7 +31,7 @@ public class ZKConnection {
         System.out.println("connected !!");
     }
 
-    public void reconnect() throws IOException {
+    private void reconnect() throws IOException {
         zoo = new ZooKeeper(host, SESSION_TIMEOUT, we -> {
             if (we.getState() == Watcher.Event.KeeperState.Expired
                     || we.getState() == Watcher.Event.KeeperState.Disconnected) {
