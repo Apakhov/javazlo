@@ -6,7 +6,7 @@ JC = javac
 
 CLASSES =  \
 	Main.AnonApp.java \
-	RequestConverter.java \
+	Actors.RequestConverter.java \
 	StoreResp.java \
 	Messages.TestRequest.java
 
