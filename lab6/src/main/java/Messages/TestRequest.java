@@ -1,3 +1,5 @@
+package Messages;
+
 public class TestRequest {
     public final String url;
     public final int count;

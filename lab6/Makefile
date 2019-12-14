@@ -8,7 +8,7 @@ CLASSES =  \
 	AnonApp.java \
 	RequestConverter.java \
 	StoreResp.java \
-	TestRequest.java
+	Messages.TestRequest.java
 
 default: classes
 
