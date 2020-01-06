@@ -45,8 +45,8 @@ public class ProxyApp {
                             sent.set(true);
                         }
                     });
-                    if (!sent.get()){
-                        client.send(msg.getFirst().getData(),  ZMQ.SNDMORE );
+                    if (!sent.get()) {
+                        client.send(msg.getFirst().getData(), ZMQ.SNDMORE);
                         client.send(new byte[0], ZMQ.SNDMORE);
                         client.send("value not in cache range");
                     }
@@ -57,7 +57,7 @@ public class ProxyApp {
 
                     ZMsg msg = ZMsg.recvMsg(cache);
                     String command = msg.getLast().getString(ZMQ.CHARSET);
-                    System.out.println("1111"+ Arrays.toString(msg.getFirst().getData()) );
+                    System.out.println("1111" + Arrays.toString(msg.getFirst().getData()));
                     if (hasPrefix(command, "notify")) {
                         command = trimPrefix(command, "notify");
                         System.out.println("3333");
@@ -82,7 +82,7 @@ public class ProxyApp {
                         System.out.println("translated");
                     } else if (hasPrefix(command, "HB")) {
                         System.out.println("HB");
-                        if(caches.containsKey(msg.getFirst().getData())){
+                        if (caches.containsKey(msg.getFirst().getData())) {
                             caches.get(msg.getFirst().getData()).set(2, System.currentTimeMillis());
                         }
                     } else {
@@ -94,7 +94,7 @@ public class ProxyApp {
                 ArrayList<byte[]> remove = new ArrayList<>();
                 caches.forEach((id, l) -> {
                     System.out.println("removed");
-                    if (l.get(2) < curr - 10 * TIMEOUT){
+                    if (l.get(2) < curr - 10 * TIMEOUT) {
                         System.out.println("removed! " + l.get(2) + " " + (curr - 10 * TIMEOUT));
                         remove.add(id);
                     }
@@ -107,11 +107,11 @@ public class ProxyApp {
         }
     }
 
-    private static boolean hasPrefix(String s, String pref){
+    private static boolean hasPrefix(String s, String pref) {
         return s.length() >= pref.length() && s.substring(0, pref.length()).equals(pref);
     }
 
-    private static String trimPrefix(String s, String pref){
+    private static String trimPrefix(String s, String pref) {
         boolean has = s.length() >= pref.length() && s.substring(0, pref.length()).equals(pref);
         if (has)
             s = s.substring(pref.length());

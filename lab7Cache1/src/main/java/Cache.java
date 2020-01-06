@@ -29,7 +29,7 @@ public class Cache {
 
     public void sendHB() {
         Long t = System.currentTimeMillis();
-        if (lastHB < t -TIMEOUT) {
+        if (lastHB < t - TIMEOUT) {
             lastHB = t;
             proxy.send("HB");
         }
